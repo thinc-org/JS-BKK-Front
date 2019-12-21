@@ -1,0 +1,36 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Next: Chrome",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "type": "edge",
+      "request": "launch",
+      "version": "beta",
+      "name": "Next: Edge",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Next: Node",
+      "program": "${workspaceFolder}/node_modules/next/dist/bin/next"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Chrome: Full",
+      "configurations": ["Next: Node", "Next: Chrome"]
+    },
+    {
+      "name": "Edge: Full",
+      "configurations": ["Next: Node", "Next: Edge"]
+    }
+  ]
+}
