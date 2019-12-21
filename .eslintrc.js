@@ -24,6 +24,7 @@ module.exports = {
       { extensions: ['.js', '.jsx', '.ts', '.tsx'] }
     ],
     'react/react-in-jsx-scope': 'off',
+    'react/prop-types': 0,
     'import/no-extraneous-dependencies': [
       2,
       { devDependencies: ['**/test.tsx', '**/test.ts'] }
