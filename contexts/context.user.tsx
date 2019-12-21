@@ -17,7 +17,7 @@ export const useUserStore = () => {
   useEffect(() => {
     when(
       () => {
-        return user.token && !user.userInfo;
+        return !!user.token && !user.userInfo;
       },
       () => {
         authenticate().then(userInfo => {
