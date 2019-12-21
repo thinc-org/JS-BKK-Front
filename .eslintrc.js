@@ -1,10 +1,9 @@
 module.exports = {
   extends: [
-    'airbnb',
+    'airbnb-typescript',
     'prettier',
     'prettier/react',
     'prettier/@typescript-eslint',
-    'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'plugin:json/recommended'
   ],
@@ -39,7 +38,13 @@ module.exports = {
         tsx: 'never'
       }
     ],
-    '@typescript-eslint/indent': [2, 2]
+    '@typescript-eslint/indent': [2, 2],
+    'lines-between-class-members': [
+      'error',
+      'always',
+      { exceptAfterSingleLine: true }
+    ],
+    'no-underscore-dangle': 'off'
   },
   globals: {
     React: 'writable'
