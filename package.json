@@ -7,11 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "format": "yarn prettier --write \"./**/*.ts*\"",
     "export": "next export"
   },
   "dependencies": {
     "@emotion/core": "^10.0.22",
     "@emotion/styled": "^10.0.23",
+    "axios": "^0.19.0",
     "date-fns": "^2.8.1",
     "mobx": "^5.15.1",
     "mobx-react-lite": "^1.5.2",

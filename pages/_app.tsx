@@ -3,19 +3,22 @@ import { AppProps } from 'next/app';
 import { NextPage } from 'next';
 import { createContext } from 'react';
 import { useLocalStore } from 'mobx-react-lite';
-import Nav from '../components/nav';
-import createUserStore from '../stores/store.user';
+import Nav from '../commons/components/componnent.nav';
+import createUserStore from '../commons/stores/store.user';
 import { UserStore } from '../interfaces/interface.user';
+import useAuthGuard from '../commons/hooks/hook.auth';
 
 export const rootContext = createContext({
-  user: {} as UserStore
+  userStore: {} as UserStore
 });
 
 const App: NextPage<AppProps> = ({ Component, pageProps }) => {
-  const userStore = useLocalStore(() => ({ user: createUserStore() }));
+  const rootStore = useLocalStore(() => ({ userStore: createUserStore() }));
+  useAuthGuard(rootStore.userStore);
+
   return (
     <>
-      <rootContext.Provider value={userStore}>
+      <rootContext.Provider value={rootStore}>
         <Nav />
         <Component {...pageProps} />
       </rootContext.Provider>

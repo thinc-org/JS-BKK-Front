@@ -1,4 +1,4 @@
-import { UserInfo, UserStore } from '../interfaces/interface.user';
+import { UserInfo, UserStore } from '../../interfaces/interface.user';
 
 const createUserStore = (): UserStore => ({
   userInfo: undefined as UserInfo | undefined,
@@ -8,6 +8,7 @@ const createUserStore = (): UserStore => ({
   },
   setToken(token: string) {
     this.token = token;
+    localStorage.setItem('token', token);
   },
   isAuthenticated(): boolean {
     return !!this.userInfo;
