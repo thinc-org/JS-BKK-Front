@@ -1,7 +1,7 @@
 {
   "recommendations": [
     "esbenp.prettier-vscode",
-    "muhajirframe.vscode-react-emotion",
+    "jpoissonnier.vscode-styled-components",
     "dbaeumer.vscode-eslint",
     "msjsdiag.debugger-for-chrome"
   ]
