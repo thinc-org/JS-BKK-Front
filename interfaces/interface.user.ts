@@ -7,7 +7,7 @@ export interface UserInfo {
 export interface UserStore {
   userInfo: UserInfo | undefined;
   token: string;
-  setUserInfo(userInfo: UserInfo): void;
+  setUserInfo(userInfo: UserInfo | undefined): void;
   setToken(token: string): void;
   isAuthenticated(): boolean;
 }

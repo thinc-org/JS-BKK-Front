@@ -39,7 +39,7 @@ const useAuthGuard = (userStore: UserStore) => {
   useEffect(() => {
     const isInGuardedRoute = window.location.href.includes('/user');
     if (!waiting && isInGuardedRoute && !userStore.isAuthenticated()) {
-      router.push('/');
+      router.push('/login');
     }
   }, [typeof window !== 'undefined' && window.location.href, waiting]);
 };

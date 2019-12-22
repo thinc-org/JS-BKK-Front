@@ -3,7 +3,7 @@ export const authenticate = (token: string): Promise<any> => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (token === 'validtoken') {
-        resolve({ name: 'new' });
+        resolve({ name: 'new', username: 'new5558', points: 10 });
       } else {
         reject();
       }
