@@ -21,8 +21,7 @@ const useApi = () => {
     () => ({
       client: axios
         .create({
-          baseURL,
-          withCredentials: true
+          baseURL
         })
         .interceptors.request.use(createRequestHandler(userStore), error => {
           return Promise.reject(error);

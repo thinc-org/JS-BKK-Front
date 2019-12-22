@@ -2,6 +2,7 @@
   "presets": ["next/babel", "@emotion/babel-preset-css-prop"],
   "plugins": [
     ["emotion"],
-    ["@babel/plugin-proposal-decorators", { "legacy": true }]
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    ["inline-import", { "extensions": [".css"] }]
   ]
 }

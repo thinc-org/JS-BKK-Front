@@ -3,6 +3,8 @@ import { AppProps } from 'next/app';
 import { NextPage } from 'next';
 import { createContext } from 'react';
 import { useLocalStore } from 'mobx-react-lite';
+import { Global, css } from '@emotion/core';
+import normalize from 'normalize.css/normalize.css';
 import Nav from '../commons/components/componnent.nav';
 import createUserStore from '../commons/stores/store.user';
 import { UserStore } from '../interfaces/interface.user';
@@ -18,6 +20,11 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => {
 
   return (
     <>
+      <Global
+        styles={css`
+          ${normalize}
+        `}
+      />
       <rootContext.Provider value={rootStore}>
         <Nav />
         <Component {...pageProps} />

@@ -27,6 +27,7 @@ const useAuthGuard = (userStore: UserStore) => {
           })
           .catch(() => {
             userStore.setToken('');
+            localStorage.removeItem('token');
           })
           .finally(() => {
             setWaiting(false);
