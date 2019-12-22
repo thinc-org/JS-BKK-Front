@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { observer } from 'mobx-react-lite';
-import { useUserStore } from '../../contexts/context.user';
+import useUserStore from '../../commons/hooks/hook.user';
 
 const Home: React.FC = observer(() => {
   const userStore = useUserStore();

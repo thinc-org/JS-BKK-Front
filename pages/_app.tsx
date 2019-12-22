@@ -1,17 +1,24 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { AppProps } from 'next/app';
 import { NextPage } from 'next';
+import { createContext } from 'react';
+import { useLocalStore } from 'mobx-react-lite';
 import Nav from '../components/nav';
-import userContext from '../contexts/context.user';
-import UserStore from '../stores/store.user';
+import createUserStore from '../stores/store.user';
+import { UserStore } from '../interfaces/interface.user';
+
+export const rootContext = createContext({
+  user: {} as UserStore
+});
 
 const App: NextPage<AppProps> = ({ Component, pageProps }) => {
+  const userStore = useLocalStore(() => ({ user: createUserStore() }));
   return (
     <>
-      <userContext.Provider value={new UserStore()}>
+      <rootContext.Provider value={userStore}>
         <Nav />
         <Component {...pageProps} />
-      </userContext.Provider>
+      </rootContext.Provider>
     </>
   );
 };

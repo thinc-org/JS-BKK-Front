@@ -1,6 +1,6 @@
-import { createContext, useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { when } from 'mobx';
-import UserStore from '../stores/store.user';
+import { rootContext } from '../../pages/_app';
 
 const authenticate = (): Promise<any> => {
   return new Promise(resolve => {
@@ -8,12 +8,8 @@ const authenticate = (): Promise<any> => {
   });
 };
 
-const userContext = createContext(new UserStore());
-
-export default userContext;
-
-export const useUserStore = () => {
-  const user = useContext(userContext);
+export default () => {
+  const { user } = useContext(rootContext);
   useEffect(() => {
     when(
       () => {
