@@ -1,8 +1,8 @@
 {
   "recommendations": [
     "esbenp.prettier-vscode",
-    "jpoissonnier.vscode-styled-components",
     "dbaeumer.vscode-eslint",
+    "bradlc.vscode-tailwindcss",
     "msjsdiag.debugger-for-chrome"
   ]
 }

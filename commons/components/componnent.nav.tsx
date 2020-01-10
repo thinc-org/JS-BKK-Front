@@ -1,16 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
-import styled from '@emotion/styled';
 
 const Nav: React.FC = () => {
-  const List = styled.nav`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-  `;
   return (
     <nav>
-      <List>
+      <ul>
         <li>
           <Link href='/'>
             <a href='tet'>Home</a>
@@ -26,7 +20,7 @@ const Nav: React.FC = () => {
             <a href='tet'>Profile</a>
           </Link>
         </li>
-      </List>
+      </ul>
     </nav>
   );
 };

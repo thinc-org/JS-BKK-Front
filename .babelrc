@@ -1,8 +1,7 @@
 {
-  "presets": ["next/babel", "@emotion/babel-preset-css-prop"],
+  "presets": ["next/babel"],
   "plugins": [
-    ["emotion"],
-    ["@babel/plugin-proposal-decorators", { "legacy": true }],
-    ["inline-import", { "extensions": [".css"] }]
+    ["@babel/plugin-proposal-decorators", { "legacy": true }]
+    // ["babel-plugin-inline-import", { "extensions": [".css"] }]
   ]
 }
