@@ -1,6 +1,5 @@
-import React, { useCallback, useContext, useState, useMemo } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { rootContext } from '../_app';
 
@@ -30,47 +29,21 @@ const Home: React.FC = observer(() => {
     [username, password]
   );
 
-  const Input = useMemo(
-    () => styled.input`
-      padding: 10px;
-    `,
-    []
-  );
-
-  const Container = useMemo(
-    () => styled.div`
-      display: flex;
-      flex-direction: column;
-    `,
-    []
-  );
-
-  const Error = useMemo(
-    () => styled.span<ErrorProps>`
-      color: red;
-      font-size: 20px;
-      display: ${props => (props.error ? 'block' : 'none')};
-    `,
-    []
-  );
-
   return (
     <div>
-      <div>Login</div>
+      <div className='bg-green-600 flex flex-row'>Login</div>
       <form onSubmit={login}>
-        <Container>
-          <Input
-            type='text'
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-          />
-          <Input
-            type='password'
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-          />
-        </Container>
-        <Error error={error}>{error}</Error>
+        <input
+          type='text'
+          value={username}
+          onChange={e => setUsername(e.target.value)}
+        />
+        <input
+          type='password'
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+        />
+        {error && <div>{error}</div>}
         <button type='submit'>Login</button>
       </form>
     </div>
