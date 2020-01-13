@@ -6,7 +6,7 @@ import useMockApi from '../../../commons/hooks/hook.mock-api';
 import { Order } from '../../../interfaces/interface.order';
 import OrderItem from './component.order-item';
 
-const UserProfile: React.FC = observer(() => {
+const Orders: React.FC = observer(() => {
   const { userStore } = useContext<{ userStore: UserStore }>(rootContext);
   const [orders, setOrders] = useState<Order[] | undefined | null>();
   const mockApi = useMockApi('order');
@@ -19,11 +19,13 @@ const UserProfile: React.FC = observer(() => {
     fetchData();
   }, []);
 
-  
-  const orderFood = useCallback((orderData: Order) => {
-    // eslint-disable-next-line no-console
-    console.log(orderData, 'order item')
-  }, [orders])
+  const orderFood = useCallback(
+    (orderData: Order) => {
+      // eslint-disable-next-line no-console
+      console.log(orderData, 'order item');
+    },
+    [orders]
+  );
 
   const OrderItems =
     orders &&
@@ -48,4 +50,4 @@ const UserProfile: React.FC = observer(() => {
   );
 });
 
-export default UserProfile;
+export default Orders;
