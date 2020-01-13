@@ -5,7 +5,12 @@ interface Agenda {
   minutes:string;
   name: string;
 }
-function renderAgenda(tasks:Agenda[]) {
+
+interface PropTypes {
+  tasks :Agenda[];
+}
+
+const Agenda: React.FC<PropTypes> = ({tasks}) => {
   const d = new Date();
   const t = tasks && tasks.map(task => {
     //   console.log(Date.parse("13 Jan 2020 "+task.hours+":"+task.minutes))
@@ -31,6 +36,6 @@ function renderAgenda(tasks:Agenda[]) {
       </div>
     );
   });
-  return t 
+  return <>{t}</> 
 }
-export default renderAgenda;
+export default Agenda;
