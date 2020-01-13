@@ -7,12 +7,12 @@ import { UserStore } from '../../../../interfaces/interface.user';
 import Button from '../../../../commons/components/component.button';
 
 const MyBadge: React.FC = observer(() => {
-  const { userStore } = useContext<{ userStore: UserStore}>(rootContext);
+  const { userStore } = useContext<{ userStore: UserStore }>(rootContext);
   return (
-    <div className='h-full my-24 px-12'>
+    <div className='h-full px-12'>
       <div id='content' className='flex flex-col justify-center items-center'>
-        <h3 className='mb-8'>You badge is</h3>
-        <div className='bg-red-300 w-40 h-40 flex justify-center items-center mb-12'>
+        <h3>You badge is</h3>
+        <div className='bg-red-300 w-40 h-40 flex justify-center items-center m-6'>
           {userStore.userInfo?.currentBadge.type}
         </div>
         <p className='text-center'>
@@ -21,14 +21,14 @@ const MyBadge: React.FC = observer(() => {
           reward!
         </p>
       </div>
-      <div className='cta fixed bottom-0 inset-x-0 flex justify-center'>
+      <div className='flex justify-center'>
         <Link href='/user/networking/dashboard'>
-          <a href="test">
+          <a href='test'>
             <Button
               className='mx-auto mb-16 px-20 py-4 bg-black text-white'
               type='button'
             >
-          ดำเนินการต่อ (Continue)
+              Continue
             </Button>
           </a>
         </Link>
