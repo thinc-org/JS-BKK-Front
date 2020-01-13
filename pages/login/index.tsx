@@ -12,7 +12,8 @@ const Home: React.FC = observer(() => {
   const { userStore } = useContext(rootContext);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
-  const [ticketID, setTicketID] = useState();
+  const [isOpen, setIsOpen] = useState(false);
+  const [ticketID, setTicketID] = useState<string>('');
 
   const login = useCallback(
     e => {
@@ -39,11 +40,22 @@ const Home: React.FC = observer(() => {
       </p>
 
       <input
-        className='mt-5 border-black border-solid border rounded'
+        className='mt-5 border-black border-solid border rounded p-1'
         type='text'
         value={ticketID}
-        onChange={e => setTicketID(e.target.value)}
+        onChange={e => {
+          const _ticketID = e.target.value;
+          setTicketID(_ticketID);
+          if (_ticketID.length < 10 || _ticketID.length > 10) {
+            setIsOpen(true);
+          } else {
+            setIsOpen(false);
+          }
+        }}
       />
+      <p className={`text-red-600 pt-2 ${!isOpen && 'hidden'}`}>
+        Please enter 10 digits
+      </p>
 
       <p className='mt-10'>or Scan QR</p>
 
