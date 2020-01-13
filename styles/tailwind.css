@@ -1,4 +1,9 @@
 @tailwind base;
+body {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+}
 
 @tailwind components;
 

@@ -3,6 +3,7 @@ import React, { useCallback, useContext, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useRouter } from 'next/router';
 import { rootContext } from '../_app';
+import Button from '../../commons/components/component.button';
 
 interface ErrorProps {
   error: string | null;
@@ -59,6 +60,7 @@ const Home: React.FC = observer(() => {
 
       <form>
         <input className='mt-5 border-black border-solid border rounded' type='text' value={ticketID} onChange={e => setTicketID(e.target.value)}/>
+
       </form>
 
       <p className='mt-10'>or Scan QR</p>
