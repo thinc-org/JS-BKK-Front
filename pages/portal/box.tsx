@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { PortalBox } from '../../interfaces/box';
-import Box from '@material-ui/core/Box';
+
 import styled from '@emotion/styled'
 
 const Button = styled.button`
@@ -13,12 +13,12 @@ const Button = styled.button`
 const Boxx: React.FC<PortalBox> = ((props) => {
     return (
         <div>
-            <Box >
+      
                 <Button>
 
                     {props.name}
                 </Button>
-            </Box>
+            
 
         </div>
     )

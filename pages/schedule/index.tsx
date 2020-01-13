@@ -1,7 +1,9 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
 import Link from 'next/link'
+import styled from '@emotion/styled'
+
 const Schedule: React.FC = observer(() => {
     const d = new Date();
     const task = [
@@ -26,14 +28,14 @@ const Schedule: React.FC = observer(() => {
             name: "Agenda C"
         },
     ]
+    const Img = styled.img`
+        width: 50px;
+
+    `
     return (
         <div>
             <div className="flex ml-40px">
-                <Link href="/portal">
-                    <div className="mt-3">
-                        <ArrowBackIcon />
-                    </div>
-                </Link>
+              
                 <div className="flex ml-5 text-4xl">
                     Schedule
                 </div>
