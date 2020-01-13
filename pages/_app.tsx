@@ -3,6 +3,7 @@ import { AppProps } from 'next/app';
 import { NextPage } from 'next';
 import { createContext } from 'react';
 import { useLocalStore } from 'mobx-react-lite';
+import Head from 'next/head';
 import Nav from '../commons/components/componnent.nav';
 import createUserStore from '../commons/stores/store.user';
 import { UserStore } from '../interfaces/interface.user';
@@ -19,8 +20,11 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => {
 
   return (
     <>
+      <Head>
+        <title>Bangkok JS</title>
+      </Head>
       <rootContext.Provider value={rootStore}>
-        <div className="fixed pin-t pin-l">
+        <div className='fixed pin-t pin-l'>
           <Nav />
         </div>
         <Component {...pageProps} />
