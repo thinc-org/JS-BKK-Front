@@ -17,7 +17,7 @@ const MyBadge = () => {
         </p>
       </div>
       <div className='cta fixed bottom-0 inset-x-0 flex justify-center'>
-        <Link href='/user/networking/profile'>
+        <Link href='/user/networking/dashboard'>
           <a href="test">
             <Button
               className='mx-auto mb-16 px-20 py-4 bg-black text-white'
