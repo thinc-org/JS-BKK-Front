@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { rootContext } from '../../_app';
 import { UserStore } from '../../../interfaces/interface.user';
 import useMockApi from '../../../commons/hooks/hook.mock-api';
@@ -18,15 +18,22 @@ const UserProfile: React.FC = () => {
     fetchData();
   }, []);
 
+  
+  const orderFood = useCallback((orderData: Order) => {
+    // eslint-disable-next-line no-console
+    console.log(orderData, 'order item')
+  }, [orders])
+
   const OrderItems =
     orders &&
     orders.map(order => {
       return (
         <div className='my-3' key={order.key}>
-          <OrderItem order={order} />
+          <OrderItem onOrder={orderFood} order={order} />
         </div>
       );
     });
+
   return (
     <div>
       <div className='text-sm'>
