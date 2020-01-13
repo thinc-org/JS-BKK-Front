@@ -1,12 +1,11 @@
 import React from 'react';
+import { Onclick } from '../../interfaces/interface.commons';
 
 interface Props {
   className?: string;
   children?: React.ReactNode;
   type: "submit" | "button" | "reset";
-  onClick?:
-  | ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void)
-  | undefined;
+  onClick?: Onclick;
 }
 
 const Button: React.FC<Props> = ({ children, className, type, onClick }) => {
