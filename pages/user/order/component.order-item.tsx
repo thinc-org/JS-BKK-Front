@@ -8,7 +8,7 @@ interface propTypes {
   onOrder: (data?: any) => any;
 }
 
-const OrderItem: React.FC<propTypes> = ({ order, onOrder }) => {
+const OrderItem: React.FC<propTypes> = ({ order = {}, onOrder }) => {
   const { title, merchant, genres, allergics } = order;
 
   const allergicItems = useMemo(() => {
