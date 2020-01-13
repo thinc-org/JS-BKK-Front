@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import Link from 'next/link';
-import Button from '../../../../commons/components/component.button';
+import { observer } from 'mobx-react-lite';
 import { rootContext } from '../../../_app';
 import { UserStore } from '../../../../interfaces/interface.user';
 
-const MyBadge: React.FC = () => {
+import Button from '../../../../commons/components/component.button';
+
+const MyBadge: React.FC = observer(() => {
   const { userStore } = useContext<{ userStore: UserStore}>(rootContext);
   return (
     <div className='h-full my-24 px-12'>
@@ -33,6 +35,6 @@ const MyBadge: React.FC = () => {
       </div>
     </div>
   );
-};
+});
 
 export default MyBadge;
