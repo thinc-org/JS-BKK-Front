@@ -2,7 +2,7 @@
 import React, { useCallback, useContext, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useRouter } from 'next/router';
-import { rootContext } from '../_app';
+import { rootContext } from '../_app';  
 
 interface ErrorProps {
   error: string | null;
