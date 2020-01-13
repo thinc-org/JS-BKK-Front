@@ -2,6 +2,7 @@
 import React, { useCallback, useContext, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useRouter } from 'next/router';
+import QrReader from 'react-qr-reader';
 import { rootContext } from '../_app';
 
 interface ErrorProps {
@@ -13,6 +14,7 @@ const Home: React.FC = observer(() => {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const [qrScanner, setQrScanner] = useState<string>('No result');
   const [ticketID, setTicketID] = useState<string>('');
 
   const login = useCallback(
@@ -27,6 +29,17 @@ const Home: React.FC = observer(() => {
     },
     [ticketID]
   );
+
+  const handleScan = (data: string | null) => {
+    if (data) {
+      setQrScanner(data);
+      setTicketID(data)
+    }
+  };
+
+  const handleError = (err: any) => {
+    console.error(err);
+  };
 
   return (
     <form onSubmit={login} className='flex flex-col items-center'>
@@ -71,6 +84,8 @@ const Home: React.FC = observer(() => {
       >
         Login
       </button>
+      
+      <QrReader className="w-40 h-40" delay={300} onError={handleError} onScan={handleScan} />
       {error}
     </form>
   );
