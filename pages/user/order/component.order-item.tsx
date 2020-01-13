@@ -8,7 +8,7 @@ interface propTypes {
   onOrder: (data?: any) => any;
 }
 
-const OrderItem: React.FC<propTypes> = ({ order, onOrder }) => {
+const OrderItem: React.FC<propTypes> = ({ order = {}, onOrder }) => {
   const { title, merchant, genres, allergics } = order;
 
   const allergicItems = useMemo(() => {
@@ -45,7 +45,13 @@ const OrderItem: React.FC<propTypes> = ({ order, onOrder }) => {
         {allergicItems && <div className='mt-3'>{allergicItems}</div>}
       </div>
       <div>
-        <Button onClick={() => onOrder(order)} type='button' className="bg-black text-white py-2 px-4 truncate">สั่งอาหาร</Button>
+        <Button
+          onClick={() => onOrder(order)}
+          type='button'
+          className='bg-black text-white py-2 px-4 truncate'
+        >
+          สั่งอาหาร
+        </Button>
       </div>
     </div>
   );
