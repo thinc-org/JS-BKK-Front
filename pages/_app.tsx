@@ -46,13 +46,15 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => {
         <title>Bangkok JS</title>
       </Head>
       <rootContext.Provider value={rootStore}>
-        {routeData?.hasNavbar && (
-          <div className='fixed pin-t pin-l'>
-            <Nav routeData={routeData} />
+        <div className='h-screen flex flex-col'>
+          {routeData?.hasNavbar && (
+            <div className='sticky pin-t pin-l mx-10 mt-12 '>
+              <Nav routeData={routeData} />
+            </div>
+          )}
+          <div className='mt-8 h-full'>
+            <Component {...pageProps} />
           </div>
-        )}
-        <div className='pt-5'>
-          <Component {...pageProps} />
         </div>
       </rootContext.Provider>
     </>
