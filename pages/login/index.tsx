@@ -1,17 +1,52 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import { useUserStore } from '../../contexts/context.user';
+import { useRouter } from 'next/router';
+import { rootContext } from '../_app';
+import Button from '../../commons/components/component.button';
+
+interface ErrorProps {
+  error: string | null;
+}
 
 const Home: React.FC = observer(() => {
-  const userStore = useUserStore();
-  const authenticate = useCallback(() => userStore.setToken('34'), []);
+  const { userStore } = useContext(rootContext);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
+
+  const login = useCallback(
+    e => {
+      e.preventDefault();
+      if (username === 'admin' && password === '123456') {
+        userStore.setToken('validtoken');
+        router.push('/user/profile');
+      } else {
+        setError('Username or password wrong');
+        setPassword('');
+        setUsername('');
+      }
+    },
+    [username, password]
+  );
+
   return (
     <div>
-      <div> Login Works</div>
-      <div> userStore: {userStore.userInfo && userStore.userInfo.name}</div>
-      <button type='button' onClick={authenticate}>
-        Authenticate
-      </button>
+      <div className='bg-green-600 flex flex-row'>Login</div>
+      <form onSubmit={login}>
+        <input
+          type='text'
+          value={username}
+          onChange={e => setUsername(e.target.value)}
+        />
+        <input
+          type='password'
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+        />
+        {error && <div>{error}</div>}
+        <Button type='submit'>Login</Button>
+      </form>
     </div>
   );
 });
