@@ -24,13 +24,15 @@ const UserProfile: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      Profile
-      {Info}
-      <button type='button' onClick={logout}>
-        Logout
-      </button>
-    </div>
+    <>
+      <div>
+        Profile
+        {Info}
+        <button type='button' onClick={logout}>
+          Logout
+        </button>
+      </div>
+    </>
   );
 };
 

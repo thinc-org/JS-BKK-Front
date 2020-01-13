@@ -1,26 +1,23 @@
-import React from 'react';
-import Link from 'next/link';
+import React, { useCallback } from 'react';
+import { useRouter } from 'next/router';
+import { RouteData } from '../../interfaces/interface.commons';
 
-const Nav: React.FC = () => {
+interface PropTypes {
+  routeData: RouteData;
+}
+
+const Nav: React.FC<PropTypes> = ({ routeData }) => {
+  const router = useRouter();
+
+  const goBack = useCallback(() => {
+    router.push('/user/portal');
+  }, []);
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link href='/'>
-            <a href='tet'>Home</a>
-          </Link>
-        </li>
-        <li>
-          <Link href='/login'>
-            <a href='tet'>Login</a>
-          </Link>
-        </li>
-        <li>
-          <Link href='/user/profile'>
-            <a href='tet'>Profile</a>
-          </Link>
-        </li>
-      </ul>
+    <nav className='flex flex-row'>
+      <button className='mr-1' onClick={goBack}>
+        <img alt='arrow' src='/icons/arrow.svg' />
+      </button>
+      <div className='text-2xl font-bold'>{routeData.title}</div>
     </nav>
   );
 };
