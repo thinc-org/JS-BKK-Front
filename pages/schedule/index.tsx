@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 
 import Link from 'next/link'
 import styled from '@emotion/styled'
-
+import renderAgenda from './agenda';
 const Schedule: React.FC = observer(() => {
     const d = new Date();
     const task = [
@@ -27,25 +27,31 @@ const Schedule: React.FC = observer(() => {
             minutes: "00",
             name: "Agenda C"
         },
+        {
+            hours: "23",
+            minutes: "00",
+            name: "Agenda D",
+        },
     ]
-    const Img = styled.img`
-        width: 50px;
-
-    `
+   
     return (
         <div>
             <div className="flex ml-40px">
-              
-                <div className="flex ml-5 text-4xl">
-                    Schedule
-                </div>
+               <Link href="/portal">
+                    <div className="flex ml-5 text-4xl">
+                        Schedule
+                    </div>
+                </Link>
                 <div className="ml-auto mr-40px text-4xl">
                     {d.getHours()}:{d.getMinutes()}
                 </div>
-
+                
 
             </div>
-
+            <div className="mt-40px">
+                {renderAgenda(task)}
+            </div>
+           
         </div>
     )
 })

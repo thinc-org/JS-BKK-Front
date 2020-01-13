@@ -10,7 +10,7 @@ const Portal: React.FC = observer(() => {
                 <Boxx name={"Logo"} />
             </div>
             <div className="flex justify-center mt-100px">
-                <Link href="schedule">
+                <Link href="/schedule">
                     <div>
                         <Boxx name={"Schedule"} />
                     </div>
