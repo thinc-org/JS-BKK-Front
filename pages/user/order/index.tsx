@@ -19,17 +19,19 @@ const UserProfile: React.FC = observer(() => {
     fetchData();
   }, []);
 
-  
-  const orderFood = useCallback((orderData: Order) => {
-    // eslint-disable-next-line no-console
-    console.log(orderData, 'order item')
-  }, [orders])
+  const orderFood = useCallback(
+    (orderData: Order) => {
+      // eslint-disable-next-line no-console
+      console.log(orderData, 'order item');
+    },
+    [orders]
+  );
 
   const OrderItems =
     orders &&
     orders.map(order => {
       return (
-        <div className='my-3' key={order.key}>
+        <div key={order.key} className='my-3'>
           <OrderItem onOrder={orderFood} order={order} />
         </div>
       );
