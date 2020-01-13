@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Link from 'next/link';
 import Button from '../../../../commons/components/component.button';
+import { rootContext } from '../../../_app';
+import { UserStore } from '../../../../interfaces/interface.user';
 
-const MyBadge = () => {
+const MyBadge: React.FC = () => {
+  const { userStore } = useContext<{ userStore: UserStore}>(rootContext);
   return (
     <div className='h-full my-24 px-12'>
       <div id='content' className='flex flex-col justify-center items-center'>
         <h3 className='mb-8'>You badge is</h3>
         <div className='bg-red-300 w-40 h-40 flex justify-center items-center mb-12'>
-          BADGE
+          {userStore.userInfo?.currentBadge.type}
         </div>
         <p className='text-center'>
           There are 7 total badges. Please talk to other people and scan their
