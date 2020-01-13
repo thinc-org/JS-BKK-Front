@@ -8,6 +8,14 @@
       "winner": {
         "hasNavbar": true,
         "title": "Networking"
+      },
+      "dashboard": {
+        "hasNavbar": true,
+        "title": "Networking"
+      },
+      "my-badge": {
+        "hasNavbar": true,
+        "title": "Networking"
       }
     },
     "order": {
