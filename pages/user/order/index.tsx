@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react';
+import { observer } from 'mobx-react-lite';
 import { rootContext } from '../../_app';
 import { UserStore } from '../../../interfaces/interface.user';
 import useMockApi from '../../../commons/hooks/hook.mock-api';
 import { Order } from '../../../interfaces/interface.order';
 import OrderItem from './component.order-item';
 
-const UserProfile: React.FC = () => {
+const UserProfile: React.FC = observer(() => {
   const { userStore } = useContext<{ userStore: UserStore }>(rootContext);
   const [orders, setOrders] = useState<Order[] | undefined | null>();
   const mockApi = useMockApi('order');
@@ -45,6 +46,6 @@ const UserProfile: React.FC = () => {
       </div>
     </div>
   );
-};
+});
 
 export default UserProfile;
