@@ -20,7 +20,7 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => {
   return (
     <>
       <rootContext.Provider value={rootStore}>
-        <div className="fixed pin-t pin-l">
+        <div className='fixed pin-t pin-l'>
           <Nav />
         </div>
         <Component {...pageProps} />

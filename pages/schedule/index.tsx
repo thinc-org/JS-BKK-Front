@@ -12,31 +12,36 @@ const Schedule: React.FC = observer(() => {
       id: 1,
       hours: '08',
       minutes: '00',
-      name: 'Registration'
+      name: 'Registration',
+      checkTime: false
     },
     {
       id: 2,
       hours: '09',
       minutes: '00',
-      name: 'Agenda A'
+      name: 'Agenda A',
+      checkTime: false
     },
     {
       id: 3,
       hours: '10',
       minutes: '00',
-      name: 'Agenda B'
+      name: 'Agenda B',
+      checkTime: false
     },
     {
       id: 4,
       hours: '11',
       minutes: '00',
-      name: 'Agenda C'
+      name: 'Agenda C',
+      checkTime: false
     },
     {
       id: 5,
       hours: '23',
       minutes: '00',
-      name: 'Agenda D'
+      name: 'Agenda D',
+      checkTime: false
     }
   ];
 
