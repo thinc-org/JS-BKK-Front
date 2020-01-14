@@ -9,26 +9,31 @@ const Schedule: React.FC = observer(() => {
   const d = new Date();
   const task = [
     {
+      id: 1,
       hours: '08',
       minutes: '00',
       name: 'Registration'
     },
     {
+      id: 2,
       hours: '09',
       minutes: '00',
       name: 'Agenda A'
     },
     {
+      id: 3,
       hours: '10',
       minutes: '00',
       name: 'Agenda B'
     },
     {
+      id: 4,
       hours: '11',
       minutes: '00',
       name: 'Agenda C'
     },
     {
+      id: 5,
       hours: '23',
       minutes: '00',
       name: 'Agenda D'
