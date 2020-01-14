@@ -9,8 +9,9 @@ interface Agenda {
   checkTime: boolean;
 }
 
-function renderAgenda(tasks: Agenda[]) {
-  const t = tasks.map(task => {
+const renderAgenda = (tasks: Agenda[]) => {
+  return Object.values(tasks).map(task => {
+    // eslint-disable-next-line no-param-reassign
     task.checkTime = !(
       compareAsc(
         new Date(),
@@ -26,6 +27,5 @@ function renderAgenda(tasks: Agenda[]) {
       </div>
     );
   });
-  return t;
-}
+};
 export default renderAgenda;

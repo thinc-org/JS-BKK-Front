@@ -44,7 +44,6 @@ const Schedule: React.FC = observer(() => {
       checkTime: false
     }
   ];
-
   return (
     <div>
       <div className='flex ml-40px'>
@@ -55,6 +54,7 @@ const Schedule: React.FC = observer(() => {
           {d.getHours()}:{d.getMinutes()}
         </div>
       </div>
+
       <div className='mt-40px'>{renderAgenda(task)}</div>
     </div>
   );
