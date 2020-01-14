@@ -31,7 +31,7 @@ const Orders: React.FC = observer(() => {
     orders &&
     orders.map(order => {
       return (
-        <div className='my-3' key={order.key}>
+        <div key={order.key} className='my-3'>
           <OrderItem onOrder={orderFood} order={order} />
         </div>
       );
