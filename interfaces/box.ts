@@ -1,4 +1,3 @@
 export interface PortalBox {
-    name: string;
-
+  name: string;
 }
