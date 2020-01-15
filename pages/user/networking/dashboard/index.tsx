@@ -40,17 +40,17 @@ const Dashboard: React.FC = observer(() => {
         <div className='bg-gray-200 w-40 h-40 flex justify-center items-center'>
           {useMemo(
             () => (
-              userStore.userInfo?.currentBadge.type ? 
+              currentBadge && currentBadge.type ? 
                 <QRCode
                   className='w-full h-full'
                   renderAs='svg'
                   value={
-                    (userStore.userInfo?.currentBadge.type as string)
+                    (currentBadge.type as string)
                   }
                 /> : 
                 <Loading />
             ),
-            [userStore.userInfo?.currentBadge.type]
+            [currentBadge]
           )}
         </div>
       </div>
