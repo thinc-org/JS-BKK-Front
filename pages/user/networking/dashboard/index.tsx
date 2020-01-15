@@ -15,7 +15,7 @@ const Dashboard: React.FC = observer(() => {
 
   const BadgeItems = useMemo(
     () => (
-      <div className='flex'>
+      <div className='flex overflow-x-auto'>
         {currentBadge &&
           badges &&
           [currentBadge, ...badges].map(
