@@ -18,5 +18,13 @@
   "/user/order": {
     "hasNavbar": true,
     "title": "Order Food"
+  },
+  "/user/portal": {
+    "hasNavbar": false,
+    "title": "Bangkok JS"
+  },
+  "/schedule": {
+    "hasNavbar": true,
+    "title": "Schedule"
   }
 }

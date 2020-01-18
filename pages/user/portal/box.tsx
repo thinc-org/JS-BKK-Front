@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { PortalBox } from '../../interfaces/box';
-import Button from '../../commons/components/component.button';
+import { PortalBox } from '../../../interfaces/box';
+import Button from '../../../commons/components/component.button';
 
 const Box: React.FC<PortalBox> = props => {
   const { name } = props;

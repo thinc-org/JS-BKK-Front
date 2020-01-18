@@ -16,12 +16,20 @@ const Portal: React.FC = observer(() => {
           </div>
         </Link>
         <div className='ml-20px'>
-          <Box name='Order Food' />
+          <Link href='/user/order'>
+            <div>
+              <Box name='Order Food' />
+            </div>
+          </Link>
         </div>
       </div>
       <div className='flex justify-center mt-26px'>
         <div>
-          <Box name='Networking' />
+          <Link href='/user/networking/dashboard'>
+            <div>
+              <Box name='Networking' />
+            </div>
+          </Link>
         </div>
         <div className='ml-20px'>
           <Box name='Log out' />
