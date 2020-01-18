@@ -9,3 +9,4 @@ globals:
   assert: true
 rules:
   spaced-comment: off
+  import/no-extraneous-dependencies: off
