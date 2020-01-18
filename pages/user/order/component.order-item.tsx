@@ -14,7 +14,7 @@ const OrderItem: React.FC<propTypes> = ({ order = {}, onOrder }) => {
   const allergicItems = useMemo(() => {
     return allergics?.map(allergic => {
       return (
-        <div className='text-xs flex flex-col'>
+        <div key={allergic} className='text-xs flex flex-col'>
           <span className='mb-1 text-red-400'>
             ข้อมูลสำหรับผู้แพ้อาหาร (Food Allergy)
           </span>{' '}
@@ -27,7 +27,7 @@ const OrderItem: React.FC<propTypes> = ({ order = {}, onOrder }) => {
   const genresItems = useMemo(() => {
     return genres?.map(genre => {
       return (
-        <div className='mr-1'>
+        <div key={genre} className='mr-1'>
           <Tag title={genre} />
         </div>
       );

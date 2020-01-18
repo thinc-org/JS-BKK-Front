@@ -7,17 +7,20 @@ const useMockApi = (arg: string) => {
     case 'order':
       result = [
         {
+          key: 0,
           title: 'test',
           merchant: 'merchant 1',
           genres: ['pork', 'chicken'],
           allergics: ['seafood']
         },
         {
+          key: 1,
           title: 'test',
           merchant: 'merchant 1',
           genres: ['pork', 'chicken']
         },
         {
+          key: 2,
           title: 'test',
           merchant: 'merchant 1',
           genres: ['pork', 'chicken']
