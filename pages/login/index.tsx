@@ -2,13 +2,16 @@
 import React, { useCallback, useContext, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useRouter } from 'next/router';
-// import QrReader from 'react-qr-reader';
 import dynamic from 'next/dynamic';
 import { rootContext } from '../_app';
 
 interface ErrorProps {
   error: string | null;
 }
+
+const QrReader = dynamic(() => import('react-qr-reader'), {
+  ssr: false
+});
 
 const Home: React.FC = observer(() => {
   const { userStore } = useContext(rootContext);
@@ -35,7 +38,7 @@ const Home: React.FC = observer(() => {
   const handleScan = (data: string | null) => {
     if (data) {
       setTicketID(data);
-      setQrReady(false)
+      setQrReady(false);
     }
   };
 
@@ -43,9 +46,7 @@ const Home: React.FC = observer(() => {
     console.error(err);
   };
 
-  const QrReader = dynamic(() => import('react-qr-reader'), {
-    ssr: false
-  });
+  
 
   return (
     <form onSubmit={login} className='flex flex-col items-center'>
@@ -63,9 +64,9 @@ const Home: React.FC = observer(() => {
         type='text'
         value={ticketID}
         onChange={e => {
-          const _ticketID = e.target.value;
-          setTicketID(_ticketID);
-          if (_ticketID.length < 10 || _ticketID.length > 10) {
+          const loginError = e.target.value;
+          setTicketID(loginError);
+          if (loginError.length < 10 || loginError.length > 10) {
             setIsOpen(true);
           } else {
             setIsOpen(false);
@@ -78,11 +79,6 @@ const Home: React.FC = observer(() => {
 
       <p className='mt-10'>or Scan QR</p>
 
-      {/* <label className='mt-3 py-2 px-8 bg-gray-800 text-white rounded cursor-pointer'>
-        <span>Open Camera</span>
-        <input className='hidden' type='file' />
-      </label> */}
-
       <button
         onClick={() => setQrReady(true)}
         type='button'
@@ -91,7 +87,7 @@ const Home: React.FC = observer(() => {
         Open Camera
       </button>
 
-      {qrReady ? (
+      {qrReady && true ? (
         <QrReader
           className='w-40 h-40 mt-4 rounded'
           delay={300}
