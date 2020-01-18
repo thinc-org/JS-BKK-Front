@@ -1,0 +1,11 @@
+globals:
+  describe: true
+  it: true
+  cy: true
+  context: true
+  beforeEach: true
+  Cypress: true
+  expect: true
+  assert: true
+rules:
+  spaced-comment: off
