@@ -1,5 +1,3 @@
-/// <reference types="Cypress" />
-
 describe('Conference page', () => {
   beforeEach(() => {
     cy.usePrototype();
