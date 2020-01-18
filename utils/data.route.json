@@ -1,26 +1,22 @@
 {
-  "login": {
+  "/login": {
     "hasNavbar": false,
     "title": "Bangkok JS"
   },
-  "user": {
-    "networking": {
-      "winner": {
-        "hasNavbar": true,
-        "title": "Networking"
-      },
-      "dashboard": {
-        "hasNavbar": true,
-        "title": "Networking"
-      },
-      "my-badge": {
-        "hasNavbar": true,
-        "title": "Networking"
-      }
-    },
-    "order": {
-      "hasNavbar": true,
-      "title": "Order Food"
-    }
+  "/user/networking/dashboard": {
+    "hasNavbar": true,
+    "title": "Networking"
+  },
+  "/user/networking/winner": {
+    "hasNavbar": true,
+    "title": "Networking"
+  },
+  "/user/networking/my-badge": {
+    "hasNavbar": true,
+    "title": "Networking"
+  },
+  "/user/order": {
+    "hasNavbar": true,
+    "title": "Order Food"
   }
 }

@@ -6,9 +6,3 @@ export interface RouteData {
   hasNavbar: boolean;
   title: string;
 }
-
-export interface NestedRouteData {
-  hasNavbar?: boolean;
-  title?: string;
-  [key: string]: any;
-}
