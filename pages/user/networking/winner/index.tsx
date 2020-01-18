@@ -7,32 +7,23 @@ const UserProfile: React.FC = observer(() => {
   const { userStore } = useContext<{ userStore: UserStore }>(rootContext);
 
   return (
-    <>
-      <style jsx>
-        {`
-          .congrat-text {
-            max-width: 225px;
-          }
-        `}
-      </style>
-      <div className='h-screen'>
-        <div className='text-sm'>
-          Ordering as{' '}
-          <span className='font-bold'>{userStore.userInfo?.username}</span>
-        </div>
-        <div className='h-full text-center w-full flex flex-col items-center justify-center'>
-          <div className='congrat-text'>
-            <div className='mb-5 text-2xl font-bold text-center'>
-              Congratulations! You are the winner.
-            </div>
-            <div className='text-center'>
-              Please <span className='font-bold'>claim your reward</span>
-              at the information desk.
-            </div>
+    <div className='h-full flex flex-col'>
+      <div className='text-sm'>
+        Ordering as{' '}
+        <span className='font-bold'>{userStore.userInfo?.username}</span>
+      </div>
+      <div className='h-full text-center w-full flex flex-col items-center justify-center'>
+        <div className='max-w-small'>
+          <div className='mb-5 text-2xl font-bold text-center'>
+            Congratulations! You are the winner.
+          </div>
+          <div className='text-center'>
+            Please <span className='font-bold'>claim your reward</span>
+            at the information desk.
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 });
 
