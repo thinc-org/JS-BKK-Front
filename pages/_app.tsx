@@ -10,6 +10,7 @@ import { UserStore } from '../interfaces/interface.user';
 import useAuthGuard from '../commons/hooks/hook.auth';
 import '../styles/index.css';
 import useRouteData from '../commons/hooks/hook.route-data';
+import Viewing from '../commons/components/component.viewing';
 
 export const rootContext = createContext({
   userStore: {} as UserStore
@@ -29,12 +30,15 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => {
       <rootContext.Provider value={rootStore}>
         <div className='h-screen flex flex-col'>
           {routeData?.hasNavbar && (
-            <div className='sticky pin-t pin-l mx-10 mt-12 '>
-              <Nav routeData={routeData} />
+            <div>
+              <Viewing routeData={routeData} />
             </div>
           )}
-          <div className='mt-8 h-full'>
+          <div className='mt-8 mb-24 px-4 h-full'>
             <Component {...pageProps} />
+          </div>
+          <div className='fixed bottom-0 w-full'>
+            <Nav />
           </div>
         </div>
       </rootContext.Provider>

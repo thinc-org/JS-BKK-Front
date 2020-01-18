@@ -1,23 +1,19 @@
-import React, { useCallback } from 'react';
-import { useRouter } from 'next/router';
-import { RouteData } from '../../interfaces/interface.commons';
+import React from 'react';
+import Link from 'next/link';
 
-interface PropTypes {
-  routeData: RouteData;
-}
-
-const Nav: React.FC<PropTypes> = ({ routeData }) => {
-  const router = useRouter();
-
-  const goBack = useCallback(() => {
-    router.push('/user/portal');
-  }, []);
+const Nav: React.FC<{}> = () => {
+  // const router = useRouter();
   return (
-    <nav className='flex flex-row'>
-      <button className='mr-1' onClick={goBack}>
-        <img alt='arrow' src='/icons/arrow.svg' />
-      </button>
-      <div className='text-2xl font-bold'>{routeData.title}</div>
+    <nav className='bg-gray-400 flex flex-row items-center justify-around'>
+      <Link href='/'>
+        <a className='text-center text-md font-semibold flex-grow py-5' href='/'>Conference</a>
+      </Link>
+      <Link href='/user/order'>
+        <a className='text-center text-md font-semibold flex-grow py-5' href='/order'>Food</a>
+      </Link>
+      <Link href='/user/networking/dashboard'>
+        <a className='text-center text-md font-semibold flex-grow py-5' href='/networking/dashboard'>Networking</a>
+      </Link>
     </nav>
   );
 };
