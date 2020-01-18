@@ -1,7 +1,7 @@
 import React from 'react';
 import compareAsc from 'date-fns/compareAsc';
 
-interface Agenda {
+interface AgendaItem {
   id: number;
   hours: String;
   minutes: String;
@@ -9,7 +9,7 @@ interface Agenda {
   checkTime: boolean;
 }
 
-const renderAgenda = (tasks: Agenda[]) => {
+const renderAgenda = (tasks: AgendaItem[]) => {
   return Object.values(tasks).map(task => {
     // eslint-disable-next-line no-param-reassign
     task.checkTime = !(
