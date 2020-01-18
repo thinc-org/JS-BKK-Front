@@ -1,6 +1,9 @@
 /// <reference types="Cypress" />
 
 describe('Conference page', () => {
+  beforeEach(() => {
+    cy.usePrototype();
+  });
   it('displays the latest announcement', () => {
     cy.resetAnnouncement();
     cy.enterConferenceSection();
