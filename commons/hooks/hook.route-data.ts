@@ -3,13 +3,20 @@ import { useMemo } from 'react';
 import allRoutesData from '../../utils/data.route.json';
 import { RouteData } from '../../interfaces/interface.commons';
 
-const useRouteData = (): RouteData | null => {
+const defaultRouteData = {
+  hasNavbar: true,
+  title: 'Bangkok JS'
+};
+
+const useRouteData = (): RouteData => {
   const router = useRouter();
 
-  const routeData = useMemo(() => {
+  const routeData = useMemo((): RouteData => {
     const path = router.pathname;
-    if (!path) return null;
-    return (allRoutesData as any)[path] as RouteData;
+    if (path in allRoutesData) {
+      return (allRoutesData as any)[path];
+    }
+    return defaultRouteData;
   }, [router.pathname]);
 
   return routeData;
