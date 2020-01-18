@@ -28,7 +28,7 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => {
       </Head>
       <rootContext.Provider value={rootStore}>
         <div className='h-screen flex flex-col'>
-          {routeData?.hasNavbar && (
+          {routeData.hasNavbar && (
             <div className='sticky pin-t pin-l mx-10 mt-12 '>
               <Nav routeData={routeData} />
             </div>

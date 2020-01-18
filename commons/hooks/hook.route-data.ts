@@ -1,26 +1,22 @@
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import allRoutesData from '../../utils/data.route.json';
-import { RouteData, NestedRouteData } from '../../interfaces/interface.commons';
+import { RouteData } from '../../interfaces/interface.commons';
 
-const getRouteData = (
-  routeDataObj: NestedRouteData,
-  names: string[]
-): RouteData => {
-  const name = names[0];
-  if (!name) return routeDataObj as RouteData;
-  const trimmedName = names.slice(1);
-  return getRouteData(routeDataObj[name], trimmedName);
+const defaultRouteData = {
+  hasNavbar: true,
+  title: 'Bangkok JS'
 };
 
-const useRouteData = (): RouteData | null => {
+const useRouteData = (): RouteData => {
   const router = useRouter();
 
-  const routeData = useMemo(() => {
+  const routeData = useMemo((): RouteData => {
     const path = router.pathname;
-    if (!path) return null;
-    const paths = path.substring(1, path.length).split('/');
-    return getRouteData(allRoutesData, paths);
+    if (path in allRoutesData) {
+      return (allRoutesData as any)[path];
+    }
+    return defaultRouteData;
   }, [router.pathname]);
 
   return routeData;
