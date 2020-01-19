@@ -8,5 +8,6 @@ globals:
   expect: true
   assert: true
 rules:
+  no-restricted-syntax: off
   spaced-comment: off
   import/no-extraneous-dependencies: off

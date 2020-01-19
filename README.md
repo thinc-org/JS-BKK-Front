@@ -27,3 +27,11 @@ Install [Debugger for Microsoft Edge](https://marketplace.visualstudio.com/items
 > Edge: full
 
 on VS Code debug panel
+
+# Running Cypress tests
+
+Make sure your dev server is open.
+
+```
+yarn cypress open
+```

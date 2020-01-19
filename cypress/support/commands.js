@@ -1,27 +1,45 @@
+// @ts-check
 import '@testing-library/cypress/add-commands';
 
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
+/* eslint no-loop-func: off */
+
 // https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+const testSettings = { usingPrototype: false };
+beforeEach(() => {
+  testSettings.usingPrototype = false;
+});
+
+/** @type {OurCustomCommands} */
+const prototypeCustomCommands = {
+  enterConferenceSection() {
+    cy.visit('/prototype/conference.html');
+  },
+  resetAnnouncement() {},
+  updateAnnouncement(text) {
+    cy.window().then(window => {
+      const element = window.document.getElementById('announcement');
+      element.textContent = text;
+    });
+  }
+};
+
+/** @type {OurCustomCommands} */
+const actualCustomCommands = {
+  enterConferenceSection() {
+    cy.visit('/');
+  },
+  resetAnnouncement() {},
+  updateAnnouncement() {}
+};
+
+for (const key of Object.keys(prototypeCustomCommands)) {
+  Cypress.Commands.add(key, (...args) =>
+    (testSettings.usingPrototype
+      ? prototypeCustomCommands
+      : actualCustomCommands)[key](...args)
+  );
+}
+
+Cypress.Commands.add('usePrototype', () => {
+  testSettings.usingPrototype = true;
+});

@@ -1,7 +1,8 @@
 describe('Food page', () => {
   it('displays lunchtime choices');
-  it('displays available slots for ech choice');
-  it('displays an image for each menu');
+  it('displays available slots for each choice');
+  it('displays a countdown timer until time is up');
+  it('becomes unavailable when time is up');
   it('allows choosing 2 food stalls');
   it('allows choosing 1 restaurant');
   it('asks user to sign in when selecting a choice, if unauthenticated');
@@ -9,11 +10,9 @@ describe('Food page', () => {
 });
 describe('Customization section', () => {
   it('lets user select a customization option');
-  it('displays an image for each customization choice');
   it('allows confirming if not fully booked');
   it('prevents confirming if fully booked');
   it('allows changing choice');
-  it('prevents unselecting choice when lunchtime is near');
 });
 describe('Customization section', () => {
   it('displays the selected restaurant');

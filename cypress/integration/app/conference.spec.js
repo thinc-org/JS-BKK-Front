@@ -1,17 +1,28 @@
 /// <reference types="Cypress" />
 
 describe('Conference page', () => {
+  beforeEach(() => {
+    cy.usePrototype();
+  });
   it('displays the latest announcement', () => {
-    // Reset announcement text.
-    cy.visit('/prototype/conference.html');
+    cy.resetAnnouncement();
+    cy.enterConferenceSection();
     cy.queryByText(/This is an announcement!/).should('exist');
   });
   it('can display links in announcement', () => {
-    // Reset announcement text.
-    cy.visit('/prototype/conference.html');
+    cy.resetAnnouncement();
+    cy.enterConferenceSection();
     cy.queryByText('feedback').should('match', 'a[href]');
   });
   it('has a tweet button');
-  it('displays schedule');
-  it('updates the announcement in real-time');
+  it('displays schedule', () => {
+    cy.enterConferenceSection();
+    cy.queryByText('Schedule').should('exist');
+  });
+  it('updates the announcement in real-time', () => {
+    cy.resetAnnouncement();
+    cy.enterConferenceSection();
+    cy.updateAnnouncement('Networking party will start at 19:00');
+    cy.queryByText('Networking party will start at 19:00').should('exist');
+  });
 });
