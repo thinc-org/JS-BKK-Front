@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import React, { useContext } from 'react';
 import { RouteData } from '../../interfaces/interface.commons';
 import Button from './component.button';

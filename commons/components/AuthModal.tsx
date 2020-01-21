@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useCallback, useState, useContext } from 'react';
 import { observer } from 'mobx-react-lite';
