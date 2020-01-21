@@ -44,9 +44,9 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
       <rootContext.Provider value={rootStore}>
         <div className='h-screen flex flex-col'>
           {routeData?.hasNavbar && <Viewing routeData={routeData} />}
-          <div className='relative h-full'>
+          <div className='relative flex justify-center h-full pb-55px'>
             <div
-              className={`absolute my-4 px-4 h-full z-50 ${
+              className={`absolute my-4 px-4 z-50 ${
                 isAnimating ? 'fade' : ''
               } ${isHiddenCSS ? 'hidden' : ''}`}
             >
