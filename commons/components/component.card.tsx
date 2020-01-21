@@ -9,11 +9,11 @@ interface Props {
 
 const Card: React.FC<Props> = ({ children, className, items, childrenClassName }) => {
   const listItems = items?.map(item => 
-    <p className="p-2"> {item} </p>
+    <p className="py-2"> {item} </p>
   );
 
   return (
-    <div className={`${className} p-4 border-black border text-base rounded`}>
+    <div className={`${className} p-4 bg-white text-base rounded`}>
       {listItems}
       <div className={ childrenClassName }>
         {children}

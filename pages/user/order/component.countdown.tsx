@@ -21,12 +21,15 @@ function padZero(n: string, width: number) {
 }
 
 const Countdown: React.FC<Props> = ({ format, className }) => {
+
+  // Set due date here
   const closeFoodSale: Date = new Date();
   closeFoodSale.setHours(new Date().getHours() + 5);
   closeFoodSale.setMinutes(new Date().getMinutes() + 10);
   closeFoodSale.setSeconds(new Date().getSeconds() + 1);
+  // 
   const [time, setTime] = useState<string>();
-  const [dueTime, setDueTime] = useState<Date>(closeFoodSale);
+  const [dueTime] = useState<Date>(closeFoodSale);
   let formatClassName: string = 'text-5xl font-bold';
 
   useEffect(() => {

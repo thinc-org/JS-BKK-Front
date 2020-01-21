@@ -41,16 +41,17 @@ const Orders: React.FC = observer(() => {
     });
 
   return (
-    <div>
-      <div className='text-sm'>
+    <div className="bg-red-200">
+      <div className='text-sm '>
         Ordering as{' '}
         <span className='font-bold'>{userStore.userInfo?.username}</span>
       </div>
       <Card 
-        items={["We have a lot of food for you to choose! We have partnered wuth restaurants on floor 4 and 5, and food stalls are available on floor 8.", 
+        items={["We have a lot of food for you to choose! We have partnered with restaurants on floor 4 and 5, and food stalls are available on floor 8.", 
           "You can pick one restaurant or two food stalls. We recommend you to make your selection early because seatings are limited", 
           "Please select your menu before time limit:"]}
         childrenClassName="flex justify-center "
+        className="m-4"
       >
         <Countdown format />
       </Card>
