@@ -1,9 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useState, useContext } from 'react';
 import { observer } from 'mobx-react-lite';
-import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-import { rootContext } from '../_app';
+// eslint-disable-next-line import/no-cycle
+import { rootContext } from '../../pages/_app';
+import { RootStore } from '../../interfaces/interface.commons';
 
 const QrReader = dynamic(() => import('react-qr-reader'), {
   ssr: false,
@@ -11,20 +12,19 @@ const QrReader = dynamic(() => import('react-qr-reader'), {
   loading: () => <p>Loading</p>
 });
 
-const Home: React.FC = observer(() => {
-  const { userStore } = useContext(rootContext);
+const AuthModal: React.FC = observer(() => {
   const [loginError, setLoginError] = useState<string | null>(null);
   const [wrongInputFormat, setWrongInputFormat] = useState(false);
   const [isScanningQR, setIsScanningQR] = useState<boolean>(false);
   const [ticketID, setTicketID] = useState<string>('');
-  const router = useRouter();
+  const { authModalStore, userStore } = useContext<RootStore>(rootContext);
 
   const login = useCallback(
     e => {
       e.preventDefault();
       if (ticketID.length === 10) {
         userStore.setToken('validtoken');
-        router.push('/user/profile');
+        authModalStore.setModalOpen(false);
       } else {
         setLoginError('Username or password wrong');
       }
@@ -98,4 +98,4 @@ const Home: React.FC = observer(() => {
   );
 });
 
-export default Home;
+export default AuthModal;

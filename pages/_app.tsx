@@ -2,26 +2,34 @@
 import { AppProps } from 'next/app';
 import { NextPage } from 'next';
 import { createContext } from 'react';
-import { useLocalStore } from 'mobx-react-lite';
+import { useLocalStore, observer } from 'mobx-react-lite';
 import Head from 'next/head';
 import Nav from '../commons/components/componnent.nav';
-import createUserStore from '../commons/stores/store.user';
-import { UserStore } from '../interfaces/interface.user';
-import useAuthGuard from '../commons/hooks/hook.auth';
+import createUserStore from '../commons/stores/userStores';
+import useAuthGuard from '../commons/hooks/useAuthGuard';
 import '../styles/index.css';
 import useRouteData from '../commons/hooks/hook.route-data';
 import Viewing from '../commons/components/component.viewing';
+// eslint-disable-next-line import/no-cycle
+import AuthModal from '../commons/components/AuthModal';
+import createAuthModalStore from '../commons/stores/authModalStores';
+import { RootStore } from '../interfaces/interface.commons';
 
 export const rootContext = createContext({
-  userStore: {} as UserStore
-});
+  userStore: {},
+  authModalStore: {}
+} as RootStore);
 
-const App: NextPage<AppProps> = ({ Component, pageProps }) => {
-  const rootStore = useLocalStore(() => ({ userStore: createUserStore() }));
+const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
+  const rootStore = useLocalStore(
+    (): RootStore => ({
+      userStore: createUserStore(),
+      authModalStore: createAuthModalStore()
+    })
+  );
   const routeData = useRouteData();
-
-  useAuthGuard(rootStore.userStore);
-
+  const { authModalStore } = rootStore;
+  useAuthGuard(rootStore);
   return (
     <>
       <Head>
@@ -34,6 +42,7 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => {
               <Viewing routeData={routeData} />
             </div>
           )}
+          {authModalStore.isModalOpen && <AuthModal />}
           <div className='mt-8 mb-24 px-4 h-full'>
             <Component {...pageProps} />
           </div>
@@ -44,7 +53,7 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => {
       </rootContext.Provider>
     </>
   );
-};
+});
 
 App.propTypes = {};
 
