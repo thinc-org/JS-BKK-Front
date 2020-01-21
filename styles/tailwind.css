@@ -1,6 +1,8 @@
 @tailwind base;
+
+@import url('https://fonts.googleapis.com/css?family=K2D&display=swap');
 body {
-  font-family: Inter;
+  font-family: 'K2D', Inter;
   font-style: normal;
   font-weight: normal;
 }
