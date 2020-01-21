@@ -1,8 +1,8 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useCallback, useState, useContext } from 'react';
 import { observer } from 'mobx-react-lite';
 import dynamic from 'next/dynamic';
-// eslint-disable-next-line import/no-cycle
 import { rootContext } from '../../pages/_app';
 import { RootStore } from '../../interfaces/interface.commons';
 
@@ -54,7 +54,7 @@ const AuthModal: React.FC = observer(() => {
   return (
     <form onSubmit={login} className='flex flex-col items-center'>
       <img
-        className='mt-16 border-black border-solid border w-40 h-40 rounded'
+        className='border-black border-solid border w-40 h-40 rounded'
         src='images/icon.png'
         alt='logo'
       />

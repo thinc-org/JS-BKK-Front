@@ -42,6 +42,8 @@ const useAuthGuard = (
     const isInGuardedRoute = window.location.href.includes('/user');
     if (!waiting && isInGuardedRoute && !userStore.isAuthenticated()) {
       authModalStore.setModalOpen(true);
+    } else {
+      authModalStore.setModalOpen(false);
     }
   }, [typeof window !== 'undefined' && window.location.href, waiting]);
 

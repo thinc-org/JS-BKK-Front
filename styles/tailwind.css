@@ -5,6 +5,19 @@ body {
   font-weight: normal;
 }
 
+.fade {
+  animation: fadeOut 0.5s linear;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 @tailwind components;
 
 @tailwind utilities;

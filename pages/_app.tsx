@@ -1,7 +1,8 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable react/jsx-props-no-spreading */
 import { AppProps } from 'next/app';
 import { NextPage } from 'next';
-import { createContext } from 'react';
+import { createContext, useEffect } from 'react';
 import { useLocalStore, observer } from 'mobx-react-lite';
 import Head from 'next/head';
 import Nav from '../commons/components/componnent.nav';
@@ -10,10 +11,10 @@ import useAuthGuard from '../commons/hooks/useAuthGuard';
 import '../styles/index.css';
 import useRouteData from '../commons/hooks/hook.route-data';
 import Viewing from '../commons/components/component.viewing';
-// eslint-disable-next-line import/no-cycle
 import AuthModal from '../commons/components/AuthModal';
 import createAuthModalStore from '../commons/stores/authModalStores';
 import { RootStore } from '../interfaces/interface.commons';
+import useFadding from '../commons/hooks/useFadeOut';
 
 export const rootContext = createContext({
   userStore: {},
@@ -21,15 +22,21 @@ export const rootContext = createContext({
 } as RootStore);
 
 const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
+  const routeData = useRouteData();
   const rootStore = useLocalStore(
     (): RootStore => ({
       userStore: createUserStore(),
       authModalStore: createAuthModalStore()
     })
   );
-  const routeData = useRouteData();
   const { authModalStore } = rootStore;
+  const [isHiddenCSS, isAnimating, setHidden] = useFadding(500);
+
   useAuthGuard(rootStore);
+
+  useEffect(() => {
+    setHidden(!authModalStore.isModalOpen);
+  }, [authModalStore.isModalOpen]);
   return (
     <>
       <Head>
@@ -37,16 +44,18 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
       </Head>
       <rootContext.Provider value={rootStore}>
         <div className='h-screen flex flex-col'>
-          {routeData?.hasNavbar && (
-            <div>
-              <Viewing routeData={routeData} />
+          {routeData?.hasNavbar && <Viewing routeData={routeData} />}
+          <div className='relative my-4 px-4 h-full'>
+            <div
+              className={`absolute h-full w-screen z-50 bg-white ${
+                isAnimating ? 'fade' : ''
+              } ${isHiddenCSS ? 'hidden' : ''}`}
+            >
+              <AuthModal />
             </div>
-          )}
-          {authModalStore.isModalOpen && <AuthModal />}
-          <div className='mt-8 mb-24 px-4 h-full'>
             <Component {...pageProps} />
           </div>
-          <div className='fixed bottom-0 w-full'>
+          <div className='fixed z-50 bottom-0 w-full'>
             <Nav />
           </div>
         </div>
