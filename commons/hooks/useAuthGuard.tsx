@@ -36,7 +36,7 @@ const useAuthGuard = (
           });
       }
     );
-  }, []);
+  }, [userStore.token]);
 
   useEffect(() => {
     const isInGuardedRoute = window.location.href.includes('/user');
@@ -45,7 +45,7 @@ const useAuthGuard = (
     } else {
       authModalStore.setModalOpen(false);
     }
-  }, [typeof window !== 'undefined' && window.location.href, waiting]);
+  }, [typeof window !== 'undefined', waiting, userStore.isAuthenticated()]);
 
   return [isModalOpen, setModalOpen];
 };

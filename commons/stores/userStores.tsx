@@ -12,6 +12,11 @@ const createUserStore = (): UserStore => ({
   },
   isAuthenticated(): boolean {
     return !!this.userInfo;
+  },
+  logout(): void {
+    this.userInfo = undefined;
+    this.token = '';
+    localStorage.removeItem('token');
   }
 });
 
