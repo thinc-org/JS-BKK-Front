@@ -13,6 +13,7 @@ module.exports = {
       transparent: 'transparent',
       black: '#000',
       white: '#fff',
+      grey: '#C4C4C4',
       bkk: {
         khaophong: '#F5F1E9',
         khramfarang: '#164194',
@@ -141,6 +142,36 @@ module.exports = {
         '"Liberation Mono"',
         '"Courier New"',
         'monospace'
+      ],
+      robo: [
+        'Roboto',
+        '-apple-system',
+        'BlinkMacSystemFont',
+        '"Segoe UI"',
+        'Roboto',
+        '"Helvetica Neue"',
+        'Arial',
+        '"Noto Sans"',
+        'sans-serif',
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+        '"Noto Color Emoji"'
+      ],
+      inter: [
+        'Inter',
+        '-apple-system',
+        'BlinkMacSystemFont',
+        '"Segoe UI"',
+        'Roboto',
+        '"Helvetica Neue"',
+        'Arial',
+        '"Noto Sans"',
+        'sans-serif',
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+        '"Noto Color Emoji"'
       ]
     },
     fontSize: {
