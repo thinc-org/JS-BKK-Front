@@ -28,7 +28,7 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => {
         <title>Bangkok JS</title>
       </Head>
       <rootContext.Provider value={rootStore}>
-        <div className='h-screen flex flex-col'>
+        <div className='antialiased font-sans text-gray-900 leading-tight h-screen flex flex-col'>
           {routeData?.hasNavbar && (
             <div>
               <Viewing routeData={routeData} />
