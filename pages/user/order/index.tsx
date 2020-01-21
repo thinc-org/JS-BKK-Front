@@ -6,7 +6,7 @@ import useMockApi from '../../../commons/hooks/hook.mock-api';
 import { Order } from '../../../interfaces/interface.order';
 import OrderItem from './component.order-item';
 import Card from '../../../commons/components/component.card';
-import Countdown from './component.countdown';
+import Countdown from './countDown';
 
 const Orders: React.FC = observer(() => {
   const { userStore } = useContext<{ userStore: UserStore }>(rootContext);
