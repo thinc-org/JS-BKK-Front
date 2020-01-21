@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import { rootContext } from '../../pages/_app';
 import { RootStore } from '../../interfaces/interface.commons';
 import Button from './component.button';
+import Card from './Card';
 
 const QrReader = dynamic(() => import('react-qr-reader'), {
   ssr: false,
@@ -12,7 +13,12 @@ const QrReader = dynamic(() => import('react-qr-reader'), {
   loading: () => <p>Loading</p>
 });
 
-const AuthModal: React.FC = observer(() => {
+interface PropTypes {
+  isAnimating: boolean;
+  isHidden: boolean;
+}
+
+const AuthModal: React.FC<PropTypes> = observer(({ isAnimating, isHidden }) => {
   const [loginError, setLoginError] = useState<string | null>(null);
   const [wrongInputFormat, setWrongInputFormat] = useState(false);
   const [isScanningQR, setIsScanningQR] = useState<boolean>(false);
@@ -52,50 +58,56 @@ const AuthModal: React.FC = observer(() => {
   }, []);
 
   return (
-    <div className='flex flex-col items-center bg-white rounded-lg px-4 pt-5 pb-7.5'>
-      <p className='font-bold text-bg mb-4 font-robo'>
-        To continue, Please log in
-      </p>
-      <p className='text-base font-robo leading-tight'>
-        Meet other people through our networking activity and win special
-        prizes.
-      </p>
-      <form className='flex flex-col items-center' onSubmit={login}>
-        <p className='mt-5 font-inter text-xs'>Please enter your Ticket ID</p>
-        <input
-          className='mt-3 text-xs border-black border-solid border rounded px-4 py-2'
-          type='text'
-          value={ticketID}
-          onChange={handleTicketIDChange}
-        />
-        <p className={`text-red-600 pt-2 ${!wrongInputFormat && 'hidden'}`}>
-          Please enter 10 digits
+    <div
+      className={`fixed flex justify-center pin-l pin-t my-4 px-4 z-50 ${
+        isAnimating ? 'fade' : ''
+      } ${isHidden ? 'hidden' : ''}`}
+    >
+      <Card>
+        <p className='font-bold text-bg mb-4 font-robo'>
+          To continue, Please log in
         </p>
-        <p className='mt-3 text-xs font-inter'>or Scan QR</p>
-        <Button
-          onClick={() => setIsScanningQR(true)}
-          type='button'
-          className='mt-3 py-2 px-8 bg-white border-yellow-dark border-2 text-yellow-dark rounded'
-        >
-          Open Camera
-        </Button>
-        {isScanningQR && (
-          <QrReader
-            className='w-40 h-40 mt-4 rounded'
-            delay={300}
-            onError={handleError}
-            onScan={handleScan}
+        <p className='text-base font-robo leading-tight'>
+          Meet other people through our networking activity and win special
+          prizes.
+        </p>
+        <form className='flex flex-col items-center' onSubmit={login}>
+          <p className='mt-5 font-inter text-xs'>Please enter your Ticket ID</p>
+          <input
+            className='mt-3 text-xs border-black border-solid border rounded px-4 py-2'
+            type='text'
+            value={ticketID}
+            onChange={handleTicketIDChange}
           />
-        )}
-        <Button
-          onClick={login}
-          type='button'
-          className='mt-12 py-3 px-20 font-bg bg-yellow-dark text-black font-robo rounded'
-        >
-          Login
-        </Button>
-        {loginError}
-      </form>
+          <p className={`text-red-600 pt-2 ${!wrongInputFormat && 'hidden'}`}>
+            Please enter 10 digits
+          </p>
+          <p className='mt-3 text-xs font-inter'>or Scan QR</p>
+          <Button
+            onClick={() => setIsScanningQR(true)}
+            type='button'
+            className='mt-3 py-2 px-8 bg-white border-yellow-dark border-2 text-yellow-dark rounded'
+          >
+            Open Camera
+          </Button>
+          {isScanningQR && (
+            <QrReader
+              className='w-40 h-40 mt-4 rounded'
+              delay={300}
+              onError={handleError}
+              onScan={handleScan}
+            />
+          )}
+          <Button
+            onClick={login}
+            type='button'
+            className='mt-12 py-3 px-20 font-bg bg-yellow-dark text-black font-robo rounded'
+          >
+            Login
+          </Button>
+          {loginError}
+        </form>
+      </Card>
     </div>
   );
 });
