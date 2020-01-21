@@ -2,7 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 
 const Nav: React.FC<{}> = () => {
-  // const router = useRouter();
   return (
     <nav className='bg-white flex flex-row items-center justify-around text-xs'>
       <Link href='/'>

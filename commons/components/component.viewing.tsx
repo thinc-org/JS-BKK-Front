@@ -11,7 +11,7 @@ const Viewing: React.FC<PropTypes> = ({ routeData }) => {
   const { userStore } = useContext(rootContext);
   return (
     <nav className='flex flex-row items-center text-h text-white'>
-      <div className='text-4xl font-sans py-5 px-4'>{routeData.title}</div>
+      <div className='text-4xl font-sans pt-5 px-4'>{routeData.title}</div>
       {userStore.isAuthenticated() && (
         <Button type='button' onClick={() => userStore.logout()}>
           Logout

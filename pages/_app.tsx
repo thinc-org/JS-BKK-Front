@@ -36,6 +36,7 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
   useEffect(() => {
     setHidden(!authModalStore.isModalOpen);
   }, [authModalStore.isModalOpen]);
+
   return (
     <>
       <Head>
@@ -43,16 +44,12 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
       </Head>
       <rootContext.Provider value={rootStore}>
         <div className='h-screen flex flex-col'>
-          {routeData?.hasNavbar && <Viewing routeData={routeData} />}
-          <div className='relative flex justify-center h-full pb-55px'>
-            <div
-              className={`absolute my-4 px-4 z-50 ${
-                isAnimating ? 'fade' : ''
-              } ${isHiddenCSS ? 'hidden' : ''}`}
-            >
-              <AuthModal />
+          {routeData.hasNavbar && <Viewing routeData={routeData} />}
+          <div className='flex justify-center h-full pb-55px'>
+            <AuthModal isAnimating={isAnimating} isHidden={isHiddenCSS} />
+            <div className={!isAnimating && !isHiddenCSS ? 'hidden' : ''}>
+              <Component {...pageProps} />
             </div>
-            <Component {...pageProps} />
           </div>
           <div className='fixed z-50 bottom-0 w-full'>
             <Nav />
