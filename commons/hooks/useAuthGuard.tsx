@@ -45,7 +45,11 @@ const useAuthGuard = (
     } else {
       authModalStore.setModalOpen(false);
     }
-  }, [typeof window !== 'undefined', waiting, userStore.isAuthenticated()]);
+  }, [
+    typeof window !== 'undefined' && window.location.href,
+    waiting,
+    userStore.isAuthenticated()
+  ]);
 
   return [isModalOpen, setModalOpen];
 };
