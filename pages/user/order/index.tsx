@@ -46,7 +46,7 @@ const Orders: React.FC = observer(() => {
         <span className='font-bold'>{userStore.userInfo?.username}</span>
       </div>
 
-      <Card className='p-4'>
+      <Card className='m-4'>
         <p className='mb-4'>
           We have a lot of food for you to choose! We have partnered with
           restaurants on floor 4 and 5, and food stalls are available on floor
