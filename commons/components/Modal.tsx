@@ -5,11 +5,11 @@ import { ModalStore } from '../stores/authModalStores';
 
 interface PropTypes {
   modalStore: ModalStore;
-  isUnclosable?: boolean;
+  noCloseButton?: boolean;
 }
 
 const Modal: React.FC<PropTypes> = observer(
-  ({ children, modalStore, isUnclosable = false }) => {
+  ({ children, modalStore, noCloseButton = false }) => {
     const closeModal = useCallback(() => {
       // eslint-disable-next-line no-param-reassign
       modalStore.setModalOpen(false);
@@ -18,19 +18,19 @@ const Modal: React.FC<PropTypes> = observer(
     const content = useMemo(() => {
       return (
         <Card className='flex flex-col items-center '>
-          {!isUnclosable && <button onClick={closeModal}>Close</button>}
+          {!noCloseButton && <button onClick={closeModal}>Close</button>}
           {children}
         </Card>
       );
-    }, [isUnclosable, children]);
+    }, [noCloseButton, children]);
 
     const { isAnimating, isHidden, isModalOpen } = modalStore;
 
-    return isUnclosable ? (
+    return noCloseButton ? (
       <div
         className={`fixed flex justify-center pin-l pin-t my-4 px-4 z-50 ${
           isAnimating ? 'fade-out' : ''
-        } ${isHidden ? 'hidden' : 'test'}`}
+        } ${isHidden ? 'hidden' : ''}`}
       >
         {content}
       </div>

@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { observer, useLocalStore } from 'mobx-react-lite';
-import { rootContext } from '../../_app';
 import useMockApi from '../../../commons/hooks/useMockApi';
 import { Order } from '../../../interfaces/Orders';
 import OrderItem from './OrderItem';
 import Card from '../../../commons/components/Card';
-import Countdown from './countDown';
+import Countdown from './CountDown';
 import { RootStore } from '../../../interfaces/Commons';
 import Modal from '../../../commons/components/Modal';
 import createModalStore from '../../../commons/stores/authModalStores';
+import rootContext from '../../../commons/context.root';
 
 const Orders: React.FC = observer(() => {
   const { userStore } = useContext<RootStore>(rootContext);

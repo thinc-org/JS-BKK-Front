@@ -1,11 +1,11 @@
 import React, { useContext, useMemo } from 'react';
 import { observer } from 'mobx-react-lite';
 import QRCode from 'qrcode.react';
-import { rootContext } from '../../../_app';
 
 import BadgeItem from './Badge';
 import Button from '../../../../commons/components/Button';
 import { RootStore } from '../../../../interfaces/Commons';
+import rootContext from '../../../../commons/context.root';
 
 const Loading: React.FC<{}> = () => <div>...Loading</div>;
 

@@ -1,7 +1,7 @@
 const createModalStore = (timeout: number, defaultOpen = true) => ({
   isModalOpen: defaultOpen,
   setModalOpen(isOpen: boolean) {
-    if (this.isModalOpen === isOpen) {
+    if (this.isModalOpen === isOpen && !isOpen) {
       return;
     }
     this.isModalOpen = isOpen;

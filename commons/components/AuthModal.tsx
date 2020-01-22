@@ -2,11 +2,11 @@
 import React, { useCallback, useState, useContext } from 'react';
 import { observer } from 'mobx-react-lite';
 import dynamic from 'next/dynamic';
-import { rootContext } from '../../pages/_app';
 import { RootStore } from '../../interfaces/Commons';
 import Button from './Button';
 import Card from './Card';
 import Modal from './Modal';
+import rootContext from '../context.root';
 
 const QrReader = dynamic(() => import('react-qr-reader'), {
   ssr: false,
@@ -54,7 +54,7 @@ const AuthModal: React.FC = observer(() => {
   }, []);
 
   return (
-    <Modal isUnclosable modalStore={authModalStore}>
+    <Modal noCloseButton modalStore={authModalStore}>
       <Card className='flex flex-col items-center'>
         <p className='font-bold text-bg mb-4'>To continue, Please log in</p>
         <p className='text-base leading-tight'>

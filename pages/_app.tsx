@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { AppProps } from 'next/app';
 import { NextPage } from 'next';
-import { createContext } from 'react';
 import { useLocalStore, observer } from 'mobx-react-lite';
 import Head from 'next/head';
 import Nav from '../commons/components/Nav';
@@ -13,11 +12,7 @@ import PageHeading from '../commons/components/PageHeading';
 import AuthModal from '../commons/components/AuthModal';
 import { RootStore } from '../interfaces/Commons';
 import createModalStore from '../commons/stores/authModalStores';
-
-export const rootContext = createContext({
-  userStore: {},
-  authModalStore: {}
-} as RootStore);
+import rootContext from '../commons/context.root';
 
 const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
   const routeData = useRouteData();
