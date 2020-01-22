@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react-lite';
 import { rootContext } from '../../../_app';
-import { UserStore } from '../../../../interfaces/interface.user';
+import { RootStore } from '../../../../interfaces/interface.commons';
 
 const UserProfile: React.FC = observer(() => {
-  const { userStore } = useContext<{ userStore: UserStore }>(rootContext);
+  const { userStore } = useContext<RootStore>(rootContext);
 
   return (
     <div className='h-full flex flex-col'>

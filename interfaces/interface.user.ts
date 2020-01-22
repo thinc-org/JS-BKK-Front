@@ -14,4 +14,5 @@ export interface UserStore {
   setUserInfo(userInfo: UserInfo | undefined): void;
   setToken(token: string): void;
   isAuthenticated(): boolean;
+  logout(): void;
 }

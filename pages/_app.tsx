@@ -1,26 +1,41 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { AppProps } from 'next/app';
 import { NextPage } from 'next';
-import { createContext } from 'react';
-import { useLocalStore } from 'mobx-react-lite';
+import { createContext, useEffect } from 'react';
+import { useLocalStore, observer } from 'mobx-react-lite';
 import Head from 'next/head';
 import Nav from '../commons/components/componnent.nav';
-import createUserStore from '../commons/stores/store.user';
-import { UserStore } from '../interfaces/interface.user';
-import useAuthGuard from '../commons/hooks/hook.auth';
+import createUserStore from '../commons/stores/userStores';
+import useAuthGuard from '../commons/hooks/useAuthGuard';
 import '../styles/index.css';
 import useRouteData from '../commons/hooks/hook.route-data';
-import Viewing from '../commons/components/component.viewing';
+import PageHeading from '../commons/components/PageHeading';
+import AuthModal from '../commons/components/AuthModal';
+import createAuthModalStore from '../commons/stores/authModalStores';
+import { RootStore } from '../interfaces/interface.commons';
+import useFadding from '../commons/hooks/useFadeOut';
 
 export const rootContext = createContext({
-  userStore: {} as UserStore
-});
+  userStore: {},
+  authModalStore: {}
+} as RootStore);
 
-const App: NextPage<AppProps> = ({ Component, pageProps }) => {
-  const rootStore = useLocalStore(() => ({ userStore: createUserStore() }));
+const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
   const routeData = useRouteData();
+  const rootStore = useLocalStore(
+    (): RootStore => ({
+      userStore: createUserStore(),
+      authModalStore: createAuthModalStore()
+    })
+  );
+  const { authModalStore } = rootStore;
+  const [isHiddenCSS, isAnimating, setHidden] = useFadding(500);
 
-  useAuthGuard(rootStore.userStore);
+  useAuthGuard(rootStore);
+
+  useEffect(() => {
+    setHidden(!authModalStore.isModalOpen);
+  }, [authModalStore.isModalOpen]);
 
   return (
     <>
@@ -28,23 +43,22 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => {
         <title>Bangkok JS</title>
       </Head>
       <rootContext.Provider value={rootStore}>
-        <div className='antialiased font-sans text-gray-900 leading-tight h-screen flex flex-col'>
-          {routeData?.hasNavbar && (
-            <div>
-              <Viewing routeData={routeData} />
+        <div className='h-screen flex flex-col font-body'>
+          {routeData.hasNavbar && <PageHeading routeData={routeData} />}
+          <div className='flex justify-center h-full pb-55px'>
+            <AuthModal isAnimating={isAnimating} isHidden={isHiddenCSS} />
+            <div className={!isAnimating && !isHiddenCSS ? 'hidden' : ''}>
+              <Component {...pageProps} />
             </div>
-          )}
-          <div className='mt-8 mb-24 px-4 h-full'>
-            <Component {...pageProps} />
           </div>
-          <div className='fixed bottom-0 w-full'>
+          <div className='fixed z-50 bottom-0 w-full'>
             <Nav />
           </div>
         </div>
       </rootContext.Provider>
     </>
   );
-};
+});
 
 App.propTypes = {};
 

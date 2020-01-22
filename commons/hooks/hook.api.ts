@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { useContext, useMemo } from 'react';
 import { UserStore } from '../../interfaces/interface.user';
 import { rootContext } from '../../pages/_app';
+import { RootStore } from '../../interfaces/interface.commons';
 
 let baseURL = 'https://jsonplaceholder.typicode.com';
 if (process.env.NODE_ENV === 'production') {
@@ -16,7 +17,7 @@ const createRequestHandler = (userStore: UserStore) => (
 };
 
 const useApi = () => {
-  const { userStore } = useContext(rootContext);
+  const { userStore } = useContext<RootStore>(rootContext);
   const apiService = useMemo(
     () => ({
       client: axios

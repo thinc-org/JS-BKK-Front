@@ -45,7 +45,8 @@ module.exports = {
       'always',
       { exceptAfterSingleLine: true }
     ],
-    'no-underscore-dangle': 'off'
+    'no-underscore-dangle': 'off',
+    'import/no-cycle': 'off'
   },
   globals: {
     React: 'writable'
