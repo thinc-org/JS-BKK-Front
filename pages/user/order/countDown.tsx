@@ -20,13 +20,12 @@ function padZero(n: string, width: number) {
 }
 
 const Countdown: React.FC<Props> = ({ className }) => {
-
   // Set due date here
   const closeFoodSale: Date = new Date();
   closeFoodSale.setHours(new Date().getHours() + 5);
   closeFoodSale.setMinutes(new Date().getMinutes() + 10);
   closeFoodSale.setSeconds(new Date().getSeconds() + 1);
-  // 
+  //
   const [time, setTime] = useState<string>();
   const [dueTime] = useState<Date>(closeFoodSale);
 
@@ -42,7 +41,6 @@ const Countdown: React.FC<Props> = ({ className }) => {
     }, 1000);
     return () => clearInterval(stopLoop);
   }, [dueTime]);
-
 
   return <div className={`${className}`}>{time}</div>;
 };

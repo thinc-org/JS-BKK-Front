@@ -56,9 +56,7 @@ const Orders: React.FC = observer(() => {
           You can pick one restaurant or two food stalls. We recommend you to
           make your selection early because seatings are limited.
         </p>
-        <p className='mb-4'>
-          Please select your menu before time limit:
-        </p>
+        <p className='mb-4'>Please select your menu before time limit:</p>
         <Countdown className='flex justify-center text-3xl' />
       </Card>
       <div className='flex flex-col items-center'>
