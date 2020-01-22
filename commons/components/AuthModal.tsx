@@ -63,7 +63,7 @@ const AuthModal: React.FC<PropTypes> = observer(({ isAnimating, isHidden }) => {
         isAnimating ? 'fade' : ''
       } ${isHidden ? 'hidden' : ''}`}
     >
-      <Card className='flex flex-col items-center '>
+      <Card className='flex flex-col items-center'>
         <p className='font-bold text-bg mb-4'>To continue, Please log in</p>
         <p className='text-base leading-tight'>
           Meet other people through our networking activity and win special

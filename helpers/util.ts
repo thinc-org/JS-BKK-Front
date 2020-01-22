@@ -20,6 +20,6 @@ export const authenticate = (token: string): Promise<any> => {
       } else {
         reject();
       }
-    }, 1000);
+    }, 300);
   });
 };

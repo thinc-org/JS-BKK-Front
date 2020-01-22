@@ -1,9 +1,10 @@
 import { useEffect, useState, Dispatch, SetStateAction } from 'react';
 
-const useFadeOut = (
-  timeout: number
+const useFadding = (
+  timeout: number,
+  defaultShow: boolean = true
 ): [boolean, boolean, Dispatch<SetStateAction<boolean>>] => {
-  const [isHidden, setHidden] = useState(true);
+  const [isHidden, setHidden] = useState(defaultShow);
   const [isAnimating, setAnimating] = useState(false);
   const [isHiddenCSS, setHiddenCSS] = useState(true);
 
@@ -29,4 +30,4 @@ const useFadeOut = (
   return [isHiddenCSS, isAnimating, setHidden];
 };
 
-export default useFadeOut;
+export default useFadding;

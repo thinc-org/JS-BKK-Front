@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface PropTypes {
-  className: string;
+  className?: string;
 }
 
 const Card: React.FC<PropTypes> = ({ children, className }) => {

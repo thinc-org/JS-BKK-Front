@@ -29,7 +29,7 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
     })
   );
   const { authModalStore } = rootStore;
-  const [isHiddenCSS, isAnimating, setHidden] = useFadding(500);
+  const [isHiddenCSS, isAnimating, setHidden] = useFadding(400);
 
   useAuthGuard(rootStore);
 
@@ -47,7 +47,7 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
           {routeData.hasNavbar && <PageHeading routeData={routeData} />}
           <div className='flex justify-center h-full pb-55px'>
             <AuthModal isAnimating={isAnimating} isHidden={isHiddenCSS} />
-            <div className={!isAnimating && !isHiddenCSS ? 'hidden' : ''}>
+            <div className={isAnimating || !isHiddenCSS ? 'hidden' : ''}>
               <Component {...pageProps} />
             </div>
           </div>
