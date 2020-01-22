@@ -140,10 +140,12 @@ module.exports = {
       '20': '5rem',
       '24': '6rem',
       '32': '8rem',
+      '36': '36px',
       '40': '10rem',
       '48': '12rem',
       '56': '14rem',
       '64': '16rem'
+      
     },
     backgroundColor: theme => theme('colors'),
     backgroundPosition: {

@@ -18,5 +18,9 @@
   "/user/order": {
     "hasNavbar": true,
     "title": "Order Food"
+  },
+  "/schedule": {
+    "hasNavbar": false,
+    "title": "schedule"
   }
 }

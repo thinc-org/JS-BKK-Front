@@ -17,5 +17,5 @@
     "plugins": [{ "name": "typescript-tslint-plugin" }]
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "commons/stores/schedule.js"]
 }
