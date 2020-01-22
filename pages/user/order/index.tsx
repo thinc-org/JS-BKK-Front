@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { observer } from 'mobx-react-lite';
 import { rootContext } from '../../_app';
-import { UserStore } from '../../../interfaces/interface.user';
 import useMockApi from '../../../commons/hooks/hook.mock-api';
 import { Order } from '../../../interfaces/interface.order';
 import OrderItem from './component.order-item';
+import { RootStore } from '../../../interfaces/interface.commons';
 
 const Orders: React.FC = observer(() => {
-  const { userStore } = useContext<{ userStore: UserStore }>(rootContext);
+  const { userStore } = useContext<RootStore>(rootContext);
   const [orders, setOrders] = useState<Order[] | undefined | null>();
   const mockApi = useMockApi('order');
 

@@ -1,10 +1,21 @@
 @tailwind base;
 
-@import url('https://fonts.googleapis.com/css?family=K2D&display=swap');
+@import url('fonts.css');
 body {
-  font-family: 'K2D', Inter;
-  font-style: normal;
-  font-weight: normal;
+  background: linear-gradient(151.33deg, #de726f 4.46%, #2254b6 90.47%);
+}
+
+.fade {
+  animation: fadeOut 0.5s linear;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 @tailwind components;

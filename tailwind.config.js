@@ -13,9 +13,10 @@ module.exports = {
       transparent: 'transparent',
       black: '#000',
       white: '#fff',
+      grey: '#C4C4C4',
       bkk: {
-        khaophong: '#F5F1E9',
-        khramfarang: '#164194',
+        white: '#F5F1E9',
+        blue: '#164194',
         nak: '#CE716F'
       },
       yellow: { dark: '#F7D455', light: '#FCFDC8' }
@@ -40,7 +41,8 @@ module.exports = {
       '40': '10rem',
       '48': '12rem',
       '56': '14rem',
-      '64': '16rem'
+      '64': '16rem',
+      '55px': '55px'
     },
     backgroundColor: theme => theme('colors'),
     backgroundPosition: {
@@ -119,29 +121,7 @@ module.exports = {
       default: '1'
     },
     fontFamily: {
-      sans: [
-        '-apple-system',
-        'BlinkMacSystemFont',
-        '"Segoe UI"',
-        'Roboto',
-        '"Helvetica Neue"',
-        'Arial',
-        '"Noto Sans"',
-        'sans-serif',
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"',
-        '"Noto Color Emoji"'
-      ],
-      serif: ['Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
-      mono: [
-        'Menlo',
-        'Monaco',
-        'Consolas',
-        '"Liberation Mono"',
-        '"Courier New"',
-        'monospace'
-      ]
+      body: ['K2D', 'Inter']
     },
     fontSize: {
       xs: '0.75rem', // 12px
