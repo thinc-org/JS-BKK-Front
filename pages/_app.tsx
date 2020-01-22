@@ -43,7 +43,7 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
         <title>Bangkok JS</title>
       </Head>
       <rootContext.Provider value={rootStore}>
-        <div className='h-screen flex flex-col'>
+        <div className='h-screen flex flex-col font-body'>
           {routeData.hasNavbar && <Viewing routeData={routeData} />}
           <div className='flex justify-center h-full pb-55px'>
             <AuthModal isAnimating={isAnimating} isHidden={isHiddenCSS} />

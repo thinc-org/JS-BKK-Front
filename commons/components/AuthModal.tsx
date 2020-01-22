@@ -38,12 +38,12 @@ const AuthModal: React.FC<PropTypes> = observer(({ isAnimating, isHidden }) => {
     [ticketID]
   );
 
-  const handleScan = (data: string | null) => {
+  const handleScan = useCallback((data: string | null) => {
     if (data) {
       setTicketID(data);
       setIsScanningQR(false);
     }
-  };
+  }, []);
 
   const handleError = (err: any) => {
     console.log(err);
@@ -64,16 +64,15 @@ const AuthModal: React.FC<PropTypes> = observer(({ isAnimating, isHidden }) => {
       } ${isHidden ? 'hidden' : ''}`}
     >
       <Card className='flex flex-col items-center '>
-        <p className='font-bold text-bg mb-4 font-robo'>
-          To continue, Please log in
-        </p>
-        <p className='text-base font-robo leading-tight'>
+        <p className='font-bold text-bg mb-4'>To continue, Please log in</p>
+        <p className='text-base leading-tight'>
           Meet other people through our networking activity and win special
           prizes.
         </p>
         <form className='flex flex-col items-center' onSubmit={login}>
-          <p className='mt-5 font-inter text-xs'>Please enter your Ticket ID</p>
+          <p className='mt-5 text-xs'>Please enter your Ticket ID</p>
           <input
+            maxLength={10}
             className='mt-3 text-xs border-black border-solid border rounded px-4 py-2'
             type='text'
             value={ticketID}
@@ -82,7 +81,7 @@ const AuthModal: React.FC<PropTypes> = observer(({ isAnimating, isHidden }) => {
           <p className={`text-red-600 pt-2 ${!wrongInputFormat && 'hidden'}`}>
             Please enter 10 digits
           </p>
-          <p className='mt-3 text-xs font-inter'>or Scan QR</p>
+          <p className='mt-3 text-xs'>or Scan QR</p>
           <Button
             onClick={() => setIsScanningQR(true)}
             type='button'
@@ -101,7 +100,7 @@ const AuthModal: React.FC<PropTypes> = observer(({ isAnimating, isHidden }) => {
           <Button
             onClick={login}
             type='button'
-            className='mt-12 py-3 px-20 font-bg bg-yellow-dark text-black font-robo rounded'
+            className='mt-12 py-3 px-20 font-bg bg-yellow-dark text-black rounded'
           >
             Login
           </Button>
