@@ -7,8 +7,8 @@ interface PropTypes {
 
 const Viewing: React.FC<PropTypes> = ({ routeData }) => {
   return (
-    <nav className='flex flex-row justify-center items-center'>
-      <div className='text-4xl font-sans py-24'>
+    <nav className=''>
+      <div className='text-h font-bold'>
         {routeData.title}
       </div>
     </nav>

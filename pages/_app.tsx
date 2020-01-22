@@ -28,7 +28,7 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => {
         <title>Bangkok JS</title>
       </Head>
       <rootContext.Provider value={rootStore}>
-        <div className='h-screen flex flex-col'>
+        <div className= 'px-4 h-screen flex flex-col'>
           {routeData?.hasNavbar && (
             <div>
               <Viewing routeData={routeData} />
@@ -37,7 +37,7 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => {
           <div className='mt-8 mb-24 px-4 h-full'>
             <Component {...pageProps} />
           </div>
-          <div className='fixed bottom-0 w-full'>
+          <div className='fixed bottom-0 inset-x-0 w-full'>
             <Nav />
           </div>
         </div>
