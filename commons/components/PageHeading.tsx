@@ -7,7 +7,7 @@ interface PropTypes {
   routeData: RouteData;
 }
 
-const Viewing: React.FC<PropTypes> = ({ routeData }) => {
+const PageHeading: React.FC<PropTypes> = ({ routeData }) => {
   const { userStore } = useContext(rootContext);
   return (
     <nav className='flex flex-row items-center text-h text-white'>
@@ -21,4 +21,4 @@ const Viewing: React.FC<PropTypes> = ({ routeData }) => {
   );
 };
 
-export default Viewing;
+export default PageHeading;

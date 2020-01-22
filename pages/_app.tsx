@@ -9,7 +9,7 @@ import createUserStore from '../commons/stores/userStores';
 import useAuthGuard from '../commons/hooks/useAuthGuard';
 import '../styles/index.css';
 import useRouteData from '../commons/hooks/hook.route-data';
-import Viewing from '../commons/components/component.viewing';
+import PageHeading from '../commons/components/PageHeading';
 import AuthModal from '../commons/components/AuthModal';
 import createAuthModalStore from '../commons/stores/authModalStores';
 import { RootStore } from '../interfaces/interface.commons';
@@ -44,7 +44,7 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
       </Head>
       <rootContext.Provider value={rootStore}>
         <div className='h-screen flex flex-col font-body'>
-          {routeData.hasNavbar && <Viewing routeData={routeData} />}
+          {routeData.hasNavbar && <PageHeading routeData={routeData} />}
           <div className='flex justify-center h-full pb-55px'>
             <AuthModal isAnimating={isAnimating} isHidden={isHiddenCSS} />
             <div className={!isAnimating && !isHiddenCSS ? 'hidden' : ''}>
