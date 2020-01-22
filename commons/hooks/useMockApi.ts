@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { Order } from '../../interfaces/interface.order';
+import { Order } from '../../interfaces/Orders';
 
 const useMockApi = (arg: string) => {
   let result: null | Order[] = null;

@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { observer } from 'mobx-react-lite';
 import { rootContext } from '../../../_app';
 
-import Button from '../../../../commons/components/component.button';
-import { RootStore } from '../../../../interfaces/interface.commons';
+import Button from '../../../../commons/components/Button';
+import { RootStore } from '../../../../interfaces/Commons';
 
 const MyBadge: React.FC = observer(() => {
   const { userStore } = useContext<RootStore>(rootContext);

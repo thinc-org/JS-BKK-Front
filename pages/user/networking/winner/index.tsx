@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react-lite';
 import { rootContext } from '../../../_app';
-import { RootStore } from '../../../../interfaces/interface.commons';
+import { RootStore } from '../../../../interfaces/Commons';
 
 const UserProfile: React.FC = observer(() => {
   const { userStore } = useContext<RootStore>(rootContext);

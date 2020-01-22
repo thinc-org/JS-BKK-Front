@@ -1,19 +1,18 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { AppProps } from 'next/app';
 import { NextPage } from 'next';
-import { createContext, useEffect } from 'react';
+import { createContext } from 'react';
 import { useLocalStore, observer } from 'mobx-react-lite';
 import Head from 'next/head';
-import Nav from '../commons/components/componnent.nav';
+import Nav from '../commons/components/Nav';
 import createUserStore from '../commons/stores/userStores';
 import useAuthGuard from '../commons/hooks/useAuthGuard';
 import '../styles/index.css';
-import useRouteData from '../commons/hooks/hook.route-data';
+import useRouteData from '../commons/hooks/useRouteData';
 import PageHeading from '../commons/components/PageHeading';
 import AuthModal from '../commons/components/AuthModal';
-import createAuthModalStore from '../commons/stores/authModalStores';
-import { RootStore } from '../interfaces/interface.commons';
-import useFadding from '../commons/hooks/useFadeOut';
+import { RootStore } from '../interfaces/Commons';
+import createModalStore from '../commons/stores/authModalStores';
 
 export const rootContext = createContext({
   userStore: {},
@@ -25,17 +24,14 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
   const rootStore = useLocalStore(
     (): RootStore => ({
       userStore: createUserStore(),
-      authModalStore: createAuthModalStore()
+      authModalStore: createModalStore(400)
     })
   );
-  const { authModalStore } = rootStore;
-  const [isHiddenCSS, isAnimating, setHidden] = useFadding(400);
+  const {
+    authModalStore: { isAnimating, isHidden }
+  } = rootStore;
 
   useAuthGuard(rootStore);
-
-  useEffect(() => {
-    setHidden(!authModalStore.isModalOpen);
-  }, [authModalStore.isModalOpen]);
 
   return (
     <>
@@ -46,8 +42,8 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
         <div className='h-screen flex flex-col font-body'>
           {routeData.hasNavbar && <PageHeading routeData={routeData} />}
           <div className='flex justify-center h-full pb-55px'>
-            <AuthModal isAnimating={isAnimating} isHidden={isHiddenCSS} />
-            <div className={isAnimating || !isHiddenCSS ? 'hidden' : ''}>
+            <AuthModal />
+            <div className={isAnimating || !isHidden ? 'hidden' : ''}>
               <Component {...pageProps} />
             </div>
           </div>

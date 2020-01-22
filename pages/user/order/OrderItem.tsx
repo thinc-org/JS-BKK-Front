@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
-import { Order } from '../../../interfaces/interface.order';
-import Tag from '../../../commons/components/component.tag';
-import Button from '../../../commons/components/component.button';
+import { Order } from '../../../interfaces/Orders';
+import Tag from '../../../commons/components/Tag';
+import Button from '../../../commons/components/Button';
 
 interface propTypes {
   order: Order;
