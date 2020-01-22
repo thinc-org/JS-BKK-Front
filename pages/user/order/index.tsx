@@ -4,7 +4,7 @@ import { rootContext } from '../../_app';
 import useMockApi from '../../../commons/hooks/hook.mock-api';
 import { Order } from '../../../interfaces/interface.order';
 import OrderItem from './component.order-item';
-import Card from '../../../commons/components/component.card';
+import Card from '../../../commons/components/Card';
 import Countdown from './countDown';
 import { RootStore } from '../../../interfaces/interface.commons';
 
@@ -40,21 +40,26 @@ const Orders: React.FC = observer(() => {
     });
 
   return (
-    <div className='bg-yellow-dark'>
+    <div>
       <div className='text-sm '>
         Ordering as{' '}
         <span className='font-bold'>{userStore.userInfo?.username}</span>
       </div>
-      <Card
-        items={[
-          'We have a lot of food for you to choose! We have partnered with restaurants on floor 4 and 5, and food stalls are available on floor 8.',
-          'You can pick one restaurant or two food stalls. We recommend you to make your selection early because seatings are limited',
-          'Please select your menu before time limit:'
-        ]}
-        childrenClassName='flex justify-center '
-        className='m-4'
-      >
-        <Countdown format />
+
+      <Card className='p-4'>
+        <p className='mb-4'>
+          We have a lot of food for you to choose! We have partnered with
+          restaurants on floor 4 and 5, and food stalls are available on floor
+          8.
+        </p>
+        <p className='mb-4'>
+          You can pick one restaurant or two food stalls. We recommend you to
+          make your selection early because seatings are limited.
+        </p>
+        <p className='mb-4'>
+          Please select your menu before time limit:
+        </p>
+        <Countdown className='flex justify-center text-3xl' />
       </Card>
       <div className='flex flex-col items-center'>
         <div className='w-64'>{OrderItems}</div>

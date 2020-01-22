@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 interface Props {
-  format: boolean;
   className?: string;
 }
 
@@ -20,7 +19,7 @@ function padZero(n: string, width: number) {
   return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
 }
 
-const Countdown: React.FC<Props> = ({ format, className }) => {
+const Countdown: React.FC<Props> = ({ className }) => {
 
   // Set due date here
   const closeFoodSale: Date = new Date();
@@ -30,7 +29,6 @@ const Countdown: React.FC<Props> = ({ format, className }) => {
   // 
   const [time, setTime] = useState<string>();
   const [dueTime] = useState<Date>(closeFoodSale);
-  let formatClassName: string = 'text-5xl font-bold';
 
   useEffect(() => {
     const stopLoop = setInterval(() => {
@@ -45,11 +43,8 @@ const Countdown: React.FC<Props> = ({ format, className }) => {
     return () => clearInterval(stopLoop);
   }, [dueTime]);
 
-  if (!format) {
-    formatClassName = '';
-  }
 
-  return <div className={`${formatClassName} ${className}`}>{time}</div>;
+  return <div className={`${className}`}>{time}</div>;
 };
 
 export default Countdown;
