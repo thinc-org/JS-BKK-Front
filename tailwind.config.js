@@ -30,7 +30,7 @@ module.exports = {
       '4': '1rem', // 16px
       '5': '1.25rem', // 20px
       '6': '1.5rem', // 24px
-      '7.5': '1.875rem', // 30px
+      '7': '1.875rem', // 30px
       '8': '2rem', // 32px
       '10': '2.5rem', // 40px
       '12': '3rem', // 48px
@@ -63,13 +63,14 @@ module.exports = {
     },
     borderColor: theme => ({
       ...theme('colors'),
-      default: theme('colors.gray.300', 'currentColor')
+      default: theme('colors.black', 'currentColor')
     }),
     borderRadius: {
       none: '0',
       sm: '0.125rem',
       default: '0.25rem',
-      lg: '0.5rem',
+      bg: '0.375rem', // 6px
+      lg: '0.5625rem', // 9px
       full: '9999px'
     },
     borderWidth: {
@@ -80,17 +81,8 @@ module.exports = {
       '8': '8px'
     },
     boxShadow: {
-      default:
-        '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
-      md:
-        '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-      lg:
-        '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-      xl:
-        '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-      '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-      inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
-      outline: '0 0 0 3px rgba(66, 153, 225, 0.5)',
+      default: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+      press: '0px 0px 4px rgba(0, 0, 0, 0.25)',
       none: 'none'
     },
     container: {},
