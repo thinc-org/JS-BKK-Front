@@ -10,7 +10,7 @@ import Button from '../../../../commons/components/component.button';
 const Loading: React.FC<{}> = () => <div>...Loading</div>
 
 const Dashboard: React.FC = observer(() => {
-  const { userStore } = useContext<{ userStore: UserStore }>(rootContext);
+  const { userStore } = useContext<{ userStore: UserStore }>(rootContext as any);
   const { name, currentBadge, badges } = userStore.userInfo || {};
 
   const BadgeItems = useMemo(

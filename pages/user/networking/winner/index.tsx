@@ -4,7 +4,7 @@ import { rootContext } from '../../../_app';
 import { UserStore } from '../../../../interfaces/interface.user';
 
 const UserProfile: React.FC = observer(() => {
-  const { userStore } = useContext<{ userStore: UserStore }>(rootContext);
+  const { userStore } = useContext<{ userStore: UserStore }>(rootContext as any);
 
   return (
     <div className='h-full flex flex-col'>

@@ -7,7 +7,7 @@ import { UserStore } from '../../../../interfaces/interface.user';
 import Button from '../../../../commons/components/component.button';
 
 const MyBadge: React.FC = observer(() => {
-  const { userStore } = useContext<{ userStore: UserStore }>(rootContext);
+  const { userStore } = useContext<{ userStore: UserStore }>(rootContext as any);
   return (
     <div className='h-full px-12'>
       <div id='content' className='flex flex-col justify-center items-center'>

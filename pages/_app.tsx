@@ -12,7 +12,6 @@ import '../styles/index.css';
 import useRouteData from '../commons/hooks/hook.route-data';
 import Viewing from '../commons/components/component.viewing';
 
-
 export const rootContext = createContext({
   userStore: {} as UserStore,
   scheduleStore: [] as any
