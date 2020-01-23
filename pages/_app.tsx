@@ -12,12 +12,14 @@ import '../styles/index.css';
 import useRouteData from '../commons/hooks/hook.route-data';
 import Viewing from '../commons/components/component.viewing';
 
+
 export const rootContext = createContext({
-  userStore: {} as UserStore
+  userStore: {} as UserStore,
+  scheduleStore: [] as any
 });
 
 const App: NextPage<AppProps> = ({ Component, pageProps }) => {
-  const rootStore = useLocalStore(() => ({ userStore: createUserStore() }));
+  const rootStore = useLocalStore(() => ({ userStore: createUserStore(), scheduleStore: [] }));
   const routeData = useRouteData();
 
   useAuthGuard(rootStore.userStore);

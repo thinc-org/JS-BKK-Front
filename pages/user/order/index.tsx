@@ -5,10 +5,11 @@ import { UserStore } from '../../../interfaces/interface.user';
 import useMockApi from '../../../commons/hooks/hook.mock-api';
 import { Order } from '../../../interfaces/interface.order';
 import OrderItem from './component.order-item';
+import { Schedule } from '../../../interfaces/interface.schedule';
 
 const Orders: React.FC = observer(() => {
-  const { userStore } = useContext<{ userStore: UserStore }>(rootContext);
-  const [orders, setOrders] = useState<Order[] | undefined | null>();
+  const { userStore } = useContext<{ userStore: UserStore, scheduleStore: any[]}>(rootContext);
+  const [orders, setOrders] = useState<Order[] | Schedule[] | undefined | null>();
   const mockApi = useMockApi('order');
 
   useEffect(() => {
@@ -28,8 +29,7 @@ const Orders: React.FC = observer(() => {
   );
 
   const OrderItems =
-    orders &&
-    orders.map(order => {
+    (orders as any)?.map((order: any) => {
       return (
         <div key={order.key} className='my-3'>
           <OrderItem onOrder={orderFood} order={order} />

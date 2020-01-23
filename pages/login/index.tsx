@@ -74,7 +74,7 @@ const Home: React.FC = observer(() => {
       <button
         onClick={() => setIsScanningQR(true)}
         type='button'
-        className='mt-3 py-2 px-8 bg-gray-800 text-white rounded'
+        className='mt-3   text-white rounded'
       >
         Open Camera
       </button>

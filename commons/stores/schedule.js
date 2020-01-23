@@ -6,6 +6,7 @@ export const ScheduleContext = React.createContext(null);
 export const scheduleProvider = ({children}) => {
   const store = useLocalStore(()=>({
     schedule: useMockApi('schedule'),
+    
   }));
   return <ScheduleContext.Provider value={store}>{children}</ScheduleContext.Provider>
 }
