@@ -1,9 +1,10 @@
 import React, { useContext, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { rootContext } from '../../_app';
+import { RootStore } from '../../../interfaces/interface.commons';
 
 const UserProfile: React.FC = () => {
-  const { userStore } = useContext(rootContext);
+  const { userStore } = useContext<RootStore>(rootContext);
   const router = useRouter();
 
   const logout = useCallback(() => {

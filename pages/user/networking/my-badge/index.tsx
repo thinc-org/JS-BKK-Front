@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 import Link from 'next/link';
 import { observer } from 'mobx-react-lite';
 import { rootContext } from '../../../_app';
-import { UserStore } from '../../../../interfaces/interface.user';
 
 import Button from '../../../../commons/components/component.button';
+import { RootStore } from '../../../../interfaces/interface.commons';
 
 const MyBadge: React.FC = observer(() => {
-  const { userStore } = useContext<{ userStore: UserStore }>(rootContext);
+  const { userStore } = useContext<RootStore>(rootContext);
   return (
     <div className='h-full px-12'>
       <div id='content' className='flex flex-col justify-center items-center'>

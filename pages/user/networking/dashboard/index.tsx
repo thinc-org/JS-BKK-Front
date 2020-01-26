@@ -2,15 +2,15 @@ import React, { useContext, useMemo } from 'react';
 import { observer } from 'mobx-react-lite';
 import QRCode from 'qrcode.react';
 import { rootContext } from '../../../_app';
-import { UserStore } from '../../../../interfaces/interface.user';
 
 import BadgeItem from './component.badge';
 import Button from '../../../../commons/components/component.button';
+import { RootStore } from '../../../../interfaces/interface.commons';
 
-const Loading: React.FC<{}> = () => <div>...Loading</div>
+const Loading: React.FC<{}> = () => <div>...Loading</div>;
 
 const Dashboard: React.FC = observer(() => {
-  const { userStore } = useContext<{ userStore: UserStore }>(rootContext);
+  const { userStore } = useContext<RootStore>(rootContext);
   const { name, currentBadge, badges } = userStore.userInfo || {};
 
   const BadgeItems = useMemo(
@@ -39,17 +39,16 @@ const Dashboard: React.FC = observer(() => {
       <div className='flex justify-center items-center my-16'>
         <div className='bg-gray-200 w-40 h-40 flex justify-center items-center'>
           {useMemo(
-            () => (
-              currentBadge && currentBadge.type ? 
+            () =>
+              currentBadge && currentBadge.type ? (
                 <QRCode
                   className='w-full h-full'
                   renderAs='svg'
-                  value={
-                    (currentBadge.type as string)
-                  }
-                /> : 
+                  value={currentBadge.type as string}
+                />
+              ) : (
                 <Loading />
-            ),
+              ),
             [currentBadge]
           )}
         </div>
