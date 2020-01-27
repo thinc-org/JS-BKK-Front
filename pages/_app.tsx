@@ -23,7 +23,7 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
     })
   );
   const {
-    authModalStore: { isAnimating, isHidden }
+    authModalStore: { isAnimating, isHidden, isModalOpen }
   } = rootStore;
 
   useAuthGuard(rootStore);
@@ -38,7 +38,11 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
           {routeData.hasNavbar && <PageHeading routeData={routeData} />}
           <div className='flex justify-center h-full pb-55px'>
             <AuthModal />
-            <div className={isAnimating || !isHidden ? 'hidden' : ''}>
+            <div
+              className={
+                isAnimating || !isHidden || isModalOpen ? 'hidden' : ''
+              }
+            >
               <Component {...pageProps} />
             </div>
           </div>

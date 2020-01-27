@@ -1,39 +1,45 @@
-import React from 'react';
-import Router from 'next/router';
+import React, { useContext, useCallback } from 'react';
+import { RootStore } from '../../interfaces/Commons';
+import rootContext from '../context.root';
+import MyLink from './MyLink';
 
 const Nav: React.FC<{}> = () => {
+  const { authModalStore, userStore } = useContext<RootStore>(rootContext);
+
+  const handleModalOpen = useCallback(() => {
+    if (!userStore.isAuthenticated()) {
+      authModalStore.setModalOpen(true);
+    }
+  }, [userStore]);
+
   return (
     <nav className='bg-white flex flex-row items-center justify-around text-xs'>
-      <div
-        role='button'
-        tabIndex={0}
-        onKeyPress={() => Router.push('/')}
-        onClick={() => Router.push('/')}
+      <MyLink
+        prefetch
+        href='/'
         className='focus:outline-none text-center flex flex-col items-center py-2 w-1/3'
       >
         <div className='w-5 h-5 bg-grey' />
         Conference
-      </div>
-      <div
-        role='button'
-        tabIndex={0}
-        onKeyPress={() => Router.push('/')}
-        onClick={() => Router.push('/user/order')}
+      </MyLink>
+      <MyLink
+        onClick={handleModalOpen}
+        prefetch
+        href='/user/order'
         className='focus:outline-none text-center flex flex-col items-center py-2 w-1/3'
       >
         <div className='w-5 h-5 bg-grey' />
         Food
-      </div>
-      <div
-        role='button'
-        tabIndex={0}
-        onKeyPress={() => Router.push('/')}
-        onClick={() => Router.push('/user/networking/dashboard')}
+      </MyLink>
+      <MyLink
+        onClick={handleModalOpen}
+        prefetch
+        href='/user/networking/dashboard'
         className='focus:outline-none text-center flex flex-col items-center py-2 w-1/3'
       >
         <div className='w-5 h-5 bg-grey' />
         Networking
-      </div>
+      </MyLink>
     </nav>
   );
 };
