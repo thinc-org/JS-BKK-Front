@@ -1,12 +1,15 @@
-import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { observer } from 'mobx-react-lite';
-import { rootContext } from '../../_app';
-import useMockApi from '../../../commons/hooks/hook.mock-api';
-import { Order } from '../../../interfaces/interface.order';
-import OrderItem from './component.order-item';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import Card from '../../../commons/components/Card';
-import Countdown from './countDown';
+import useMockApi from '../../../commons/hooks/hook.mock-api';
+import RestaurantList, {
+  IRestaurant
+} from '../../../components/order-food/RestaurantList';
 import { RootStore } from '../../../interfaces/interface.commons';
+import { Order } from '../../../interfaces/interface.order';
+import { rootContext } from '../../_app';
+import OrderItem from './component.order-item';
+import Countdown from './countDown';
 
 const Orders: React.FC = observer(() => {
   const { userStore } = useContext<RootStore>(rootContext);
@@ -39,13 +42,34 @@ const Orders: React.FC = observer(() => {
       );
     });
 
+  const temp: IRestaurant[] = [
+    {
+      name: {
+        th: 'I am Thai Pasta',
+        en: 'I am Thai Pasta'
+      },
+      availableServings: 100
+    },
+    {
+      name: {
+        th: 'เพลินพุง Noodle & More',
+        en: 'เพลินพุง Noodle & More'
+      },
+      availableServings: 100
+    },
+    {
+      name: {
+        th: 'Hua Seng Hong',
+        en: 'Hua Seng Hong'
+      },
+      availableServings: 0,
+      description:
+        'Casual rice and noodle dishes<br>- Crispy Pork or Chicken Omelette with Ham and Rice<br>- Tom Yum Minced Pork Omelette with Rice<br>- Tom Yum Goong (Shrimp) Omelette with Rice'
+    }
+  ];
+
   return (
     <div>
-      <div className='text-sm '>
-        Ordering as{' '}
-        <span className='font-bold'>{userStore.userInfo?.username}</span>
-      </div>
-
       <Card className='m-4'>
         <p className='mb-4'>
           We have a lot of food for you to choose! We have partnered with
@@ -59,9 +83,7 @@ const Orders: React.FC = observer(() => {
         <p className='mb-4'>Please select your menu before time limit:</p>
         <Countdown className='flex justify-center text-3xl' />
       </Card>
-      <div className='flex flex-col items-center'>
-        <div className='w-64'>{OrderItems}</div>
-      </div>
+      <RestaurantList restaurants={temp} />
     </div>
   );
 });
