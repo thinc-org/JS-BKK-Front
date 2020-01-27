@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/indent */
 import React, { useCallback, useMemo } from 'react';
 import { observer } from 'mobx-react-lite';
 import Card from './Card';
@@ -11,7 +12,6 @@ interface PropTypes {
 const Modal: React.FC<PropTypes> = observer(
   ({ children, modalStore, noCloseButton = false }) => {
     const closeModal = useCallback(() => {
-      // eslint-disable-next-line no-param-reassign
       modalStore.setModalOpen(false);
     }, []);
 
@@ -26,23 +26,14 @@ const Modal: React.FC<PropTypes> = observer(
 
     const { isAnimating, isHidden, isModalOpen } = modalStore;
 
-    return noCloseButton ? (
-      <div
-        className={`fixed flex justify-center pin-l pin-t my-4 px-4 z-50 ${
-          isAnimating ? 'fade-out' : ''
-        } ${isHidden ? 'hidden' : ''}`}
-      >
-        {content}
-      </div>
-    ) : (
-      <div
-        className={`fixed flex justify-center pin-l pin-t my-4 px-4 z-50 fade ${
-          isAnimating && !isModalOpen ? 'opacity-0' : ''
-        } ${isHidden ? 'invisible opacity-0' : ''}`}
-      >
-        {content}
-      </div>
-    );
+    const ANIMATION_CLASSES = noCloseButton
+      ? `${isAnimating ? 'fade-out' : ''} ${isHidden ? 'hidden' : ''}`
+      : `${isAnimating && !isModalOpen ? 'opacity-0' : ''} ${
+          isHidden ? 'invisible opacity-0' : ''
+        } fade`;
+    const MODAL_CLASSES = `fixed flex justify-center pin-l pin-t my-4 px-4 z-50 ${ANIMATION_CLASSES}`;
+
+    return <div className={MODAL_CLASSES}>{content}</div>;
   }
 );
 

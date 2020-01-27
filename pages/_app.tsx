@@ -36,7 +36,7 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
       <rootContext.Provider value={rootStore}>
         <div className='h-screen flex flex-col font-body'>
           {routeData.hasNavbar && <PageHeading routeData={routeData} />}
-          <div className='flex justify-center h-full pb-55px'>
+          <div className='flex justify-center pb-55px'>
             <AuthModal />
             <div
               className={
@@ -45,9 +45,9 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
             >
               <Component {...pageProps} />
             </div>
-          </div>
-          <div className='fixed z-50 bottom-0 w-full'>
-            <Nav />
+            <div className='fixed z-50 bottom-0 left-0 w-full'>
+              <Nav />
+            </div>
           </div>
         </div>
       </rootContext.Provider>
