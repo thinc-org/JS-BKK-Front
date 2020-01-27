@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import Link from 'next/link';
 import { observer } from 'mobx-react-lite';
-import { rootContext } from '../../../_app';
 
 import Button from '../../../../commons/components/Button';
 import { RootStore } from '../../../../interfaces/Commons';
+import rootContext from '../../../../commons/context.root';
 
 const MyBadge: React.FC = observer(() => {
   const { userStore } = useContext<RootStore>(rootContext);
