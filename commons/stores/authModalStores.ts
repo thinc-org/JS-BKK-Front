@@ -1,17 +1,17 @@
 const createModalStore = (timeout: number, defaultOpen = true) => ({
   isModalOpen: defaultOpen,
+  hiddenClassTimer: null as NodeJS.Timeout | null,
   setModalOpen(isOpen: boolean) {
     if (this.isModalOpen === isOpen && !isOpen) {
       return;
     }
     this.isModalOpen = isOpen;
-    let hiddenClassTimer = null;
-    if (hiddenClassTimer) {
-      clearTimeout(hiddenClassTimer as NodeJS.Timeout);
+    if (this.hiddenClassTimer) {
+      clearTimeout(this.hiddenClassTimer);
     }
     if (!isOpen) {
       this.isAnimating = true;
-      hiddenClassTimer = setTimeout(() => {
+      this.hiddenClassTimer = setTimeout(() => {
         this.isAnimating = false;
         this.isHidden = true;
       }, timeout);
