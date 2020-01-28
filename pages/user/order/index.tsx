@@ -1,6 +1,6 @@
 import React, { useContext, useState, useCallback } from 'react';
 import { observer, useLocalStore } from 'mobx-react-lite';
-import { Restaurant } from '../../../interfaces/Orders';
+import { Choice } from '../../../interfaces/Orders';
 import OrderItem from './OrderItem';
 import Card from '../../../commons/components/Card';
 import Countdown from '../../../commons/components/order-food/CountDown';
@@ -13,14 +13,12 @@ import useOrders from '../../../commons/hooks/useOrders';
 const Orders: React.FC = observer(() => {
   const { userStore } = useContext<RootStore>(rootContext);
   const modalStore = useLocalStore(() => createModalStore(400, false));
-  const { data, error } = useOrders();
+  const { data } = useOrders();
   const [currentMenu, setCurrentMenu] = useState();
 
   const orderFood = useCallback(
-    (orderData: Restaurant) => {
-      // eslint-disable-next-line no-console
-      console.log(orderData, 'order item');
-      setCurrentMenu(orderData.choices);
+    (orderData: Choice) => {
+      setCurrentMenu(orderData);
       modalStore.setModalOpen(true);
     },
     [data]
@@ -28,20 +26,25 @@ const Orders: React.FC = observer(() => {
 
   const OrderItems =
     data &&
-    data.map(order => {
+    data.map(restaurant => {
+      const restaurantChoices = restaurant.choices.map(choice => (
+        <OrderItem
+          key={choice.id}
+          onOrder={() => orderFood(choice)}
+          order={choice}
+        />
+      ));
       return (
-        <div key={order.title} className='my-3'>
-          <OrderItem onOrder={() => orderFood(order)} order={order} />
+        <div key={restaurant.title} className='my-3'>
+          {restaurant.title}
+          <div>{restaurantChoices}</div>
         </div>
       );
     });
 
   return (
     <>
-      <SelectFoodModal
-        storeData={{ items: currentMenu, name: 'เพลินพุง Noodle & More' }}
-        modalStore={modalStore}
-      />
+      <SelectFoodModal menuChoice={currentMenu} modalStore={modalStore} />
       <div>
         <div className='text-sm '>
           Ordering as{' '}

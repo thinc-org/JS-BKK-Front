@@ -1,64 +1,80 @@
-import { useForm } from 'react-hook-form';
 import React, { useMemo } from 'react';
+import { observer } from 'mobx-react-lite';
 import Modal from '../Modal';
-import { Menu } from '../../../interfaces/Orders';
+import { Choice, Food } from '../../../interfaces/Orders';
 import { ModalStore } from '../../stores/authModalStores';
+import useFoodSelection from '../../hooks/useFoodSelection';
 
 interface PropTypes {
-  storeData: {
-    items: Menu[];
-    name: string;
-  };
+  menuChoice?: Choice;
   modalStore: ModalStore;
 }
 
-interface Test {
-  text: string;
-}
+const SelectFoodModal: React.FC<PropTypes> = observer(
+  ({ menuChoice, modalStore }) => {
+    const {
+      handleSubmit,
+      register,
+      multipleSupport,
+      errors,
+      validate
+    } = useFoodSelection(menuChoice);
 
-const SelectFoodModal: React.FC<PropTypes> = ({ storeData, modalStore }) => {
-  const { handleSubmit, register, errors } = useForm<Test>();
+    const onSubmit = (values: Food[]) => {
+      // eslint-disable-next-line no-console
+      console.log(values, 'value');
+    };
 
-  const onSubmit = (values: Test) => {
-    // eslint-disable-next-line no-console
-    console.log(values);
-  };
-
-  const FoodMenu = useMemo(
-    () =>
-      storeData?.items?.map(item => {
-        const Foods = item.choices.map(food => {
+    const FoodMenu = useMemo(
+      () =>
+        menuChoice?.customizations.map((item, index) => {
+          const Foods = item.choices.map((food, j) => {
+            const isMultipleSupport = multipleSupport[index];
+            return (
+              isMultipleSupport !== undefined && (
+                <div key={food.id}>
+                  <input
+                    required={!isMultipleSupport}
+                    id={item.id + j}
+                    // eslint-disable-next-line react/jsx-props-no-spreading
+                    {...(!isMultipleSupport && { value: food.id })}
+                    type={isMultipleSupport ? 'checkbox' : 'radio'}
+                    name={isMultipleSupport ? food.id : item.id}
+                    ref={register(
+                      isMultipleSupport
+                        ? { validate }
+                        : { required: 'Required' }
+                    )}
+                  />
+                  <p>{food.title}</p>
+                  {(errors as any)[food.id]}
+                </div>
+              )
+            );
+          });
           return (
-            <div key={food.id}>
-              <input
-                type='radio'
-                name={food.id}
-                ref={register({ required: 'Required' })}
-              />
-              <p>{food.title}</p>
-              {(errors as any)[food.id]}
+            <div key={item.id}>
+              <span className='font-extrabold'>{item.title}</span>
+              {Foods}
             </div>
           );
-        });
-        return (
-          <div key={item.id}>
-            <span className='font-extrabold'>{item.title}</span>
-            {Foods}
-          </div>
-        );
-      }),
-    [storeData?.items]
-  );
+        }),
+      [menuChoice?.customizations, multipleSupport]
+    );
 
-  return useMemo(
-    () => (
-      <Modal modalStore={modalStore}>
-        <h2 className='text-base font-extrabold'>{storeData?.name}</h2>
-        <form onSubmit={handleSubmit(onSubmit)}>{FoodMenu}</form>
-      </Modal>
-    ),
-    [storeData, modalStore]
-  );
-};
+    return useMemo(
+      () => (
+        <Modal modalStore={modalStore}>
+          <h2 className='text-base font-extrabold'>{menuChoice?.title}</h2>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            {FoodMenu}
+            <button type='submit'>submit</button>
+          </form>
+        </Modal>
+      ),
+      [menuChoice, modalStore, multipleSupport]
+    );
+  }
+);
 
 export default SelectFoodModal;
