@@ -1,17 +1,18 @@
-import { useState } from 'react';
-import { FetchResult } from '../../interfaces/Commons';
+import { useLocalStore } from 'mobx-react-lite';
 
-const useFetcher = <T>(fetcher: () => Promise<T>): FetchResult<T> => {
-  const [data, setData] = useState<T | null>(null);
-  const [error, setError] = useState(null);
+const useDataPromise = <T>(fetcher: () => Promise<T>) => {
+  const dataStore = useLocalStore(() => ({
+    data: null as T | null,
+    error: null
+  }));
   fetcher()
-    .then(result => {
-      setData(result);
+    .then(data => {
+      dataStore.data = data;
     })
-    .catch(err => {
-      setError(err);
+    .catch(error => {
+      dataStore.error = error;
     });
-  return { data, error };
+  return dataStore;
 };
 
-export default useFetcher;
+export default useDataPromise;

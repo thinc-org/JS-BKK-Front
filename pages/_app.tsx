@@ -19,7 +19,7 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
   const rootStore = useLocalStore(
     (): RootStore => ({
       userStore: createUserStore(),
-      authModalStore: createModalStore(400)
+      authModalStore: createModalStore(140)
     })
   );
   const {

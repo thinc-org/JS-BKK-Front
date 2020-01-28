@@ -1,5 +1,6 @@
 import { Restaurant } from '../../interfaces/Orders';
 import { FetchResult } from '../../interfaces/Commons';
+// import useFetcher from './_useFetcher';
 import useFetcher from './useFetcher';
 
 const useOrders = (): FetchResult<Restaurant[]> => {
