@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { Choice, Food } from '../../../interfaces/Orders';
 import { ModalStore } from '../../stores/authModalStores';
 import useFoodSelection from '../../hooks/useFoodSelection';
+import Button from '../Button';
 
 interface PropTypes {
   menuChoice?: Choice;
@@ -31,7 +32,6 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
             isMultipleSupport !== undefined && (
               <div key={food.id}>
                 <input
-                  required={!isMultipleSupport}
                   id={item.id + j}
                   // eslint-disable-next-line react/jsx-props-no-spreading
                   {...(!isMultipleSupport && { value: food.id })}
@@ -42,7 +42,7 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
                   )}
                 />
                 <p>{food.title}</p>
-                {(errors as any)[food.id]}
+                {food.availability && <p>{food.availability} Left</p>}
               </div>
             )
           );
@@ -56,18 +56,23 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
       }),
     [menuChoice?.customizations, multipleSupport]
   );
-
   return useMemo(
     () => (
       <>
-        <h2 className='text-base font-extrabold'>{menuChoice?.title}</h2>(
+        <h2 className='text-base font-extrabold'>{menuChoice?.title}</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           {FoodMenu}
-          <button type='submit'>submit</button>
+          <div className='flex flex-col'>
+            <span>
+              {Object.entries(errors).length !== 0 &&
+                'all catagories is not selected'}
+            </span>
+            <Button type='submit'>submit</Button>
+          </div>
         </form>
       </>
     ),
-    [menuChoice, modalStore, multipleSupport]
+    [menuChoice, modalStore, multipleSupport, errors]
   );
 };
 

@@ -8,13 +8,15 @@ interface propTypes {
 }
 
 const OrderItem: React.FC<propTypes> = ({ order = {}, onOrder }) => {
-  const { title } = order;
+  const { title, availability, info } = order;
 
   return (
     <div className='flex justify-between text-xs leading-none border border-black px-4 py-3'>
       <div className='flex flex-col'>
         <div className='mb-3'>
           <div className='text-base my-1'>{title}</div>
+          <div>{availability} Left</div>
+          <div>{info}</div>
         </div>
       </div>
       <div>
