@@ -12,9 +12,18 @@ const Nav: React.FC<{}> = () => {
     }
   }, [userStore]);
 
+  const handleModalClose = useCallback(() => {
+    if (!userStore.isAuthenticated()) {
+      authModalStore.setModalOpen(false);
+      authModalStore.isHidden = true;
+      authModalStore.isAnimating = false;
+    }
+  }, [userStore]);
+
   return (
     <nav className='bg-white flex flex-row items-center justify-around text-xs'>
       <MyLink
+        onClick={handleModalClose}
         prefetch
         href='/'
         className='focus:outline-none text-center flex flex-col items-center py-2 w-1/3'
