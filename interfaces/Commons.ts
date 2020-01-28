@@ -14,3 +14,8 @@ export interface RootStore {
   userStore: UserStore;
   authModalStore: ModalStore;
 }
+
+export interface FetchResult<T> {
+  data: T | null;
+  error: any;
+}

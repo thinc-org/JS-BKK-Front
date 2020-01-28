@@ -56,7 +56,9 @@ const AuthModal: React.FC = observer(() => {
   return (
     <Modal noCloseButton modalStore={authModalStore}>
       <Card className='flex flex-col items-center'>
-        <p className='font-bold text-bg mb-4'>To continue, Please log in</p>
+        <p className='font-extrabold text-bg mb-4'>
+          To continue, Please log in
+        </p>
         <p className='text-base leading-tight'>
           Meet other people through our networking activity and win special
           prizes.

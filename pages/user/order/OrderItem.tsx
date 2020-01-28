@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
-import { Order } from '../../../interfaces/Orders';
+import { Restaurant } from '../../../interfaces/Orders';
 import Tag from '../../../commons/components/Tag';
 import Button from '../../../commons/components/Button';
 
 interface propTypes {
-  order: Order;
+  order: Restaurant;
   onOrder: (data?: any) => any;
 }
 
