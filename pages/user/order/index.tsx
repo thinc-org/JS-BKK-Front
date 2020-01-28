@@ -7,6 +7,7 @@ import OrderItem from './component.order-item';
 import Card from '../../../commons/components/Card';
 import Countdown from './countDown';
 import { RootStore } from '../../../interfaces/interface.commons';
+import OrderFood from './OrderFood';
 
 const Orders: React.FC = observer(() => {
   const { userStore } = useContext<RootStore>(rootContext);
@@ -59,6 +60,7 @@ const Orders: React.FC = observer(() => {
         <p className='mb-4'>Please select your menu before time limit:</p>
         <Countdown className='flex justify-center text-3xl' />
       </Card>
+      <OrderFood className="m-4"/>
       <div className='flex flex-col items-center'>
         <div className='w-64'>{OrderItems}</div>
       </div>
