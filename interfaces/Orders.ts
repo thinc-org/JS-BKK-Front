@@ -15,7 +15,7 @@ export interface Choice {
 export interface Menu {
   id: string;
   title: string;
-  textLength?: string; // do we really need this
+  textLength?: string;
   allowedChoices?: number;
   choices: Food[];
 }

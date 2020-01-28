@@ -20,6 +20,7 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
 
   const onSubmit = (values: Food[]) => {
     // eslint-disable-next-line no-console
+    modalStore.setModalOpen(false);
     console.log(values, 'value');
   };
 
