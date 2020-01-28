@@ -9,9 +9,13 @@ interface propTypes {
 
 const OrderItem: React.FC<propTypes> = ({ order = {}, onOrder }) => {
   const { title, availability, info } = order;
-
+  const disabled = availability === 0;
   return (
-    <div className='flex justify-between text-xs leading-none border border-black px-4 py-3'>
+    <div
+      className={`flex justify-between text-xs leading-none border border-black px-4 py-3 ${
+        disabled ? 'line-through' : ''
+      }`}
+    >
       <div className='flex flex-col'>
         <div className='mb-3'>
           <div className='text-base my-1'>{title}</div>
@@ -21,6 +25,7 @@ const OrderItem: React.FC<propTypes> = ({ order = {}, onOrder }) => {
       </div>
       <div>
         <Button
+          disabled={disabled}
           onClick={() => onOrder(order)}
           type='button'
           className='bg-black text-white py-2 px-4 truncate'

@@ -501,7 +501,7 @@ const useOrders = (): FetchResult<Restaurant[]> => {
                   {
                     id: 'HongKongNoodle',
                     title: 'Hong Kong Noodle',
-                    availability: 30,
+                    availability: 0,
                     info:
                       '- Rice with Laab and Spicy Chicken\n- Egg Noodle with Spicy Chicken\n- Green Noodle with Roasted Duck\n- Egg Noodle with Honey Roasted Pork\n- Egg Noodle with Chicken and Mala Sauce\n',
                     customizations: [
