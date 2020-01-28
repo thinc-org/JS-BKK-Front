@@ -1,5 +1,5 @@
 import Card from '../../../commons/components/Card';
-import Button from '../../../commons/components/component.button';
+import Button from '../../../commons/components/Button';
 
 // import React, { useState, useEffect } from 'react';
 
