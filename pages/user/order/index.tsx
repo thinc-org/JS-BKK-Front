@@ -1,41 +1,41 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { observer, useLocalStore } from 'mobx-react-lite';
 import useMockApi from '../../../commons/hooks/useMockApi';
-import { Order } from '../../../interfaces/Orders';
+import { Restaurant } from '../../../interfaces/Orders';
 import OrderItem from './OrderItem';
 import Card from '../../../commons/components/Card';
 import Countdown from './CountDown';
 import { RootStore } from '../../../interfaces/Commons';
-import Modal from '../../../commons/components/Modal';
-import createModalStore from '../../../commons/stores/authModalStores';
 import rootContext from '../../../commons/context.root';
+import SelectFoodModal from '../../../commons/components/order-food/SelectFoodModal';
+import createModalStore from '../../../commons/stores/authModalStores';
 
 const Orders: React.FC = observer(() => {
   const { userStore } = useContext<RootStore>(rootContext);
-  const [orders, setOrders] = useState<Order[] | undefined | null>();
+  const [restaurants, setRestaurant] = useState<Restaurant[] | null>(null);
   const modalStore = useLocalStore(() => createModalStore(400, false));
   const mockApi = useMockApi('order');
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await mockApi();
-      setOrders(result);
+      setRestaurant(result);
     };
     fetchData();
   }, []);
 
   const orderFood = useCallback(
-    (orderData: Order) => {
+    (orderData: Restaurant) => {
       // eslint-disable-next-line no-console
       console.log(orderData, 'order item');
       modalStore.setModalOpen(true);
     },
-    [orders]
+    [restaurants]
   );
 
   const OrderItems =
-    orders &&
-    orders.map(order => {
+    restaurants &&
+    restaurants.map(order => {
       return (
         <div key={order.key} className='my-3'>
           <OrderItem onOrder={orderFood} order={order} />
@@ -45,21 +45,15 @@ const Orders: React.FC = observer(() => {
 
   return (
     <>
-      <Modal modalStore={modalStore}>
-        <button
-          onClick={() => {
-            modalStore.setModalOpen(false);
-          }}
-        >
-          Close 2
-        </button>
-      </Modal>
+      <SelectFoodModal
+        storeData={{ items: [], name: 'เพลินพุง Noodle & More' }}
+        modalStore={modalStore}
+      />
       <div>
         <div className='text-sm '>
           Ordering as{' '}
-          <span className='font-bold'>{userStore.userInfo?.username}</span>
+          <span className='font-extrabold'>{userStore.userInfo?.username}</span>
         </div>
-
         <Card className='m-4'>
           <p className='mb-4'>
             We have a lot of food for you to choose! We have partnered with

@@ -17,8 +17,16 @@ const Modal: React.FC<PropTypes> = observer(
 
     const content = useMemo(() => {
       return (
-        <Card className='flex flex-col items-center '>
-          {!noCloseButton && <button onClick={closeModal}>Close</button>}
+        <Card className='flex flex-col items-center relative'>
+          {!noCloseButton && (
+            <button
+              style={{ top: '-20px', right: '-20px' }}
+              className='absolute p-3 bg-white rounded-full shodow-circle'
+              onClick={closeModal}
+            >
+              <img src='/icons/crossmark.svg' alt='close' />
+            </button>
+          )}
           {children}
         </Card>
       );
@@ -31,7 +39,7 @@ const Modal: React.FC<PropTypes> = observer(
       : `${isAnimating && !isModalOpen ? 'opacity-0' : ''} ${
           isHidden ? 'invisible opacity-0' : ''
         } fade`;
-    const MODAL_CLASSES = `fixed flex justify-center pin-l pin-t my-4 px-4 z-50 ${ANIMATION_CLASSES}`;
+    const MODAL_CLASSES = `absolute flex justify-center my-4 px-4 z-50 ${ANIMATION_CLASSES}`;
 
     return <div className={MODAL_CLASSES}>{content}</div>;
   }

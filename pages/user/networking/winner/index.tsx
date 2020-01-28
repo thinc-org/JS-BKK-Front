@@ -10,15 +10,15 @@ const UserProfile: React.FC = observer(() => {
     <div className='h-full flex flex-col'>
       <div className='text-sm'>
         Ordering as{' '}
-        <span className='font-bold'>{userStore.userInfo?.username}</span>
+        <span className='font-extrabold'>{userStore.userInfo?.username}</span>
       </div>
       <div className='h-full text-center w-full flex flex-col items-center justify-center'>
         <div className='max-w-small'>
-          <div className='mb-5 text-2xl font-bold text-center'>
+          <div className='mb-5 text-2xl font-extrabold text-center'>
             Congratulations! You are the winner.
           </div>
           <div className='text-center'>
-            Please <span className='font-bold'>claim your reward</span>
+            Please <span className='font-extrabold'>claim your reward</span>
             at the information desk.
           </div>
         </div>

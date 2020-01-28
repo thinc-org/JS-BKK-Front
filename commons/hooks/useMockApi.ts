@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
-import { Order } from '../../interfaces/Orders';
+import { Restaurant } from '../../interfaces/Orders';
 
 const useMockApi = (arg: string) => {
-  let result: null | Order[] = null;
+  let result: null | Restaurant[] = null;
   switch (arg) {
     case 'order':
       result = [
@@ -25,7 +25,7 @@ const useMockApi = (arg: string) => {
           merchant: 'merchant 1',
           genres: ['pork', 'chicken']
         }
-      ] as Order[];
+      ] as Restaurant[];
       break;
     default:
       result = null;
@@ -33,7 +33,7 @@ const useMockApi = (arg: string) => {
   }
   return useCallback(
     () =>
-      new Promise<Order[] | null>((resolve, reject) => {
+      new Promise<Restaurant[] | null>((resolve, reject) => {
         if (result === null) reject();
         setTimeout(() => resolve(result), 500);
       }),

@@ -40,7 +40,7 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
             <AuthModal />
             <div
               className={
-                isAnimating || !isHidden || isModalOpen ? 'hidden' : ''
+                isAnimating || !isHidden || isModalOpen ? 'hidden' : 'flex'
               }
             >
               <Component {...pageProps} />
