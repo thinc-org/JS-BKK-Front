@@ -1,19 +1,28 @@
 export interface Restaurant {
-  key: number;
   title: string;
-  merchant: string;
-  genres: string[];
-  allergics?: string[];
-  menu: Menu[];
+  choices: Choice[];
+  allowedChoices?: number;
+}
+
+export interface Choice {
+  id: string;
+  title: string;
+  availability: number;
+  info: string;
+  customizations: Menu[];
 }
 
 export interface Menu {
-  name: string;
-  thaiName: string;
-  foods: Food[];
+  id: string;
+  title: string;
+  textLength?: string; // do we really need this
+  allowedChoices?: number;
+  choices: Food[];
 }
 
 export interface Food {
-  name: string;
-  thaiName: string;
+  id: string;
+  title: string;
+  availability?: number;
+  info?: string;
 }

@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState, useCallback } from 'react';
+import React, { useContext, useState, useCallback } from 'react';
 import { observer, useLocalStore } from 'mobx-react-lite';
-import useMockApi from '../../../commons/hooks/useMockApi';
 import { Restaurant } from '../../../interfaces/Orders';
 import OrderItem from './OrderItem';
 import Card from '../../../commons/components/Card';
@@ -9,36 +8,30 @@ import { RootStore } from '../../../interfaces/Commons';
 import rootContext from '../../../commons/context.root';
 import SelectFoodModal from '../../../commons/components/order-food/SelectFoodModal';
 import createModalStore from '../../../commons/stores/authModalStores';
+import useOrders from '../../../commons/hooks/useOrders';
 
 const Orders: React.FC = observer(() => {
   const { userStore } = useContext<RootStore>(rootContext);
-  const [restaurants, setRestaurant] = useState<Restaurant[] | null>(null);
   const modalStore = useLocalStore(() => createModalStore(400, false));
-  const mockApi = useMockApi('order');
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await mockApi();
-      setRestaurant(result);
-    };
-    fetchData();
-  }, []);
+  const { data, error } = useOrders();
+  const [currentMenu, setCurrentMenu] = useState();
 
   const orderFood = useCallback(
     (orderData: Restaurant) => {
       // eslint-disable-next-line no-console
       console.log(orderData, 'order item');
+      setCurrentMenu(orderData.choices);
       modalStore.setModalOpen(true);
     },
-    [restaurants]
+    [data]
   );
 
   const OrderItems =
-    restaurants &&
-    restaurants.map(order => {
+    data &&
+    data.map(order => {
       return (
-        <div key={order.key} className='my-3'>
-          <OrderItem onOrder={orderFood} order={order} />
+        <div key={order.title} className='my-3'>
+          <OrderItem onOrder={() => orderFood(order)} order={order} />
         </div>
       );
     });
@@ -46,7 +39,7 @@ const Orders: React.FC = observer(() => {
   return (
     <>
       <SelectFoodModal
-        storeData={{ items: [], name: 'เพลินพุง Noodle & More' }}
+        storeData={{ items: currentMenu, name: 'เพลินพุง Noodle & More' }}
         modalStore={modalStore}
       />
       <div>
