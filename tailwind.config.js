@@ -185,7 +185,8 @@ module.exports = {
     }),
     maxHeight: {
       full: '100%',
-      screen: '100vh'
+      screen: '100vh',
+      '75vh': '75vh'
     },
     maxWidth: {
       small: '225px',

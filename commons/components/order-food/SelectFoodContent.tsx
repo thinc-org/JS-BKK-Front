@@ -61,7 +61,7 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
     () => (
       <>
         <h2 className='text-base font-extrabold'>{menuChoice?.title}</h2>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form className='overflow-y-scroll' onSubmit={handleSubmit(onSubmit)}>
           {FoodMenu}
           <div className='flex flex-col'>
             <span>
