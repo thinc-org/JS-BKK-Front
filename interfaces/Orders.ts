@@ -13,6 +13,13 @@ export interface Menu {
   foods: Food[];
 }
 
+export interface MyOrder {
+  food: string;
+  drink: string;
+  spice: string;
+  dessert: string
+}
+
 export interface Food {
   name: string;
   thaiName: string;

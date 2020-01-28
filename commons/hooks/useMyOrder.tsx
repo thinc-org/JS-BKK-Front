@@ -1,21 +1,24 @@
-import { useState, useEffect } from 'react';
+import useFetcher from './useFetcher';
+import { FetchResult } from '../../interfaces/Commons';
+import { MyOrder } from '../../interfaces/Orders';
 
-const useMyOrder = (
-  food: string,
-  spiceLevel: string,
-  drink: string
-): [string, string, string] => {
-  const [orderedFood, setOrderedFood] = useState();
-  const [orderedSpice, setOrderedSpice] = useState();
-  const [orderedDrink, setOrderDrink] = useState()
-
-  useEffect(() => {
-    setOrderedFood(food);
-    setOrderDrink(drink);
-    setOrderedSpice(spiceLevel);
-  }, [food, spiceLevel, drink])
-
-  return [orderedFood, orderedSpice, orderedDrink];
+const useMyOrder = (): FetchResult<MyOrder> => {
+  const myOrder = useFetcher<MyOrder>(
+    () =>
+      new Promise<MyOrder>(resolve => {
+        setTimeout(
+          () =>
+            resolve({
+              food: 'Chicken Green Curry Spagehetti',
+              drink: 'Coke',
+              spice: 'Level 2',
+              dessert: 'Pudding'
+            } as MyOrder),
+          300
+        );
+      })
+  );
+  return myOrder;
 };
 
 export default useMyOrder;

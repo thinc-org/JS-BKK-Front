@@ -1,6 +1,6 @@
 import Card from '../../../commons/components/Card';
 import Button from '../../../commons/components/Button';
-
+import MyOrder from '../../../commons/hooks/useMyOrder';
 // import React, { useState, useEffect } from 'react';
 
 interface Props {
@@ -8,26 +8,34 @@ interface Props {
 }
 
 const OrderFood: React.FC<Props> = ({ className }) => {
+  const { data } = MyOrder();
+
   return (
     <div className={className}>
+      <h2 className='text-white text-2xl font-semibold my-2'>
+        Your Food Selection
+      </h2>
       <Card className='flex flex-col'>
-        <h3 className='flex justify-center'>I am Thai Pasta</h3>
+        <h3 className='flex justify-center font-bold'>I am Thai Pasta</h3>
         <div className='my-4'>
-          <span>Food</span>
-          <p className='font-bold'>Chicken Green Curry Spagehetti</p>
-          <p className='font-bold'>หฟกเหกดเหกดเหกดเหกด้</p>
+          <span>Food (อาหาร):</span>
+          <p className='font-bold'>{data?.food}</p>
+        </div>
+        <div className='my-4 '>
+          <span>Spice level (ความเผ็ด):</span>
+          <p className='font-bold'>{data?.spice}</p>
         </div>
         <div className='my-4'>
-          <span>Spice Level</span>
-          <p className='font-bold'>Level 2</p>
-          <p className='font-bold'>ฟหกดฟหเ</p>
+          <span>Drink (เครื่องดื่ม):</span>
+          <p className='font-bold'>{data?.drink}</p>
         </div>
         <div className='my-4'>
-          <span>Drink</span>
-          <p className='font-bold'>Drinking</p>
-          <p className='font-bold'>ฟหกเฟหกเ</p>
+          <span>Dessert (ขนมหว่าน):</span>
+          <p className='font-bold'>{data?.dessert}</p>
         </div>
-        <Button type="button" className="bg-yellow-dark rounded p-2 m-4">Change Your mind?</Button>
+        <Button type='button' className='bg-yellow-dark rounded p-2 m-4 text-xl'>
+          Change Your mind?
+        </Button>
       </Card>
     </div>
   );
