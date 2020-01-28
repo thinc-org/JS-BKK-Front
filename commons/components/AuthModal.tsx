@@ -2,10 +2,11 @@
 import React, { useCallback, useState, useContext } from 'react';
 import { observer } from 'mobx-react-lite';
 import dynamic from 'next/dynamic';
-import { rootContext } from '../../pages/_app';
-import { RootStore } from '../../interfaces/interface.commons';
-import Button from './component.button';
+import { RootStore } from '../../interfaces/Commons';
+import Button from './Button';
 import Card from './Card';
+import Modal from './Modal';
+import rootContext from '../context.root';
 
 const QrReader = dynamic(() => import('react-qr-reader'), {
   ssr: false,
@@ -13,12 +14,7 @@ const QrReader = dynamic(() => import('react-qr-reader'), {
   loading: () => <p>Loading</p>
 });
 
-interface PropTypes {
-  isAnimating: boolean;
-  isHidden: boolean;
-}
-
-const AuthModal: React.FC<PropTypes> = observer(({ isAnimating, isHidden }) => {
+const AuthModal: React.FC = observer(() => {
   const [loginError, setLoginError] = useState<string | null>(null);
   const [wrongInputFormat, setWrongInputFormat] = useState(false);
   const [isScanningQR, setIsScanningQR] = useState<boolean>(false);
@@ -58,12 +54,8 @@ const AuthModal: React.FC<PropTypes> = observer(({ isAnimating, isHidden }) => {
   }, []);
 
   return (
-    <div
-      className={`fixed flex justify-center pin-l pin-t my-4 px-4 z-50 ${
-        isAnimating ? 'fade' : ''
-      } ${isHidden ? 'hidden' : ''}`}
-    >
-      <Card className='flex flex-col items-center '>
+    <Modal noCloseButton modalStore={authModalStore}>
+      <Card className='flex flex-col items-center'>
         <p className='font-bold text-bg mb-4'>To continue, Please log in</p>
         <p className='text-base leading-tight'>
           Meet other people through our networking activity and win special
@@ -107,7 +99,7 @@ const AuthModal: React.FC<PropTypes> = observer(({ isAnimating, isHidden }) => {
           {loginError}
         </form>
       </Card>
-    </div>
+    </Modal>
   );
 });
 

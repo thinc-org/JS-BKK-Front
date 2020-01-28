@@ -1,7 +1,7 @@
 import { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { when } from 'mobx';
 import { authenticate } from '../../helpers/util';
-import { RootStore } from '../../interfaces/interface.commons';
+import { RootStore } from '../../interfaces/Commons';
 
 const useAuthGuard = (
   rootStore: RootStore
@@ -42,7 +42,7 @@ const useAuthGuard = (
     const isInGuardedRoute = window.location.href.includes('/user');
     if (!waiting && isInGuardedRoute && !userStore.isAuthenticated()) {
       authModalStore.setModalOpen(true);
-    } else {
+    } else if (!waiting) {
       authModalStore.setModalOpen(false);
     }
   }, [

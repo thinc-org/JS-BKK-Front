@@ -1,10 +1,10 @@
 import React from 'react';
-import { Onclick } from '../../interfaces/interface.commons';
+import { Onclick } from '../../interfaces/Commons';
 
 interface Props {
   className?: string;
   children?: React.ReactNode;
-  type: "submit" | "button" | "reset";
+  type: 'submit' | 'button' | 'reset';
   onClick?: Onclick;
 }
 

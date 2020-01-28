@@ -1,4 +1,4 @@
-import { Badge, BadgeType } from '../interfaces/interface.badge';
+import { Badge, BadgeType } from '../interfaces/Badge';
 
 // eslint-disable-next-line import/prefer-default-export
 export const authenticate = (token: string): Promise<any> => {
@@ -20,6 +20,6 @@ export const authenticate = (token: string): Promise<any> => {
       } else {
         reject();
       }
-    }, 1000);
+    }, 300);
   });
 };
