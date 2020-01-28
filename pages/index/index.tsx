@@ -17,6 +17,7 @@ const TweetButton: React.FC = () => {
       href='https://twitter.com/intent/tweet?hashtags=jsbangkok'
       target='_blank'
       rel='noopener noreferrer'
+      data-testid='tweet-button'
       className='block mt-12 py-3 text-center font-bg bg-yellow-dark text-black rounded'
     >
       Tweet #jsbangkok
