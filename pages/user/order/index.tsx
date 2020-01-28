@@ -3,7 +3,7 @@ import { observer, useLocalStore } from 'mobx-react-lite';
 import { Restaurant } from '../../../interfaces/Orders';
 import OrderItem from './OrderItem';
 import Card from '../../../commons/components/Card';
-import Countdown from './CountDown';
+import Countdown from '../../../commons/components/order-food/CountDown';
 import { RootStore } from '../../../interfaces/Commons';
 import rootContext from '../../../commons/context.root';
 import SelectFoodModal from '../../../commons/components/order-food/SelectFoodModal';
