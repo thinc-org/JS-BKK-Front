@@ -12,9 +12,8 @@ function useAnnouncement() {
     });
     (async () => {
       const firebase = await getFirebase();
-      const ref = firebase.database().ref('environments/test/announcement');
+      const ref = firebase.getEnvRef().child('announcement');
       const onValue = (snapshot: any) => {
-        console.log('z');
         setAnnouncement(snapshot.val());
       };
       ref.on('value', onValue, console.error);
@@ -34,7 +33,10 @@ export default function Announcement() {
   return (
     <section>
       <h2 id={headerId}>Announcement</h2>
-      <p aria-labelledby={headerId}>{announcement.text}</p>
+      <p
+        aria-labelledby={headerId}
+        dangerouslySetInnerHTML={{ __html: announcement.text }}
+      />
     </section>
   );
 }

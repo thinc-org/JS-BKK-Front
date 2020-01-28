@@ -1,3 +1,3 @@
 export async function getFirebase() {
-  return import('./firebase');
+  return import(/* webpackChunkName: "firebase" */ './firebase');
 }
