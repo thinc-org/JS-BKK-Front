@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useId } from 'react-id-generator';
 import { getFirebase } from '../../commons/firebase';
+
 function useAnnouncement() {
-  const [announcement, setAnnouncement] = useState<{ text: string } | null>(
-    null
-  );
+  const [announcement, setAnnouncement] = useState<
+    { text: string } | 'loading' | null
+  >('loading');
   useEffect(() => {
     let cancel: () => void;
     const cancelPromise = new Promise(resolve => {
@@ -29,6 +30,9 @@ function useAnnouncement() {
 export default function Announcement() {
   const [headerId] = useId(1, 'Announcement');
   const announcement = useAnnouncement();
+  if (announcement === 'loading') {
+    return <section>(Loading announcement)</section>;
+  }
   if (!announcement) return null;
   return (
     <section>
