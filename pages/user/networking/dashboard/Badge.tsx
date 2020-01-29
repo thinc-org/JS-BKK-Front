@@ -1,5 +1,5 @@
 import React from 'react';
-import { Badge } from '../../../../interfaces/interface.badge';
+import { Badge } from '../../../../interfaces/Badge';
 
 interface Props extends Badge {}
 

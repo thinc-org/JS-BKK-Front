@@ -1,6 +1,6 @@
-import { UserInfo, UserStore } from '../../interfaces/interface.user';
+import { UserInfo } from '../../interfaces/Users';
 
-const createUserStore = (): UserStore => ({
+const createUserStore = () => ({
   userInfo: undefined as UserInfo | undefined,
   token: '' as string,
   setUserInfo(userInfo: UserInfo | undefined): void {
@@ -19,5 +19,7 @@ const createUserStore = (): UserStore => ({
     localStorage.removeItem('token');
   }
 });
+
+export type UserStore = ReturnType<typeof createUserStore>;
 
 export default createUserStore;
