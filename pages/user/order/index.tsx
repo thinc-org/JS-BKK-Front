@@ -39,11 +39,9 @@ const Orders: React.FC = observer(() => {
       data &&
       data.map(restaurant => {
         return (
-          <div key={restaurant.title} className='my-3'>
-            {restaurant.title}
-            <div>
-              <RestaurantList restaurants={restaurant.choices} />
-            </div>
+          <div key={restaurant.title} className='my-3 mx-4'>
+            <h4 className='text-white text-lg mb-4'>{restaurant.title}</h4>
+            <RestaurantList restaurants={restaurant.choices} />
           </div>
         );
       })
@@ -72,6 +70,9 @@ const Orders: React.FC = observer(() => {
           <Countdown className='flex justify-center text-3xl' />
         </Card>
         <div className='flex flex-col items-center'>
+          <h3 className='w-full px-4 text-white text-xl font-bold'>
+            Select your lunch
+          </h3>
           <currentMenuContext.Provider value={{ orderFood }}>
             {OrderItems}
           </currentMenuContext.Provider>

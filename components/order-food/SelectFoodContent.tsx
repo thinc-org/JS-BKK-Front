@@ -31,49 +31,75 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
           const isMultipleSupport = multipleSupport[index];
           return (
             isMultipleSupport !== undefined && (
-              <div key={food.id}>
-                <input
-                  id={item.id + j}
-                  // eslint-disable-next-line react/jsx-props-no-spreading
-                  {...(!isMultipleSupport && { value: food.id })}
-                  type={isMultipleSupport ? 'checkbox' : 'radio'}
-                  name={isMultipleSupport ? food.id : item.id}
-                  ref={register(
-                    isMultipleSupport ? { validate } : { required: 'Required' }
+              <div className='flex items-center w-auto mt-2' key={food.id}>
+                <label
+                  htmlFor={item.id + j}
+                  className='flex items-center cursor-pointer'
+                >
+                  {isMultipleSupport ? (
+                    <input
+                      id={item.id + j}
+                      type='radio'
+                      name={item.id}
+                      ref={register({ validate })}
+                    />
+                  ) : (
+                    <>
+                      <input
+                        id={item.id + j}
+                        className='hidden'
+                        value={food.id}
+                        type='radio'
+                        name={item.id}
+                        ref={register({ required: 'Required' })}
+                      />
+                      <span className='flex-shrink-0 w-4 h-4 inline-block border border-grey' />
+                    </>
                   )}
-                />
-                <p>{food.title}</p>
-                {food.availability && <p>{food.availability} Left</p>}
+                  <div className='ml-2'>
+                    <p>{food.title}</p>
+                    {food.availability && <p>{food.availability} Left</p>}
+                  </div>
+                </label>
               </div>
             )
           );
         });
+
         return (
-          <div key={item.id}>
-            <span className='font-extrabold'>{item.title}</span>
+          <div className='mt-5' key={item.id}>
+            <span className='font-extrabold text-base'>{item.title}</span>
             {Foods}
           </div>
         );
       }),
     [menuChoice?.customizations, multipleSupport]
   );
-  return useMemo(
-    () => (
-      <>
-        <h2 className='text-base font-extrabold'>{menuChoice?.title}</h2>
-        <form className='overflow-y-scroll' onSubmit={handleSubmit(onSubmit)}>
-          {FoodMenu}
-          <div className='flex flex-col'>
-            <span>
-              {Object.entries(errors).length !== 0 &&
-                'all catagories is not selected'}
-            </span>
-            <Button type='submit'>submit</Button>
-          </div>
-        </form>
-      </>
-    ),
-    [menuChoice, modalStore, multipleSupport, errors]
+
+  return (
+    <>
+      <h2 className='text-base font-extrabold text-center'>
+        {menuChoice?.title}
+      </h2>
+      <form
+        className='overflow-y-auto h-70vh flex flex-col justify-between'
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div>{FoodMenu}</div>
+        <div className='flex flex-col'>
+          <span>
+            {Object.entries(errors).length !== 0 &&
+              'all catagories is not selected'}
+          </span>
+          <Button
+            className='w-auto py-2 bg-yellow-dark rounded-bg text-lg mt-5'
+            type='submit'
+          >
+            Confirm
+          </Button>
+        </div>
+      </form>
+    </>
   );
 };
 

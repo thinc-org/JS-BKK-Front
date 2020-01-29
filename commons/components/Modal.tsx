@@ -17,15 +17,11 @@ const Modal: React.FC<PropTypes> = observer(
 
     const content = useMemo(() => {
       return (
-        <Card
-          className={`flex flex-col items-center relative ${
-            noCloseButton ? 'max-h-75vh' : ''
-          }`}
-        >
+        <Card className='flex flex-col items-center relative'>
           {!noCloseButton && (
             <button
               style={{ top: '-20px', right: '-20px' }}
-              className='absolute p-3 bg-white rounded-full shodow-circle'
+              className='absolute p-3 bg-white rounded-full shadow-circle'
               onClick={closeModal}
             >
               <img src='/icons/crossmark.svg' alt='close' />

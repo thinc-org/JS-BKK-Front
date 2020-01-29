@@ -25,6 +25,15 @@ body {
   }
 }
 
+input[type='radio'] + label span:hover,
+input[type='radio'] + label:hover span {
+  transform: scale(1.2);
+}
+
+input[type='radio']:checked + span {
+  background: #f7d455 url('/icons/checked.svg') no-repeat center;
+}
+
 @tailwind components;
 
 @tailwind utilities;

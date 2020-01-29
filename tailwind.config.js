@@ -42,6 +42,7 @@ module.exports = {
       '48': '12rem',
       '56': '14rem',
       '64': '16rem',
+      '70vh': '70vh',
       '55px': '55px'
     },
     backgroundColor: theme => theme('colors'),
@@ -177,8 +178,7 @@ module.exports = {
     }),
     maxHeight: {
       full: '100%',
-      screen: '100vh',
-      '75vh': '75vh'
+      screen: '100vh'
     },
     maxWidth: {
       small: '225px',

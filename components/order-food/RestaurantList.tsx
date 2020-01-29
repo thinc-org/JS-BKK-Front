@@ -25,7 +25,9 @@ const ListItem: React.FC<ListItemProps> = ({ lastItem, restaurant }) => {
         {info && <div className='text-normal'>{info}</div>}
       </div>
       <div className='flex'>
-        <div className='font-bold text-bkk-blue'>{availability} left</div>
+        <div className='font-bold text-bkk-blue whitespace-no-wrap'>
+          {availability} left
+        </div>
       </div>
     </div>
   );
@@ -35,7 +37,7 @@ const RestaurantList: React.FC<{ restaurants: Choice[] }> = ({
   restaurants
 }) => {
   return (
-    <Card className='m-4' noPadding>
+    <Card noPadding>
       {restaurants.map((restaurant, index) => (
         <ListItem
           restaurant={restaurant}
