@@ -32,8 +32,8 @@ export function useAuthenticationState(): AuthenticationState {
     'loading'
   );
   const [profileSnapshot, setProfileSnapshot] = useState<
-    FirestoreSnapshot | null | 'loading'
-  >(null);
+    FirestoreSnapshot | 'loading'
+  >('loading');
 
   useEffect(() => {
     getFirebase().then(setFirebase);
@@ -47,11 +47,11 @@ export function useAuthenticationState(): AuthenticationState {
   }, [firebase]);
 
   useEffect(() => {
-    if (firebaseUser === 'loading') {
+    if (!firebase || firebaseUser === 'loading') {
       return () => {};
     }
-    if (!firebase || !firebaseUser) {
-      setProfileSnapshot(null);
+    if (!firebaseUser) {
+      setProfileSnapshot('loading');
       return () => {};
     }
     setProfileSnapshot('loading');
@@ -65,7 +65,7 @@ export function useAuthenticationState(): AuthenticationState {
   if (profileSnapshot === 'loading' || firebaseUser === 'loading') {
     return 'checking';
   }
-  if (!profileSnapshot || !profileSnapshot.exists || !firebaseUser) {
+  if (!profileSnapshot.exists || !firebaseUser) {
     return null;
   }
   return {
@@ -118,6 +118,7 @@ export function RequiresAuthentication(props: {
 }) {
   const { children, fallback = null } = props;
   const authState = useAuthenticationState();
+  console.log(authState);
   const mustDisplayModal = authState === null;
   const { authModalStore } = useContext(rootContext);
 
