@@ -3,7 +3,8 @@ import {
   getFirebase,
   User,
   FirestoreSnapshot,
-  FirebaseModule
+  FirebaseModule,
+  getEnvName
 } from '../../commons/firebase';
 import rootContext from '../../commons/context.root';
 
@@ -64,7 +65,7 @@ export function useAuthenticationState(): AuthenticationState {
   if (profileSnapshot === 'loading' || firebaseUser === 'loading') {
     return 'checking';
   }
-  if (!profileSnapshot || !firebaseUser) {
+  if (!profileSnapshot || !profileSnapshot.exists || !firebaseUser) {
     return null;
   }
   return {
@@ -85,8 +86,18 @@ export function isAuthenticated(
 export function useAuthenticationController() {
   return useMemo(
     () => ({
-      async login() {
-        // TODO
+      async loginByTicketID(ticketID: string) {
+        if (getEnvName() === 'production') {
+          throw new Error(
+            'Eventpop authentication is not implemented yet. To log in, please run the app in test mode by appending ?env=test to URL'
+          );
+        }
+        const firebase = await getFirebase();
+        const getTestTokenFromApp = firebase
+          .functions('asia-northeast1')
+          .httpsCallable('getTestTokenFromApp');
+        const token = await getTestTokenFromApp({ uid: ticketID });
+        await firebase.auth().signInWithCustomToken(token.data.token);
       },
       async logout() {
         const firebase = await getFirebase();

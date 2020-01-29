@@ -6,6 +6,8 @@ import 'firebase/database';
 import 'firebase/firestore';
 import 'firebase/functions';
 
+import getEnvName from './getEnvName';
+
 const firebaseConfig = {
   apiKey: 'AIzaSyCDBqjN2IOo-sycp9ITPgSNpc_KBPtjTYg',
   authDomain: 'javascriptbangkok-companion.firebaseapp.com',
@@ -19,15 +21,8 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-export const { auth, database, firestore, functions } = firebase;
-
-export function getEnvName() {
-  const match = String(window.location.search).match(/[&?]env=(\w+)/);
-  if (match) {
-    return match[1];
-  }
-  return 'production';
-}
+export const { auth, database, firestore } = firebase;
+export const functions = (region: string) => firebase.app().functions(region);
 
 export function getEnvRef() {
   const env = getEnvName();

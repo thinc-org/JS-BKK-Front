@@ -55,7 +55,7 @@ const Orders: React.FC = observer(() => {
       <div>
         <div className='text-sm '>
           Ordering as{' '}
-          <span className='font-extrabold'>{userStore.userInfo?.username}</span>
+          <span className='font-extrabold'>{userStore.userInfo?.name}</span>
         </div>
         <Card className='m-4'>
           <p className='mb-4'>
