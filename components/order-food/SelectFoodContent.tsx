@@ -24,8 +24,6 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
     console.log(values, 'value');
   };
 
-  console.log(errors, 'error');
-
   const FoodMenu = useMemo(
     () =>
       menuChoice?.customizations.map((item, index) => {
