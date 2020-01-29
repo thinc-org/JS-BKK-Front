@@ -1,16 +1,14 @@
-import React, { useContext, useCallback } from 'react';
-import { useRouter } from 'next/router';
-import { RootStore } from '../../../interfaces/Commons';
-import rootContext from '../../../commons/context.root';
+import React, { useCallback } from 'react';
+import {
+  useAuthenticationController,
+  withRequiredAuthentication
+} from '../../../components/authentication';
 
 const UserProfile: React.FC = () => {
-  const { userStore } = useContext<RootStore>(rootContext);
-  const router = useRouter();
+  const controller = useAuthenticationController();
 
   const logout = useCallback(() => {
-    userStore.setToken('');
-    userStore.setUserInfo(undefined);
-    router.push('/login');
+    controller.logout();
   }, []);
 
   return (
@@ -23,4 +21,4 @@ const UserProfile: React.FC = () => {
   );
 };
 
-export default UserProfile;
+export default withRequiredAuthentication(UserProfile);

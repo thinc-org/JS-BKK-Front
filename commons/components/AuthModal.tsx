@@ -19,17 +19,12 @@ const AuthModal: React.FC = observer(() => {
   const [wrongInputFormat, setWrongInputFormat] = useState(false);
   const [isScanningQR, setIsScanningQR] = useState<boolean>(false);
   const [ticketID, setTicketID] = useState<string>('');
-  const { authModalStore, userStore } = useContext<RootStore>(rootContext);
+  const { authModalStore } = useContext<RootStore>(rootContext);
 
   const login = useCallback(
     e => {
       e.preventDefault();
-      if (ticketID.length === 10) {
-        userStore.setToken('validtoken');
-        authModalStore.setModalOpen(false);
-      } else {
-        setLoginError('Username or password wrong');
-      }
+      setLoginError('Failed!');
     },
     [ticketID]
   );

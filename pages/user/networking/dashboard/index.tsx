@@ -6,6 +6,7 @@ import BadgeItem from './Badge';
 import Button from '../../../../commons/components/Button';
 import { RootStore } from '../../../../interfaces/Commons';
 import rootContext from '../../../../commons/context.root';
+import { withRequiredAuthentication } from '../../../../components/authentication';
 
 const Loading: React.FC<{}> = () => <div>...Loading</div>;
 
@@ -81,4 +82,4 @@ const Dashboard: React.FC = observer(() => {
   );
 });
 
-export default Dashboard;
+export default withRequiredAuthentication(Dashboard);
