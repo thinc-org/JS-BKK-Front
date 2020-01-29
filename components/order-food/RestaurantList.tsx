@@ -45,10 +45,7 @@ const ListItem = ({
 const RestaurantList = ({ restaurants }: IRestaurantList) => (
   <Card className='m-4' noPadding>
     {restaurants.map((restaurant: IRestaurant, index: number) => (
-      <ListItem
-        {...restaurant}
-        lastItem={index === restaurants.length - 1}
-      ></ListItem>
+      <ListItem {...restaurant} lastItem={index === restaurants.length - 1} />
     ))}
   </Card>
 );

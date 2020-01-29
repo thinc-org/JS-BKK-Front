@@ -1,4 +1,5 @@
-import { UserStore } from './interface.user';
+import { ModalStore } from '../commons/stores/authModalStores';
+import { UserStore } from '../commons/stores/userStores';
 
 export type Onclick =
   | ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void)
@@ -9,12 +10,12 @@ export interface RouteData {
   title: string;
 }
 
-export interface AuthModalStore {
-  isModalOpen: boolean;
-  setModalOpen: (isOpen: boolean) => void;
-}
-
 export interface RootStore {
   userStore: UserStore;
-  authModalStore: AuthModalStore;
+  authModalStore: ModalStore;
+}
+
+export interface FetchResult<T> {
+  data: T | null;
+  error: any;
 }

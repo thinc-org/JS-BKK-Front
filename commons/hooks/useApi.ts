@@ -1,8 +1,8 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { useContext, useMemo } from 'react';
-import { UserStore } from '../../interfaces/interface.user';
-import { rootContext } from '../../pages/_app';
-import { RootStore } from '../../interfaces/interface.commons';
+import { RootStore } from '../../interfaces/Commons';
+import { UserStore } from '../stores/userStores';
+import rootContext from '../context.root';
 
 let baseURL = 'https://jsonplaceholder.typicode.com';
 if (process.env.NODE_ENV === 'production') {
