@@ -17,7 +17,11 @@ const Modal: React.FC<PropTypes> = observer(
 
     const content = useMemo(() => {
       return (
-        <Card className='flex flex-col items-center relative'>
+        <Card
+          className={`flex flex-col items-center relative ${
+            noCloseButton ? 'max-h-75vh' : ''
+          }`}
+        >
           {!noCloseButton && (
             <button
               style={{ top: '-20px', right: '-20px' }}

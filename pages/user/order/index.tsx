@@ -1,17 +1,24 @@
 import { observer, useLocalStore } from 'mobx-react-lite';
-import React, { useCallback, useContext, useState } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useMemo,
+  createContext,
+  useState
+} from 'react';
 import Card from '../../../commons/components/Card';
-import RestaurantList, {
-  IRestaurant
-} from '../../../components/order-food/RestaurantList';
-import { Choice } from '../../../interfaces/Orders';
-import OrderItem from './OrderItem';
-import Countdown from '../../../commons/components/order-food/CountDown';
+import { Choice, CurrentMenuContext } from '../../../interfaces/Orders';
+import Countdown from '../../../components/order-food/CountDown';
 import { RootStore } from '../../../interfaces/Commons';
 import rootContext from '../../../commons/context.root';
-import SelectFoodModal from '../../../commons/components/order-food/SelectFoodModal';
+import SelectFoodModal from '../../../components/order-food/SelectFoodModal';
 import createModalStore from '../../../commons/stores/authModalStores';
 import useOrders from '../../../commons/hooks/useOrders';
+import RestaurantList from '../../../components/order-food/RestaurantList';
+
+export const currentMenuContext = createContext<CurrentMenuContext>({
+  orderFood: () => {}
+});
 
 const Orders: React.FC = observer(() => {
   const { userStore } = useContext<RootStore>(rootContext);
@@ -27,49 +34,21 @@ const Orders: React.FC = observer(() => {
     [data]
   );
 
-  const OrderItems =
-    data &&
-    data.map(restaurant => {
-      const restaurantChoices = restaurant.choices.map(choice => (
-        <OrderItem
-          key={choice.id}
-          onOrder={() => orderFood(choice)}
-          order={choice}
-        />
-      ));
-      return (
-        <div key={restaurant.title} className='my-3'>
-          {restaurant.title}
-          <div>{restaurantChoices}</div>
-        </div>
-      );
-    });
-
-  const temp: IRestaurant[] = [
-    {
-      name: {
-        th: 'I am Thai Pasta',
-        en: 'I am Thai Pasta'
-      },
-      availableServings: 100
-    },
-    {
-      name: {
-        th: 'เพลินพุง Noodle & More',
-        en: 'เพลินพุง Noodle & More'
-      },
-      availableServings: 100
-    },
-    {
-      name: {
-        th: 'Hua Seng Hong',
-        en: 'Hua Seng Hong'
-      },
-      availableServings: 0,
-      description:
-        'Casual rice and noodle dishes<br>- Crispy Pork or Chicken Omelette with Ham and Rice<br>- Tom Yum Minced Pork Omelette with Rice<br>- Tom Yum Goong (Shrimp) Omelette with Rice'
-    }
-  ];
+  const OrderItems = useMemo(() => {
+    return (
+      data &&
+      data.map(restaurant => {
+        return (
+          <div key={restaurant.title} className='my-3'>
+            {restaurant.title}
+            <div>
+              <RestaurantList restaurants={restaurant.choices} />
+            </div>
+          </div>
+        );
+      })
+    );
+  }, [data]);
 
   return (
     <>
@@ -93,8 +72,9 @@ const Orders: React.FC = observer(() => {
           <Countdown className='flex justify-center text-3xl' />
         </Card>
         <div className='flex flex-col items-center'>
-          <RestaurantList restaurants={temp} />
-          <div className='w-64'>{OrderItems}</div>
+          <currentMenuContext.Provider value={{ orderFood }}>
+            {OrderItems}
+          </currentMenuContext.Provider>
         </div>
       </div>
     </>

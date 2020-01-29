@@ -1,53 +1,50 @@
+import { useContext } from 'react';
 import Card from '../../commons/components/Card';
+import { Choice } from '../../interfaces/Orders';
+import { currentMenuContext } from '../../pages/user/order';
 
-export interface IRestaurant {
-  availableServings: number;
-  name: {
-    th: string;
-    en: string;
-  };
-  description?: string;
-  lastItem?: boolean;
+interface ListItemProps {
+  lastItem: boolean;
+  restaurant: Choice;
 }
 
-export interface IRestaurantList {
-  restaurants: IRestaurant[];
-}
+const ListItem: React.FC<ListItemProps> = ({ lastItem, restaurant }) => {
+  const { title, availability, info } = restaurant;
+  const { orderFood } = useContext(currentMenuContext);
+  return (
+    <div
+      role='button'
+      tabIndex={0}
+      onKeyPress={() => orderFood(restaurant)}
+      onClick={() => orderFood(restaurant)}
+      className={`cursor-pointer flex flex-row justify-between py-4 mx-4 ${!lastItem &&
+        ' border-b border-grey'}`}
+    >
+      <div className='flex flex-col'>
+        <p className='text-lg font-bold text-black'>{title}</p>
+        {info && <div className='text-normal'>{info}</div>}
+      </div>
+      <div className='flex'>
+        <div className='font-bold text-bkk-blue'>{availability} left</div>
+      </div>
+    </div>
+  );
+};
 
-const ListItem = ({
-  availableServings,
-  name,
-  description,
-  lastItem
-}: IRestaurant) => (
-  <div
-    className={`flex flex-row justify-between py-4 mx-4 ${!lastItem &&
-      ' border-b border-grey'}`}
-  >
-    <div className='flex flex-col'>
-      <p className='text-lg font-bold text-black'>{name.th}</p>
-      <p className='text-lg text-grey'>{name.en}</p>
-      {description && (
-        <div
-          className='text-normal'
-          dangerouslySetInnerHTML={{
-            __html: description
-          }}
+const RestaurantList: React.FC<{ restaurants: Choice[] }> = ({
+  restaurants
+}) => {
+  return (
+    <Card className='m-4' noPadding>
+      {restaurants.map((restaurant, index) => (
+        <ListItem
+          restaurant={restaurant}
+          key={restaurant.id}
+          lastItem={index === restaurants.length - 1}
         />
-      )}
-    </div>
-    <div className='flex'>
-      <div className='font-bold text-bkk-blue'>{availableServings} left</div>
-    </div>
-  </div>
-);
-
-const RestaurantList = ({ restaurants }: IRestaurantList) => (
-  <Card className='m-4' noPadding>
-    {restaurants.map((restaurant: IRestaurant, index: number) => (
-      <ListItem {...restaurant} lastItem={index === restaurants.length - 1} />
-    ))}
-  </Card>
-);
+      ))}
+    </Card>
+  );
+};
 
 export default RestaurantList;

@@ -26,3 +26,7 @@ export interface Food {
   availability?: number;
   info?: string;
 }
+
+export interface CurrentMenuContext {
+  orderFood: (orderData: Choice) => void;
+}

@@ -8,7 +8,7 @@ interface PropTypes {
 const Card: React.FC<PropTypes> = ({ children, className, noPadding }) => {
   return (
     <div
-      className={`bg-white rounded-lg max-h-75vh ${
+      className={`bg-white rounded-lg ${
         noPadding ? 'p-0' : 'p-4'
       } ${className}`}
     >
