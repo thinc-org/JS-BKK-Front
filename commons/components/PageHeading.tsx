@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react-lite';
-import { RouteData } from '../../interfaces/interface.commons';
-import Button from './component.button';
-import { rootContext } from '../../pages/_app';
+import { RouteData } from '../../interfaces/Commons';
+import Button from './Button';
+import rootContext from '../context.root';
 
 interface PropTypes {
   routeData: RouteData;

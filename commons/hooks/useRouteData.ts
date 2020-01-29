@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import allRoutesData from '../../utils/data.route.json';
-import { RouteData } from '../../interfaces/interface.commons';
+import { RouteData } from '../../interfaces/Commons';
 
 const defaultRouteData = {
   hasNavbar: true,

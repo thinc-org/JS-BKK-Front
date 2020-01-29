@@ -1,8 +1,9 @@
 import { createContext } from 'react';
-import { UserStore } from '../interfaces/interface.user';
+import { RootStore } from '../interfaces/Commons';
 
 const rootContext = createContext({
-  userStore: {} as UserStore
-});
+  userStore: {},
+  authModalStore: {}
+} as RootStore);
 
 export default rootContext;

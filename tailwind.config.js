@@ -83,6 +83,7 @@ module.exports = {
     boxShadow: {
       default: '0px 0px 10px rgba(0, 0, 0, 0.1)',
       press: '0px 0px 4px rgba(0, 0, 0, 0.25)',
+      circle: '0px 0px 10px rgba(0, 0, 0, 0.25)',
       none: 'none'
     },
     container: {},
@@ -176,7 +177,8 @@ module.exports = {
     }),
     maxHeight: {
       full: '100%',
-      screen: '100vh'
+      screen: '100vh',
+      '75vh': '75vh'
     },
     maxWidth: {
       small: '225px',

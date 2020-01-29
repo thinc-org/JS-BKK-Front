@@ -26,6 +26,7 @@
     "qrcode.react": "^1.0.0",
     "react": "16.12.0",
     "react-dom": "16.12.0",
+    "react-hook-form": "^4.7.1",
     "react-qr-reader": "^2.2.1"
   },
   "devDependencies": {
