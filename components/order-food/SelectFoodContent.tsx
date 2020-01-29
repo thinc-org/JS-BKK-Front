@@ -24,6 +24,8 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
     console.log(values, 'value');
   };
 
+  console.log(errors, 'error');
+
   const FoodMenu = useMemo(
     () =>
       menuChoice?.customizations.map((item, index) => {
@@ -39,8 +41,8 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
                   {isMultipleSupport ? (
                     <input
                       id={item.id + j}
-                      type='radio'
-                      name={item.id}
+                      type='checkbox'
+                      name={food.id}
                       ref={register({ validate })}
                     />
                   ) : (
