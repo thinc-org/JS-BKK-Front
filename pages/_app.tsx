@@ -40,12 +40,14 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
             <AuthModal />
             <div
               className={
-                isAnimating || !isHidden || isModalOpen ? 'hidden' : 'flex'
+                isAnimating || !isHidden || isModalOpen
+                  ? 'hidden'
+                  : 'flex items-start'
               }
             >
               <Component {...pageProps} />
             </div>
-            <div className='fixed z-50 bottom-0 left-0 w-full'>
+            <div className='fixed z-40 bottom-0 left-0 w-full'>
               <Nav />
             </div>
           </div>

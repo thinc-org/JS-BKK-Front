@@ -21,7 +21,7 @@ const Modal: React.FC<PropTypes> = observer(
           {!noCloseButton && (
             <button
               style={{ top: '-20px', right: '-20px' }}
-              className='absolute p-3 bg-white rounded-full shodow-circle'
+              className='absolute p-3 bg-white rounded-full shadow-circle'
               onClick={closeModal}
             >
               <img src='/icons/crossmark.svg' alt='close' />
