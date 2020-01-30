@@ -62,10 +62,16 @@ export function useAuthenticationState(): AuthenticationState {
       .onSnapshot(setProfileSnapshot);
   }, [firebase, firebaseUser]);
 
-  if (profileSnapshot === 'loading' || firebaseUser === 'loading') {
+  if (firebaseUser === 'loading') {
     return 'checking';
   }
-  if (!profileSnapshot.exists || !firebaseUser) {
+  if (!firebaseUser) {
+    return null;
+  }
+  if (profileSnapshot === 'loading') {
+    return 'checking';
+  }
+  if (!profileSnapshot.exists) {
     return null;
   }
   return {
