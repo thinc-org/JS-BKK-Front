@@ -16,6 +16,7 @@ export interface RootStore {
 }
 
 export interface FetchResult<T> {
-  data: T | null;
+  data?: T;
   error: any;
+  status: 'loading' | 'completed' | 'error';
 }
