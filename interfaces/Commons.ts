@@ -17,6 +17,22 @@ export interface RootStore {
 
 export interface FetchResult<T> {
   data?: T;
-  error: any;
+  error?: any;
   status: 'loading' | 'completed' | 'error';
+}
+
+export interface FetchedResult<T> {
+  data: T;
+  error?: any;
+  status: 'completed';
+}
+
+export function isFetchingCompleted<T>(
+  f: FetchResult<T>
+): f is FetchedResult<T> {
+  return f.status === 'completed';
+}
+
+export function isFetching<T>(f: FetchResult<T>): boolean {
+  return f.status === 'loading';
 }

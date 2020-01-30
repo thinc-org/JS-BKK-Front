@@ -3,10 +3,16 @@ import {
   getFirebase,
   User,
   FirestoreSnapshot,
-  FirebaseModule,
-  getEnvName
+  getEnvName,
+  useFirebase
 } from '../../commons/firebase';
 import rootContext from '../../commons/context.root';
+import {
+  isFetchingCompleted,
+  FetchResult,
+  FetchedResult,
+  isFetching
+} from '../../interfaces/Commons';
 
 export type ProfileData = {
   firstname: string;
@@ -21,13 +27,13 @@ type AuthenticatedState = {
   uid: string;
 };
 
-export type AuthenticationState = 'checking' | null | AuthenticatedState;
+export type AuthenticationState = FetchResult<AuthenticatedState | null>;
 
 /**
  * Returns the current authentication state.
  */
 export function useAuthenticationState(): AuthenticationState {
-  const [firebase, setFirebase] = useState<FirebaseModule | null>(null);
+  const firebaseFetchResult = useFirebase();
   const [firebaseUser, setFirebaseUser] = useState<User | null | 'loading'>(
     'loading'
   );
@@ -36,18 +42,19 @@ export function useAuthenticationState(): AuthenticationState {
   >('loading');
 
   useEffect(() => {
-    getFirebase().then(setFirebase);
-  }, []);
-
-  useEffect(() => {
-    if (!firebase) {
+    if (!isFetchingCompleted(firebaseFetchResult)) {
       return () => {};
     }
+    const firebase = firebaseFetchResult.data;
     return firebase.auth().onAuthStateChanged(setFirebaseUser);
-  }, [firebase]);
+  }, [firebaseFetchResult]);
 
   useEffect(() => {
-    if (!firebase || firebaseUser === 'loading') {
+    if (!isFetchingCompleted(firebaseFetchResult)) {
+      return () => {};
+    }
+    const firebase = firebaseFetchResult.data;
+    if (firebaseUser === 'loading') {
       return () => {};
     }
     if (!firebaseUser) {
@@ -60,30 +67,33 @@ export function useAuthenticationState(): AuthenticationState {
       .collection('profiles')
       .doc(firebaseUser.uid)
       .onSnapshot(setProfileSnapshot);
-  }, [firebase, firebaseUser]);
+  }, [firebaseFetchResult, firebaseUser]);
 
   if (firebaseUser === 'loading') {
-    return 'checking';
+    return { status: 'loading' };
   }
   if (!firebaseUser) {
-    return null;
+    return { status: 'completed', data: null };
   }
   if (profileSnapshot === 'loading') {
-    return 'checking';
+    return { status: 'loading' };
   }
   if (!profileSnapshot.exists) {
-    return null;
+    return { status: 'completed', data: null };
   }
   return {
-    uid: firebaseUser.uid,
-    profile: profileSnapshot.data() as any
+    status: 'completed',
+    data: {
+      uid: firebaseUser.uid,
+      profile: profileSnapshot.data() as any
+    }
   };
 }
 
 export function isAuthenticated(
   state: AuthenticationState
-): state is AuthenticatedState {
-  return state !== 'checking' && state !== null;
+): state is FetchedResult<AuthenticatedState> {
+  return isFetchingCompleted(state) && state.data !== null;
 }
 
 /**
@@ -129,7 +139,6 @@ export function RequiresAuthentication(props: {
     fallback = null
   } = props;
   const authState = useAuthenticationState();
-  console.log(authState);
   const mustDisplayModal = authState === null;
   const { authModalStore } = useContext(rootContext);
 
@@ -143,10 +152,10 @@ export function RequiresAuthentication(props: {
     };
   }, [mustDisplayModal]);
 
-  if (authState === 'checking') {
+  if (isFetching(authState)) {
     return <>{checking}</>;
   }
-  if (!authState) {
+  if (!isAuthenticated(authState)) {
     return <>{fallback}</>;
   }
   return <>{children}</>;
