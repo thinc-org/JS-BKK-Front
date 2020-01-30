@@ -1,17 +1,17 @@
-import { useEffect, useState, ReactNode, useContext, useMemo } from 'react';
-import {
-  getFirebase,
-  User,
-  FirestoreSnapshot,
-  getEnvName,
-  useFirebase
-} from '../../commons/firebase';
+import { ReactNode, useContext, useEffect, useMemo, useState } from 'react';
 import rootContext from '../../commons/context.root';
 import {
-  isFetchingCompleted,
-  FetchResult,
+  FirestoreSnapshot,
+  getEnvName,
+  getFirebase,
+  useFirebase,
+  User
+} from '../../commons/firebase';
+import {
   CompletedFetchResult,
-  isFetching
+  FetchResult,
+  isFetching,
+  isFetchingCompleted
 } from '../../interfaces/Commons';
 
 export type ProfileData = {
