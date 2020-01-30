@@ -163,7 +163,7 @@ export function useAuthenticationController() {
         }
         let selectedTicket = (() => {
           if (result.length === 1) {
-            // return result[0];
+            return result[0];
           }
           const message =
             'You have multiple ticket. Please enter the number of the ticket you want to sign in with:\n\n' +
