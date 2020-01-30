@@ -7,7 +7,7 @@ import React, {
   useState
 } from 'react';
 import Card from '../../../commons/components/Card';
-import OrderFood from './OrderFood';
+import OrderFood from '../../../components/order-food/OrderFood';
 import { Restaurant, CurrentMenuContext } from '../../../interfaces/Orders';
 import Countdown from '../../../components/order-food/CountDown';
 import {
@@ -58,9 +58,6 @@ const Orders: React.FC = observer(() => {
   }
   if (!isFetchingCompleted(menuFetchResult)) {
     return <span>Loading food menu...</span>;
-  }
-  if (!menuFetchResult.data) {
-    return <span>Food menu is not loaded yet...</span>;
   }
 
   return (

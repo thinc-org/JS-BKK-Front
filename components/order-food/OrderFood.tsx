@@ -1,12 +1,12 @@
-import Card from '../../../commons/components/Card';
-import Button from '../../../commons/components/Button';
-import useMyOrder from '../../../commons/hooks/useMyOrder';
-import { RestaurantGroup } from '../../../interfaces/Orders';
+import Card from '../../commons/components/Card';
+import Button from '../../commons/components/Button';
+import useMyOrder from '../../commons/hooks/useMyOrder';
+import { RestaurantGroup } from '../../interfaces/Orders';
 import {
   isFetchingFailed,
   isFetchingCompleted
-} from '../../../interfaces/Commons';
-import ErrorMessage from '../../../commons/components/ErrorMessage';
+} from '../../interfaces/Commons';
+import ErrorMessage from '../../commons/components/ErrorMessage';
 import { useMemo } from 'react';
 
 interface Props {
