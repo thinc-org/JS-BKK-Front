@@ -59,6 +59,9 @@ const Orders: React.FC = observer(() => {
   if (!isFetchingCompleted(menuFetchResult)) {
     return <span>Loading food menu...</span>;
   }
+  if (!menuFetchResult.data) {
+    return <span>Food menu is not loaded yet...</span>;
+  }
 
   return (
     <>
