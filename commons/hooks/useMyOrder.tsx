@@ -9,7 +9,7 @@ const useMyOrder = (): FetchResult<MyOrder> => {
         setTimeout(
           () =>
             resolve({
-              restaurantId: 'Floor 8: Food stalls',
+              title: 'Floor 8: Food stalls',
               food: 'Pad Thai with Fresh Shrimp (ผัดไทยกุ้งใหญ่สด)',
               food2: 'Sushi (ปลาดิบ)',
               drink: 'Coke',

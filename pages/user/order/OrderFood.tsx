@@ -16,7 +16,7 @@ const OrderFood: React.FC<Props> = ({ className }) => {
         Your Food Selection
       </h2>
       <Card className='flex flex-col'>
-        <h3 className='flex justify-center font-bold'>{data?.restaurantId}</h3>
+        <h3 className='flex justify-center font-bold'>{data?.title}</h3>
         <div className='my-4'>
           <span className='text-gray-600'>Food (อาหาร):</span>
           <p className='font-bold'>{data?.food}</p>

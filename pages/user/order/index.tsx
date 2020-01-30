@@ -51,7 +51,7 @@ const Orders: React.FC = observer(() => {
   }, [data]);
 
   return (
-    <>
+    <div>
       <SelectFoodModal menuChoice={currentMenu} modalStore={modalStore} />
       <div>
         <div className='text-sm '>
@@ -81,7 +81,7 @@ const Orders: React.FC = observer(() => {
           </currentMenuContext.Provider>
         </div>
       </div>
-    </>
+    </div>
   );
 });
 
