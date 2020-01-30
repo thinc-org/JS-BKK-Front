@@ -34,6 +34,10 @@ input[type='radio']:checked + span {
   background: #f7d455 url('/icons/checked.svg') no-repeat center;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 @tailwind components;
 
 @tailwind utilities;
