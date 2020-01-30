@@ -21,7 +21,7 @@ export interface Menu {
 }
 
 export interface MyOrder {
-  title: string;
+  restaurantId: string;
   food: string;
   food2?: string;
   drink?: string;
