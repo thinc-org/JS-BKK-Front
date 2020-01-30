@@ -130,7 +130,7 @@ export function useAuthenticationController() {
         if (!popup) {
           throw new Error('Cannot open pop-up! Please check your ad-blocker.');
         }
-        const code = await new Promise<string>(resolve => {
+        const code = await new Promise<string>((resolve, reject) => {
           const listener = (e: MessageEvent) => {
             if (
               e.origin === 'https://javascriptbangkok.com' &&
@@ -145,6 +145,12 @@ export function useAuthenticationController() {
             }
           };
           window.addEventListener('message', listener);
+          const interval = setInterval(() => {
+            if (popup.closed) {
+              clearInterval(interval);
+              reject(new Error('Pop-up is closed'));
+            }
+          }, 100);
         });
         const signInWithEventpop = firebase
           .functions('asia-northeast1')
