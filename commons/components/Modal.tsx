@@ -40,7 +40,7 @@ const Modal: React.FC<PropTypes> = observer(
       : `${isAnimating && !isModalOpen ? 'opacity-0' : ''} ${
           isHidden ? 'invisible opacity-0' : ''
         } fade`;
-    const MODAL_CLASSES = `fixed w-full h-screen overflow-y-auto justify-center z-50 ${ANIMATION_CLASSES} ${className}`;
+    const MODAL_CLASSES = `fixed w-full h-screen overflow-y-auto justify-center ${ANIMATION_CLASSES} ${className}`;
 
     return <div className={MODAL_CLASSES}>{content}</div>;
   }

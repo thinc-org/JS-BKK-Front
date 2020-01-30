@@ -82,7 +82,7 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
         {menuChoice?.title}
       </h2>
       <form
-        className='overflow-y-auto flex flex-col justify-between min-h-500px'
+        className='flex flex-col justify-between min-h-500px'
         onSubmit={handleSubmit(onSubmit)}
       >
         <div>{FoodMenu}</div>
