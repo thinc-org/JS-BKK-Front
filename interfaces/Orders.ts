@@ -20,6 +20,16 @@ export interface Menu {
   choices: Food[];
 }
 
+export interface MyOrder {
+  title: string;
+  food: string;
+  food2?: string;
+  drink?: string;
+  spice?: string;
+  dessert?: string;
+  side?: string;
+}
+
 export interface Food {
   id: string;
   title: string;

@@ -7,6 +7,7 @@ import React, {
   useState
 } from 'react';
 import Card from '../../../commons/components/Card';
+import OrderFood from './OrderFood';
 import { Choice, CurrentMenuContext } from '../../../interfaces/Orders';
 import Countdown from '../../../components/order-food/CountDown';
 import { RootStore } from '../../../interfaces/Commons';
@@ -70,6 +71,7 @@ const Orders: React.FC = observer(() => {
           <p className='mb-4'>Please select your menu before time limit:</p>
           <Countdown className='flex justify-center text-3xl' />
         </Card>
+        <OrderFood className='m-4' />
         <div className='flex flex-col items-center'>
           <h3 className='w-full px-4 text-white text-xl font-bold'>
             Select your lunch
