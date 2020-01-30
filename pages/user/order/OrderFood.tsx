@@ -20,24 +20,32 @@ const OrderFood: React.FC<Props> = ({ className }) => {
         <div className='my-4'>
           <span className='text-gray-600'>Food (อาหาร):</span>
           <p className='font-bold'>{data?.food}</p>
-          <p className='font-bold'>{data?.food2}</p>
+          {data?.food2 && <p className='font-bold'>{data?.food2}</p>}
         </div>
-        <div className='my-4'>
-          <span className='text-gray-600'>Side Dish (กับข้าว):</span>
-          <p className='font-bold'>{data?.side}</p>
-        </div>
-        <div className='my-4 '>
-          <span className='text-gray-600'>Spice level (ความเผ็ด):</span>
-          <p className='font-bold'>{data?.spice}</p>
-        </div>
-        <div className='my-4'>
-          <span className='text-gray-600'>Drink (เครื่องดื่ม):</span>
-          <p className='font-bold'>{data?.drink}</p>
-        </div>
-        <div className='my-4'>
-          <span className='text-gray-600'>Dessert (ขนมหว่าน):</span>
-          <p className='font-bold'>{data?.dessert}</p>
-        </div>
+        {data?.side && (
+          <div className='my-4'>
+            <span className='text-gray-600'>Side Dish (กับข้าว):</span>
+            <p className='font-bold'>{data?.side}</p>
+          </div>
+        )}
+        {data?.spice && (
+          <div className='my-4 '>
+            <span className='text-gray-600'>Spice level (ความเผ็ด):</span>
+            <p className='font-bold'>{data?.spice}</p>
+          </div>
+        )}
+        {data?.drink && (
+          <div className='my-4'>
+            <span className='text-gray-600'>Drink (เครื่องดื่ม):</span>
+            <p className='font-bold'>{data?.drink}</p>
+          </div>
+        )}
+        {data?.dessert && (
+          <div className='my-4'>
+            <span className='text-gray-600'>Dessert (ขนมหว่าน):</span>
+            <p className='font-bold'>{data?.dessert}</p>
+          </div>
+        )}
         <Button
           type='button'
           className='bg-yellow-dark rounded p-2 m-4 text-xl'

@@ -23,12 +23,11 @@ export interface Menu {
 export interface MyOrder {
   title: string;
   food: string;
-  food2: string;
-  allowedChoices: number;
-  drink: string;
-  spice: string;
-  dessert: string;
-  side: string;
+  food2?: string;
+  drink?: string;
+  spice?: string;
+  dessert?: string;
+  side?: string;
 }
 
 export interface Food {
