@@ -17,15 +17,19 @@ const QrReader = dynamic(() => import('react-qr-reader'), {
 
 const AuthModal: React.FC = observer(() => {
   const [loginError, setLoginError] = useState<string | null>(null);
+  const [activeSignInProcesses, setActiveSignInProcesses] = useState<number>(0);
   const { authModalStore } = useContext<RootStore>(rootContext);
   const authenticationController = useAuthenticationController();
 
   const login = useCallback(async e => {
     e.preventDefault();
+    setActiveSignInProcesses(x => x + 1);
     try {
       await authenticationController.loginWithEventpop();
     } catch (error) {
       setLoginError(`Failed! ${error}`);
+    } finally {
+      setActiveSignInProcesses(x => x - 1);
     }
   }, []);
 
@@ -44,7 +48,7 @@ const AuthModal: React.FC = observer(() => {
           type='button'
           className='mt-12 py-3 px-20 font-bg bg-yellow-dark text-black rounded'
         >
-          Sign in with Eventpop
+          {activeSignInProcesses > 0 ? 'Please wait…' : 'Sign in with Eventpop'}
         </Button>
         {loginError}
       </Card>
