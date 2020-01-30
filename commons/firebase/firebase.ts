@@ -1,11 +1,14 @@
 import firebase from 'firebase/app';
 
+/* eslint import/no-duplicates: off */
 import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/firestore';
 import 'firebase/functions';
 
-var firebaseConfig = {
+import getEnvName from './getEnvName';
+
+const firebaseConfig = {
   apiKey: 'AIzaSyCDBqjN2IOo-sycp9ITPgSNpc_KBPtjTYg',
   authDomain: 'javascriptbangkok-companion.firebaseapp.com',
   databaseURL: 'https://javascriptbangkok-companion.firebaseio.com',
@@ -18,16 +21,8 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-export const { auth, database, firestore, functions } = firebase;
-
-export function getEnvName() {
-  const match = String(window.location.search).match(/[&?]env=(\w+)/);
-  if (match) {
-    return match[1];
-  } else {
-    return 'production';
-  }
-}
+export const { auth, database, firestore } = firebase;
+export const functions = (region: string) => firebase.app().functions(region);
 
 export function getEnvRef() {
   const env = getEnvName();

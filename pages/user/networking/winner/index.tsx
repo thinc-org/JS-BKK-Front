@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react-lite';
 import { RootStore } from '../../../../interfaces/Commons';
 import rootContext from '../../../../commons/context.root';
+import { withRequiredAuthentication } from '../../../../components/authentication';
 
 const UserProfile: React.FC = observer(() => {
   const { userStore } = useContext<RootStore>(rootContext);
@@ -10,7 +11,7 @@ const UserProfile: React.FC = observer(() => {
     <div className='h-full flex flex-col'>
       <div className='text-sm'>
         Ordering as{' '}
-        <span className='font-extrabold'>{userStore.userInfo?.username}</span>
+        <span className='font-extrabold'>{userStore.userInfo?.name}</span>
       </div>
       <div className='h-full text-center w-full flex flex-col items-center justify-center'>
         <div className='max-w-small'>
@@ -27,4 +28,4 @@ const UserProfile: React.FC = observer(() => {
   );
 });
 
-export default UserProfile;
+export default withRequiredAuthentication(UserProfile);

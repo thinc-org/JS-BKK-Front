@@ -27,7 +27,7 @@ function useAnnouncement() {
   return announcement;
 }
 
-export default function Announcement() {
+export default function Announcements() {
   const [headerId] = useId(1, 'Announcement');
   const announcement = useAnnouncement();
   if (announcement === 'loading') {

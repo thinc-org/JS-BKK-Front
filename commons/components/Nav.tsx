@@ -1,17 +1,7 @@
-import React, { useContext, useCallback } from 'react';
-import { RootStore } from '../../interfaces/Commons';
-import rootContext from '../context.root';
+import React from 'react';
 import MyLink from './MyLink';
 
 const Nav: React.FC<{}> = () => {
-  const { authModalStore, userStore } = useContext<RootStore>(rootContext);
-
-  const handleModalOpen = useCallback(() => {
-    if (!userStore.isAuthenticated()) {
-      authModalStore.setModalOpen(true);
-    }
-  }, [userStore]);
-
   return (
     <nav className='bg-white flex flex-row items-center justify-around text-xs'>
       <MyLink
@@ -23,7 +13,6 @@ const Nav: React.FC<{}> = () => {
         Conference
       </MyLink>
       <MyLink
-        onClick={handleModalOpen}
         prefetch
         href='/user/order'
         className='focus:outline-none text-center flex flex-col items-center py-2 w-1/3'
@@ -32,7 +21,6 @@ const Nav: React.FC<{}> = () => {
         Food
       </MyLink>
       <MyLink
-        onClick={handleModalOpen}
         prefetch
         href='/user/networking/dashboard'
         className='focus:outline-none text-center flex flex-col items-center py-2 w-1/3'

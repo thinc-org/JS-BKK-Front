@@ -5,6 +5,7 @@ import { observer } from 'mobx-react-lite';
 import Button from '../../../../commons/components/Button';
 import { RootStore } from '../../../../interfaces/Commons';
 import rootContext from '../../../../commons/context.root';
+import { withRequiredAuthentication } from '../../../../components/authentication';
 
 const MyBadge: React.FC = observer(() => {
   const { userStore } = useContext<RootStore>(rootContext);
@@ -37,4 +38,4 @@ const MyBadge: React.FC = observer(() => {
   );
 });
 
-export default MyBadge;
+export default withRequiredAuthentication(MyBadge);

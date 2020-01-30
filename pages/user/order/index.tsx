@@ -15,6 +15,7 @@ import SelectFoodModal from '../../../components/order-food/SelectFoodModal';
 import createModalStore from '../../../commons/stores/authModalStores';
 import useOrders from '../../../commons/hooks/useOrders';
 import RestaurantList from '../../../components/order-food/RestaurantList';
+import { withRequiredAuthentication } from '../../../components/authentication';
 
 export const currentMenuContext = createContext<CurrentMenuContext>({
   orderFood: () => {}
@@ -54,7 +55,7 @@ const Orders: React.FC = observer(() => {
       <div>
         <div className='text-sm '>
           Ordering as{' '}
-          <span className='font-extrabold'>{userStore.userInfo?.username}</span>
+          <span className='font-extrabold'>{userStore.userInfo?.name}</span>
         </div>
         <Card className='m-4'>
           <p className='mb-4'>
@@ -82,4 +83,4 @@ const Orders: React.FC = observer(() => {
   );
 });
 
-export default Orders;
+export default withRequiredAuthentication(Orders);
