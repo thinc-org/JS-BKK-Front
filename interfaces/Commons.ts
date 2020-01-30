@@ -21,10 +21,22 @@ export interface FetchResult<T> {
   status: 'loading' | 'completed' | 'error';
 }
 
-export interface FetchedResult<T> extends FetchResult<T> {
+export interface CompletedFetchResult<T> extends FetchResult<T> {
   data: T;
   error?: any;
   status: 'completed';
+}
+
+export interface FailedFetchResult<T> extends FetchResult<T> {
+  data?: T;
+  error: any;
+  status: 'error';
+}
+
+export interface OngoingFetchResult<T> extends FetchResult<T> {
+  data?: T;
+  error?: any;
+  status: 'loading';
 }
 
 /**
@@ -33,13 +45,22 @@ export interface FetchedResult<T> extends FetchResult<T> {
  */
 export function isFetchingCompleted<T>(
   f: FetchResult<T>
-): f is FetchedResult<T> {
+): f is CompletedFetchResult<T> {
   return f.status === 'completed';
 }
 
 /**
  * Checks if there is some fetching ongoing.
  */
-export function isFetching<T>(f: FetchResult<T>): boolean {
+export function isFetching<T>(f: FetchResult<T>): f is OngoingFetchResult<T> {
   return f.status === 'loading';
+}
+
+/**
+ * Checks if fetching result is failed.
+ */
+export function isFetchingFailed<T>(
+  f: FetchResult<T>
+): f is FailedFetchResult<T> {
+  return f.status === 'error';
 }

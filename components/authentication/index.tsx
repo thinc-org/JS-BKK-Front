@@ -17,7 +17,7 @@ import rootContext from '../../commons/context.root';
 import {
   isFetchingCompleted,
   FetchResult,
-  FetchedResult,
+  CompletedFetchResult,
   isFetching
 } from '../../interfaces/Commons';
 
@@ -99,7 +99,7 @@ export function useAuthenticationState(): AuthenticationState {
 
 export function isAuthenticated(
   state: AuthenticationState
-): state is FetchedResult<AuthenticatedState> {
+): state is CompletedFetchResult<AuthenticatedState> {
   return isFetchingCompleted(state) && state.data !== null;
 }
 

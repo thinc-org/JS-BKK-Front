@@ -10,13 +10,18 @@ import Card from '../../../commons/components/Card';
 import OrderFood from './OrderFood';
 import { Restaurant, CurrentMenuContext } from '../../../interfaces/Orders';
 import Countdown from '../../../components/order-food/CountDown';
-import { RootStore } from '../../../interfaces/Commons';
+import {
+  RootStore,
+  isFetching,
+  isFetchingFailed
+} from '../../../interfaces/Commons';
 import rootContext from '../../../commons/context.root';
 import SelectFoodModal from '../../../components/order-food/SelectFoodModal';
 import createModalStore from '../../../commons/stores/authModalStores';
 import useOrders from '../../../commons/hooks/useOrders';
 import RestaurantList from '../../../components/order-food/RestaurantList';
 import { withRequiredAuthentication } from '../../../components/authentication';
+import ErrorMessage from '../../../commons/components/ErrorMessage';
 
 export const currentMenuContext = createContext<CurrentMenuContext>({
   orderFood: () => {}
@@ -25,7 +30,8 @@ export const currentMenuContext = createContext<CurrentMenuContext>({
 const Orders: React.FC = observer(() => {
   const { userStore } = useContext<RootStore>(rootContext);
   const modalStore = useLocalStore(() => createModalStore(400, false));
-  const { data } = useOrders();
+  const menuFetchResult = useOrders();
+  const { data } = menuFetchResult;
   const [currentMenu, setCurrentMenu] = useState();
 
   const orderFood = useCallback(
@@ -36,25 +42,29 @@ const Orders: React.FC = observer(() => {
     [data]
   );
 
-  const OrderItems = useMemo(() => {
-    return (
-      data &&
-      data.map(group => {
-        return (
-          <div key={group.title} className='my-3 mx-4'>
-            <h4 className='text-white text-lg mb-4'>{group.title}</h4>
-            <RestaurantList restaurants={group.choices} />
-          </div>
-        );
-      })
-    );
+  const restaurantGroupList = useMemo(() => {
+    return data?.map(group => {
+      return (
+        <div key={group.title} className='my-3 mx-4'>
+          <h4 className='text-white text-lg mb-4'>{group.title}</h4>
+          <RestaurantList restaurants={group.choices} />
+        </div>
+      );
+    });
   }, [data]);
+
+  if (isFetching(menuFetchResult)) {
+    return <span>Loading food menu...</span>;
+  }
+  if (isFetchingFailed(menuFetchResult)) {
+    return <ErrorMessage error={menuFetchResult.error} />;
+  }
 
   return (
     <>
       <SelectFoodModal menuChoice={currentMenu} modalStore={modalStore} />
       <div>
-        <div className='text-sm '>
+        <div className='text-sm'>
           Ordering as{' '}
           <span className='font-extrabold'>{userStore.userInfo?.name}</span>
         </div>
@@ -77,7 +87,7 @@ const Orders: React.FC = observer(() => {
             Select your lunch
           </h3>
           <currentMenuContext.Provider value={{ orderFood }}>
-            {OrderItems}
+            {restaurantGroupList}
           </currentMenuContext.Provider>
         </div>
       </div>
