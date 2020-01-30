@@ -21,7 +21,7 @@ export interface FetchResult<T> {
   status: 'loading' | 'completed' | 'error';
 }
 
-export interface FetchedResult<T> {
+export interface FetchedResult<T> extends FetchResult<T> {
   data: T;
   error?: any;
   status: 'completed';
