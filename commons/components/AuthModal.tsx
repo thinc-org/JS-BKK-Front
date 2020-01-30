@@ -7,6 +7,7 @@ import Button from './Button';
 import Card from './Card';
 import Modal from './Modal';
 import rootContext from '../context.root';
+import { useAuthenticationController } from '../../components/authentication';
 
 const QrReader = dynamic(() => import('react-qr-reader'), {
   ssr: false,
@@ -19,16 +20,16 @@ const AuthModal: React.FC = observer(() => {
   const [wrongInputFormat, setWrongInputFormat] = useState(false);
   const [isScanningQR, setIsScanningQR] = useState<boolean>(false);
   const [ticketID, setTicketID] = useState<string>('');
-  const { authModalStore, userStore } = useContext<RootStore>(rootContext);
+  const { authModalStore } = useContext<RootStore>(rootContext);
+  const authenticationController = useAuthenticationController();
 
   const login = useCallback(
-    e => {
+    async e => {
       e.preventDefault();
-      if (ticketID.length === 10) {
-        userStore.setToken('validtoken');
-        authModalStore.setModalOpen(false);
-      } else {
-        setLoginError('Username or password wrong');
+      try {
+        await authenticationController.loginByTicketID(ticketID);
+      } catch (error) {
+        setLoginError(`Failed! ${error}`);
       }
     },
     [ticketID]
@@ -48,13 +49,13 @@ const AuthModal: React.FC = observer(() => {
   const handleTicketIDChange = useCallback(e => {
     const ticketIDInput = e.target.value;
     const ticketLength = ticketIDInput.length;
-    const isInputMismatch = ticketLength < 10 || ticketLength > 10;
+    const isInputMismatch = ticketLength !== 6;
     setTicketID(ticketIDInput);
     setWrongInputFormat(isInputMismatch);
   }, []);
 
   return (
-    <Modal noCloseButton modalStore={authModalStore}>
+    <Modal noCloseButton modalStore={authModalStore} className='px-4 my-4'>
       <Card className='flex flex-col items-center'>
         <p className='font-extrabold text-bg mb-4'>
           To continue, Please log in
@@ -73,7 +74,7 @@ const AuthModal: React.FC = observer(() => {
             onChange={handleTicketIDChange}
           />
           <p className={`text-red-600 pt-2 ${!wrongInputFormat && 'hidden'}`}>
-            Please enter 10 digits
+            Use test01 to test05
           </p>
           <p className='mt-3 text-xs'>or Scan QR</p>
           <Button

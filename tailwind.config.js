@@ -25,6 +25,7 @@ module.exports = {
         800: '#2d3748',
         900: '#1a202c'
       },
+      dim: 'rgba(0,0,0,0.4)',
       bkk: {
         white: '#F5F1E9',
         blue: '#164194',
@@ -92,19 +93,10 @@ module.exports = {
       '8': '8px'
     },
     boxShadow: {
-      default:
-        '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
-      md:
-        '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-      lg:
-        '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-      xl:
-        '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-      '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-      inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
-      outline: '0 0 0 3px rgba(66, 153, 225, 0.5)',
-      none: 'none',
-      circle: '0px 0px 10px rgba(0, 0, 0, 0.25)'
+      default: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+      press: '0px 0px 4px rgba(0, 0, 0, 0.25)',
+      circle: '0px 0px 10px rgba(0, 0, 0, 0.25)',
+      none: 'none'
     },
     container: {},
     cursor: {
@@ -216,7 +208,8 @@ module.exports = {
     minHeight: {
       '0': '0',
       full: '100%',
-      screen: '100vh'
+      screen: '100vh',
+      '500px': '500px'
     },
     minWidth: {
       '0': '0',

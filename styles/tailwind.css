@@ -1,14 +1,15 @@
 @tailwind base;
 
 @import url('fonts.css');
-html {
+
+body {
   background: linear-gradient(151.33deg, #de726f 4.46%, #2254b6 90.47%)
     no-repeat center center fixed;
   background-size: cover;
 }
 
 .fade-out {
-  animation: 'fadeOut' 0.5s linear;
+  animation: 'fadeOut' 0.15s linear;
 }
 
 .fade {
@@ -22,6 +23,19 @@ html {
   100% {
     opacity: 0;
   }
+}
+
+input[type='radio'] + label span:hover,
+input[type='radio'] + label:hover span {
+  transform: scale(1.2);
+}
+
+input[type='radio']:checked + span {
+  background: #f7d455 url('/icons/checked.svg') no-repeat center;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 @tailwind components;

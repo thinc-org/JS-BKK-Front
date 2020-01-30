@@ -1,59 +1,62 @@
-import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { observer, useLocalStore } from 'mobx-react-lite';
-import useMockApi from '../../../commons/hooks/useMockApi';
-import { Restaurant } from '../../../interfaces/Orders';
-import OrderItem from './OrderItem';
+import React, {
+  useCallback,
+  useContext,
+  useMemo,
+  createContext,
+  useState
+} from 'react';
 import Card from '../../../commons/components/Card';
-import Countdown from './countDown';
 import OrderFood from './OrderFood';
+import { Choice, CurrentMenuContext } from '../../../interfaces/Orders';
+import Countdown from '../../../components/order-food/CountDown';
 import { RootStore } from '../../../interfaces/Commons';
 import rootContext from '../../../commons/context.root';
-import SelectFoodModal from '../../../commons/components/order-food/SelectFoodModal';
+import SelectFoodModal from '../../../components/order-food/SelectFoodModal';
 import createModalStore from '../../../commons/stores/authModalStores';
+import useOrders from '../../../commons/hooks/useOrders';
+import RestaurantList from '../../../components/order-food/RestaurantList';
+import { withRequiredAuthentication } from '../../../components/authentication';
+
+export const currentMenuContext = createContext<CurrentMenuContext>({
+  orderFood: () => {}
+});
 
 const Orders: React.FC = observer(() => {
   const { userStore } = useContext<RootStore>(rootContext);
-  const [restaurants, setRestaurant] = useState<Restaurant[] | null>(null);
   const modalStore = useLocalStore(() => createModalStore(400, false));
-  const mockApi = useMockApi('order');
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await mockApi();
-      setRestaurant(result);
-    };
-    fetchData();
-  }, []);
+  const { data } = useOrders();
+  const [currentMenu, setCurrentMenu] = useState();
 
   const orderFood = useCallback(
-    (orderData: Restaurant) => {
-      // eslint-disable-next-line no-console
-      console.log(orderData, 'order item');
+    (orderData: Choice) => {
+      setCurrentMenu(orderData);
       modalStore.setModalOpen(true);
     },
-    [restaurants]
+    [data]
   );
 
-  const OrderItems =
-    restaurants &&
-    restaurants.map(order => {
-      return (
-        <div key={order.key} className='my-3'>
-          <OrderItem onOrder={orderFood} order={order} />
-        </div>
-      );
-    });
+  const OrderItems = useMemo(() => {
+    return (
+      data &&
+      data.map(restaurant => {
+        return (
+          <div key={restaurant.title} className='my-3 mx-4'>
+            <h4 className='text-white text-lg mb-4'>{restaurant.title}</h4>
+            <RestaurantList restaurants={restaurant.choices} />
+          </div>
+        );
+      })
+    );
+  }, [data]);
 
   return (
     <div>
-      <SelectFoodModal
-        storeData={{ items: [], name: 'เพลินพุง Noodle & More' }}
-        modalStore={modalStore}
-      />
+      <SelectFoodModal menuChoice={currentMenu} modalStore={modalStore} />
       <div>
         <div className='text-sm '>
           Ordering as{' '}
-          <span className='font-extrabold'>{userStore.userInfo?.username}</span>
+          <span className='font-extrabold'>{userStore.userInfo?.name}</span>
         </div>
         <Card className='m-4'>
           <p className='mb-4'>
@@ -70,11 +73,16 @@ const Orders: React.FC = observer(() => {
         </Card>
         <OrderFood className='m-4' />
         <div className='flex flex-col items-center'>
-          <div className='w-64'>{OrderItems}</div>
+          <h3 className='w-full px-4 text-white text-xl font-bold'>
+            Select your lunch
+          </h3>
+          <currentMenuContext.Provider value={{ orderFood }}>
+            {OrderItems}
+          </currentMenuContext.Provider>
         </div>
       </div>
     </div>
   );
 });
 
-export default Orders;
+export default withRequiredAuthentication(Orders);
