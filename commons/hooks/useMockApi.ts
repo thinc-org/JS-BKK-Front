@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
-import { Restaurant } from '../../interfaces/Orders';
+import { RestaurantGroup } from '../../interfaces/Orders';
 
 const useMockApi = (arg: string) => {
-  let result: null | Restaurant[] = null;
+  let result: null | RestaurantGroup[] = null;
   switch (arg) {
     default:
       result = null;
@@ -10,7 +10,7 @@ const useMockApi = (arg: string) => {
   }
   return useCallback(
     () =>
-      new Promise<Restaurant[] | null>((resolve, reject) => {
+      new Promise<RestaurantGroup[] | null>((resolve, reject) => {
         if (result === null) reject();
         setTimeout(() => resolve(result), 500);
       }),

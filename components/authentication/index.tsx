@@ -1,4 +1,11 @@
-import { useEffect, useState, ReactNode, useContext, useMemo } from 'react';
+import {
+  useEffect,
+  useState,
+  ReactNode,
+  useContext,
+  useMemo,
+  useDebugValue
+} from 'react';
 import {
   getFirebase,
   User,
@@ -139,7 +146,8 @@ export function RequiresAuthentication(props: {
     fallback = null
   } = props;
   const authState = useAuthenticationState();
-  const mustDisplayModal = authState === null;
+  const mustDisplayModal =
+    !isFetching(authState) && !isAuthenticated(authState);
   const { authModalStore } = useContext(rootContext);
 
   useEffect(() => {

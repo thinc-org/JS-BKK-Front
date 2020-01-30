@@ -1,12 +1,12 @@
-import { Restaurant } from '../../interfaces/Orders';
+import { RestaurantGroup } from '../../interfaces/Orders';
 import { FetchResult } from '../../interfaces/Commons';
 // import useFetcher from './_useFetcher';
 import useFetcher from './useFetcher';
 
-const useOrders = (): FetchResult<Restaurant[]> => {
-  return useFetcher<Restaurant[]>(
+const useOrders = (): FetchResult<RestaurantGroup[]> => {
+  return useFetcher<RestaurantGroup[]>(
     () =>
-      new Promise<Restaurant[]>(resolve => {
+      new Promise<RestaurantGroup[]>(resolve => {
         setTimeout(
           () =>
             resolve([

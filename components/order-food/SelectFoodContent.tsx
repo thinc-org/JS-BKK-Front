@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
-import { Choice, Food } from '../../interfaces/Orders';
+import { Restaurant, Food } from '../../interfaces/Orders';
 import { ModalStore } from '../../commons/stores/authModalStores';
 import useFoodSelection from '../../commons/hooks/useFoodSelection';
 import Button from '../../commons/components/Button';
 
 interface PropTypes {
-  menuChoice?: Choice;
+  menuChoice?: Restaurant;
   modalStore: ModalStore;
 }
 

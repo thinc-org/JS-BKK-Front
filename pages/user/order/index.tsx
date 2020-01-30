@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 import Card from '../../../commons/components/Card';
 import OrderFood from './OrderFood';
-import { Choice, CurrentMenuContext } from '../../../interfaces/Orders';
+import { Restaurant, CurrentMenuContext } from '../../../interfaces/Orders';
 import Countdown from '../../../components/order-food/CountDown';
 import { RootStore } from '../../../interfaces/Commons';
 import rootContext from '../../../commons/context.root';
@@ -29,7 +29,7 @@ const Orders: React.FC = observer(() => {
   const [currentMenu, setCurrentMenu] = useState();
 
   const orderFood = useCallback(
-    (orderData: Choice) => {
+    (orderData: Restaurant) => {
       setCurrentMenu(orderData);
       modalStore.setModalOpen(true);
     },
@@ -39,11 +39,11 @@ const Orders: React.FC = observer(() => {
   const OrderItems = useMemo(() => {
     return (
       data &&
-      data.map(restaurant => {
+      data.map(group => {
         return (
-          <div key={restaurant.title} className='my-3 mx-4'>
-            <h4 className='text-white text-lg mb-4'>{restaurant.title}</h4>
-            <RestaurantList restaurants={restaurant.choices} />
+          <div key={group.title} className='my-3 mx-4'>
+            <h4 className='text-white text-lg mb-4'>{group.title}</h4>
+            <RestaurantList restaurants={group.choices} />
           </div>
         );
       })
