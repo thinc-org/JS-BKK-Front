@@ -7,10 +7,11 @@ import { ModalStore } from '../stores/authModalStores';
 interface PropTypes {
   modalStore: ModalStore;
   noCloseButton?: boolean;
+  className?: string;
 }
 
 const Modal: React.FC<PropTypes> = observer(
-  ({ children, modalStore, noCloseButton = false }) => {
+  ({ children, modalStore, noCloseButton = false, className }) => {
     const closeModal = useCallback(() => {
       modalStore.setModalOpen(false);
     }, []);
@@ -39,7 +40,7 @@ const Modal: React.FC<PropTypes> = observer(
       : `${isAnimating && !isModalOpen ? 'opacity-0' : ''} ${
           isHidden ? 'invisible opacity-0' : ''
         } fade`;
-    const MODAL_CLASSES = `fixed flex justify-center my-4 px-4 z-50 ${ANIMATION_CLASSES}`;
+    const MODAL_CLASSES = `fixed w-screen h-screen overflow-y-auto justify-center z-50 ${ANIMATION_CLASSES} ${className}`;
 
     return <div className={MODAL_CLASSES}>{content}</div>;
   }

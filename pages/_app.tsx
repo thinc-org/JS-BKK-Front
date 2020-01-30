@@ -50,9 +50,6 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
       });
     }
   }, [authenticationState]);
-  const {
-    authModalStore: { isAnimating, isHidden, isModalOpen }
-  } = rootStore;
 
   return (
     <>
@@ -64,7 +61,7 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
           {routeData.hasNavbar && <PageHeading routeData={routeData} />}
           <div className='flex justify-center pb-55px'>
             <AuthModal />
-            <div className='flex items-start'>
+            <div className='flex items-start justify-center'>
               <Component {...pageProps} />
             </div>
             <div className='fixed z-40 bottom-0 left-0 w-full'>

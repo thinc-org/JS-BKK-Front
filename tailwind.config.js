@@ -14,6 +14,7 @@ module.exports = {
       black: '#000',
       white: '#fff',
       grey: '#C4C4C4',
+      dim: 'rgba(0,0,0,0.4)',
       bkk: {
         white: '#F5F1E9',
         blue: '#164194',
@@ -42,7 +43,6 @@ module.exports = {
       '48': '12rem',
       '56': '14rem',
       '64': '16rem',
-      '70vh': '70vh',
       '55px': '55px'
     },
     backgroundColor: theme => theme('colors'),
@@ -197,7 +197,8 @@ module.exports = {
     minHeight: {
       '0': '0',
       full: '100%',
-      screen: '100vh'
+      screen: '100vh',
+      '500px': '500px'
     },
     minWidth: {
       '0': '0',

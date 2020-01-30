@@ -13,7 +13,7 @@ interface PropTypes {
 const SelectFoodModal: React.FC<PropTypes> = observer(
   ({ menuChoice, modalStore }) => {
     return (
-      <Modal modalStore={modalStore}>
+      <Modal modalStore={modalStore} className='bg-dim top-0 p-6 min-h-500px'>
         {!modalStore.isHidden && (
           <SelectFoodContent menuChoice={menuChoice} modalStore={modalStore} />
         )}
