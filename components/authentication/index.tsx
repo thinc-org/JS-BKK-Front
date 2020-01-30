@@ -102,7 +102,7 @@ export function isAuthenticated(
 export function useAuthenticationController() {
   return useMemo(
     () => ({
-      async loginByTicketID(ticketID: string) {
+      async loginAsTestUser(ticketID: string) {
         if (getEnvName() === 'production') {
           throw new Error(
             'Eventpop authentication is not implemented yet. To log in, please run the app in test mode by appending ?env=test to URL'
