@@ -12,8 +12,8 @@ import { Restaurant, CurrentMenuContext } from '../../../interfaces/Orders';
 import Countdown from '../../../components/order-food/CountDown';
 import {
   RootStore,
-  isFetching,
-  isFetchingFailed
+  isFetchingFailed,
+  isFetchingCompleted
 } from '../../../interfaces/Commons';
 import rootContext from '../../../commons/context.root';
 import SelectFoodModal from '../../../components/order-food/SelectFoodModal';
@@ -53,11 +53,11 @@ const Orders: React.FC = observer(() => {
     });
   }, [data]);
 
-  if (isFetching(menuFetchResult)) {
-    return <span>Loading food menu...</span>;
-  }
   if (isFetchingFailed(menuFetchResult)) {
     return <ErrorMessage error={menuFetchResult.error} />;
+  }
+  if (!isFetchingCompleted(menuFetchResult)) {
+    return <span>Loading food menu...</span>;
   }
 
   return (
@@ -81,7 +81,7 @@ const Orders: React.FC = observer(() => {
           <p className='mb-4'>Please select your menu before time limit:</p>
           <Countdown className='flex justify-center text-3xl' />
         </Card>
-        <OrderFood className='m-4' />
+        <OrderFood className='m-4' menu={menuFetchResult.data} />
         <div className='flex flex-col items-center'>
           <h3 className='w-full px-4 text-white text-xl font-bold'>
             Select your lunch

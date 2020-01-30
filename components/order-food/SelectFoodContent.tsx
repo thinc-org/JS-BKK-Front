@@ -1,12 +1,35 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Restaurant, Food } from '../../interfaces/Orders';
 import { ModalStore } from '../../commons/stores/authModalStores';
 import useFoodSelection from '../../commons/hooks/useFoodSelection';
 import Button from '../../commons/components/Button';
+import submitFoodOrder from '../../commons/hooks/submitFoodOrder';
 
 interface PropTypes {
   menuChoice?: Restaurant;
   modalStore: ModalStore;
+}
+
+function getCustomizations(
+  menuChoice: Restaurant,
+  multipleSupport: boolean[],
+  values: any
+): { [key: string]: string[] } {
+  const customizations: { [key: string]: string[] } = {};
+  for (const [index, item] of Array.from(menuChoice.customizations.entries())) {
+    const isMultipleSupport = multipleSupport[index];
+    if (isMultipleSupport) {
+      for (const choice of item.choices) {
+        if (values[choice.id]) {
+          if (!customizations[item.id]) customizations[item.id] = [];
+          customizations[item.id].push(choice.id);
+        }
+      }
+    } else {
+      customizations[item.id] = [values[item.id]];
+    }
+  }
+  return customizations;
 }
 
 const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
@@ -18,10 +41,24 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
     validate
   } = useFoodSelection(menuChoice);
 
-  const onSubmit = (values: Food[]) => {
-    // eslint-disable-next-line no-console
-    modalStore.setModalOpen(false);
-    console.log(values, 'value');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const onSubmit = async (values: any) => {
+    setIsSubmitting(true);
+    try {
+      if (!menuChoice) {
+        throw new Error('No restaurant selected.');
+      }
+      const customizations = getCustomizations(
+        menuChoice,
+        multipleSupport,
+        values
+      );
+      await submitFoodOrder(menuChoice.id, customizations);
+      modalStore.setModalOpen(false);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const FoodMenu = useMemo(
@@ -91,12 +128,14 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
             {Object.entries(errors).length !== 0 &&
               'all catagories is not selected'}
           </span>
-          <Button
-            className='w-auto py-2 bg-yellow-dark rounded-bg text-lg mt-5'
-            type='submit'
-          >
-            Confirm
-          </Button>
+          {!isSubmitting && (
+            <Button
+              className='w-auto py-2 bg-yellow-dark rounded-bg text-lg mt-5'
+              type='submit'
+            >
+              Confirm
+            </Button>
+          )}
         </div>
       </form>
     </>
