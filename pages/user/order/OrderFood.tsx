@@ -16,24 +16,32 @@ const OrderFood: React.FC<Props> = ({ className }) => {
         Your Food Selection
       </h2>
       <Card className='flex flex-col'>
-        <h3 className='flex justify-center font-bold'>I am Thai Pasta</h3>
+        <h3 className='flex justify-center font-bold'>{data?.title}</h3>
         <div className='my-4'>
-          <span className="text-gray-600">Food (อาหาร):</span>
+          <span className='text-gray-600'>Food (อาหาร):</span>
           <p className='font-bold'>{data?.food}</p>
+          <p className='font-bold'>{data?.food2}</p>
+        </div>
+        <div className='my-4'>
+          <span className='text-gray-600'>Side Dish (กับข้าว):</span>
+          <p className='font-bold'>{data?.side}</p>
         </div>
         <div className='my-4 '>
-          <span className="text-gray-600">Spice level (ความเผ็ด):</span>
+          <span className='text-gray-600'>Spice level (ความเผ็ด):</span>
           <p className='font-bold'>{data?.spice}</p>
         </div>
         <div className='my-4'>
-          <span className="text-gray-600">Drink (เครื่องดื่ม):</span>
+          <span className='text-gray-600'>Drink (เครื่องดื่ม):</span>
           <p className='font-bold'>{data?.drink}</p>
         </div>
         <div className='my-4'>
-          <span className="text-gray-600">Dessert (ขนมหว่าน):</span>
+          <span className='text-gray-600'>Dessert (ขนมหว่าน):</span>
           <p className='font-bold'>{data?.dessert}</p>
         </div>
-        <Button type='button' className='bg-yellow-dark rounded p-2 m-4 text-xl'>
+        <Button
+          type='button'
+          className='bg-yellow-dark rounded p-2 m-4 text-xl'
+        >
           Change Your mind?
         </Button>
       </Card>

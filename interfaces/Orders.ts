@@ -14,10 +14,14 @@ export interface Menu {
 }
 
 export interface MyOrder {
+  title: string;
   food: string;
+  food2: string;
+  allowedChoices: number;
   drink: string;
   spice: string;
-  dessert: string
+  dessert: string;
+  side: string;
 }
 
 export interface Food {
