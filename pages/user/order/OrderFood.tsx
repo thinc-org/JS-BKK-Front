@@ -1,7 +1,7 @@
 import Card from '../../../commons/components/Card';
 import Button from '../../../commons/components/Button';
 import useMyOrder from '../../../commons/hooks/useMyOrder';
-import { RestaurantGroup } from '../../../interfaces/Orders';
+import { RestaurantGroup, Restaurant } from '../../../interfaces/Orders';
 import {
   isFetchingFailed,
   isFetchingCompleted
@@ -16,7 +16,10 @@ interface Props {
 
 const OrderFood: React.FC<Props> = ({ className, menu }) => {
   const myOrderFetchStatus = useMyOrder();
-  const restaurants = useMemo(() => menu.flatMap(m => m.choices), [menu]);
+  const restaurants = useMemo(
+    () => ([] as Restaurant[]).concat(...menu.map(m => m.choices)),
+    [menu]
+  );
 
   if (isFetchingFailed(myOrderFetchStatus)) {
     return <ErrorMessage error={myOrderFetchStatus.error} />;
