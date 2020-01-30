@@ -121,8 +121,13 @@ export function useAuthenticationController() {
 export function RequiresAuthentication(props: {
   children: ReactNode;
   fallback?: ReactNode;
+  checking?: ReactNode;
 }) {
-  const { children, fallback = null } = props;
+  const {
+    children,
+    checking = <DefaultAuthenticationChecking />,
+    fallback = null
+  } = props;
   const authState = useAuthenticationState();
   console.log(authState);
   const mustDisplayModal = authState === null;
@@ -138,10 +143,17 @@ export function RequiresAuthentication(props: {
     };
   }, [mustDisplayModal]);
 
-  if (authState === 'checking' || !authState) {
+  if (authState === 'checking') {
+    return <>{checking}</>;
+  }
+  if (!authState) {
     return <>{fallback}</>;
   }
   return <>{children}</>;
+}
+
+function DefaultAuthenticationChecking() {
+  return <div className='text-xl text-white'>Checking authentication...</div>;
 }
 
 export function withRequiredAuthentication<T>(
