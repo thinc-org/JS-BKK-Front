@@ -1,12 +1,12 @@
-import React, { useContext, useMemo } from 'react';
 import { observer } from 'mobx-react-lite';
 import QRCode from 'qrcode.react';
-
-import BadgeItem from './Badge';
+import React, { useContext, useMemo } from 'react';
 import Button from '../../../../commons/components/Button';
-import { RootStore } from '../../../../interfaces/Commons';
 import rootContext from '../../../../commons/context.root';
+import { addUserToNetwork } from '../../../../commons/hooks/networking';
 import { withRequiredAuthentication } from '../../../../components/authentication';
+import { RootStore } from '../../../../interfaces/Commons';
+import BadgeItem from './Badge';
 
 const Loading: React.FC<{}> = () => <div>...Loading</div>;
 
@@ -65,7 +65,9 @@ const Dashboard: React.FC = observer(() => {
         {BadgeItems}
       </div>
       <div className='mt-12'>
-        <span>No idea? Here are some questions!</span>
+        <span onClick={() => addUserToNetwork('test04')}>
+          No idea? Here are some questions!
+        </span>
         <ul className='pl-16'>
           <li>
             <span className='block py-1'>Where do you work?</span>
