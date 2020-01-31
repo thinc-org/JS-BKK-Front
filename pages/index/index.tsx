@@ -1,23 +1,27 @@
-import React, { useMemo } from 'react';
-import { css } from '@emotion/core';
-import styled from '@emotion/styled';
+import React from 'react';
+import Announcements from '../../components/announcements/Announcements';
 
 const Home: React.FC = () => {
-  const basicStyles = useMemo(
-    () => css`
-      color: green;
-    `,
-    []
-  );
-
-  const Basic = styled.div`
-    ${basicStyles};
-  `;
   return (
-    <div css={basicStyles}>
-      Home works
-      <Basic>GO O</Basic>
+    <div>
+      <Announcements />
+      <TweetButton />
+      <div className='text-red-600'>Home works</div>
     </div>
+  );
+};
+
+const TweetButton: React.FC = () => {
+  return (
+    <a
+      href='https://twitter.com/intent/tweet?hashtags=jsbangkok'
+      target='_blank'
+      rel='noopener noreferrer'
+      data-testid='tweet-button'
+      className='block mt-12 py-3 text-center font-bg bg-yellow-dark text-black rounded'
+    >
+      Tweet #jsbangkok
+    </a>
   );
 };
 

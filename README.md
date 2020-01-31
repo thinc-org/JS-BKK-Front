@@ -1,6 +1,6 @@
 # Start the project
 
-Make user you have [VS Code](https://code.visualstudio.com/), [Node.js](https://nodejs.org/en/), [Yarn](https://yarnpkg.com/lang/en/), [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint), [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode), and [VScode React Emotion Snippets](https://marketplace.visualstudio.com/items?itemName=muhajirframe.vscode-react-emotion) installed before starting the project.
+Make sure you have [VS Code](https://code.visualstudio.com/), [Node.js](https://nodejs.org/en/), [Yarn](https://yarnpkg.com/lang/en/), [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint), [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode), and [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) installed before starting the project.
 
 ## Instruction
 
@@ -27,3 +27,11 @@ Install [Debugger for Microsoft Edge](https://marketplace.visualstudio.com/items
 > Edge: full
 
 on VS Code debug panel
+
+# Running Cypress tests
+
+Make sure your dev server is open.
+
+```
+yarn cypress open
+```

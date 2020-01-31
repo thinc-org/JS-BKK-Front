@@ -1,8 +1,8 @@
 {
   "recommendations": [
     "esbenp.prettier-vscode",
-    "muhajirframe.vscode-react-emotion",
     "dbaeumer.vscode-eslint",
+    "bradlc.vscode-tailwindcss",
     "msjsdiag.debugger-for-chrome"
   ]
 }
