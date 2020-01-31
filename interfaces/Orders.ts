@@ -1,10 +1,10 @@
-export interface Restaurant {
+export interface RestaurantGroup {
   title: string;
-  choices: Choice[];
+  choices: Restaurant[];
   allowedChoices?: number;
 }
 
-export interface Choice {
+export interface Restaurant {
   id: string;
   title: string;
   availability: number;
@@ -21,13 +21,8 @@ export interface Menu {
 }
 
 export interface MyOrder {
-  title: string;
-  food: string;
-  food2?: string;
-  drink?: string;
-  spice?: string;
-  dessert?: string;
-  side?: string;
+  restaurantId: string;
+  customizations: { [key: string]: string[] };
 }
 
 export interface Food {
@@ -38,5 +33,5 @@ export interface Food {
 }
 
 export interface CurrentMenuContext {
-  orderFood: (orderData: Choice) => void;
+  orderFood: (orderData: Restaurant) => void;
 }

@@ -1,11 +1,11 @@
 import { useContext } from 'react';
 import Card from '../../commons/components/Card';
-import { Choice } from '../../interfaces/Orders';
+import { Restaurant } from '../../interfaces/Orders';
 import { currentMenuContext } from '../../pages/user/order';
 
 interface ListItemProps {
   lastItem: boolean;
-  restaurant: Choice;
+  restaurant: Restaurant;
 }
 
 const ListItem: React.FC<ListItemProps> = ({ lastItem, restaurant }) => {
@@ -15,13 +15,18 @@ const ListItem: React.FC<ListItemProps> = ({ lastItem, restaurant }) => {
     <div
       role='button'
       tabIndex={0}
-      onKeyPress={() => orderFood(restaurant)}
+      onKeyDown={e => e.keyCode === 13 && orderFood(restaurant)}
       onClick={() => orderFood(restaurant)}
       className={`cursor-pointer flex flex-row justify-between py-4 mx-4 ${!lastItem &&
         ' border-b border-grey'}`}
     >
       <div className='flex flex-col'>
-        <p className='text-lg font-bold text-black'>{title}</p>
+        <p
+          className='text-lg font-bold text-black'
+          aria-label='Restaurant title'
+        >
+          {title}
+        </p>
         {info && <div className='text-normal'>{info}</div>}
       </div>
       <div className='flex'>
@@ -33,7 +38,7 @@ const ListItem: React.FC<ListItemProps> = ({ lastItem, restaurant }) => {
   );
 };
 
-const RestaurantList: React.FC<{ restaurants: Choice[] }> = ({
+const RestaurantList: React.FC<{ restaurants: Restaurant[] }> = ({
   restaurants
 }) => {
   return (

@@ -30,9 +30,10 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
   const authenticationState = useAuthenticationState();
   useEffect(() => {
     if (isAuthenticated(authenticationState)) {
+      const authenticatedState = authenticationState.data;
       const name = [
-        authenticationState.profile.firstname,
-        authenticationState.profile.lastname
+        authenticatedState.profile.firstname,
+        authenticatedState.profile.lastname
       ].join(' ');
 
       // TODO: Subscribe to actual data instead of mocked data.

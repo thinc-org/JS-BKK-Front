@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form';
 import { useEffect, useState, useCallback } from 'react';
-import { Food, Choice } from '../../interfaces/Orders';
+import { Food, Restaurant } from '../../interfaces/Orders';
 
-const useFoodSelection = (menuChoice?: Choice) => {
+const useFoodSelection = (menuChoice?: Restaurant) => {
   const { handleSubmit, register, errors, getValues } = useForm<Food[]>();
   const [multipleSupport, setMultiple] = useState<boolean[]>([]);
 

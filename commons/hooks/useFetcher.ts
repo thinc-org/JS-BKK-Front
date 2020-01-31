@@ -1,21 +1,32 @@
-import { useLocalStore } from 'mobx-react-lite';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { FetchResult } from '../../interfaces/Commons';
 
 const useDataPromise = <T>(fetcher: () => Promise<T>) => {
-  const dataStore = useLocalStore(() => ({
-    data: null as T | null,
-    error: null
-  }));
+  const [state, updateState] = useState(
+    (): FetchResult<T> => ({
+      data: undefined,
+      error: null,
+      status: 'loading'
+    })
+  );
   useEffect(() => {
     fetcher()
       .then(data => {
-        dataStore.data = data;
+        updateState(state => ({
+          ...state,
+          data,
+          status: 'completed'
+        }));
       })
       .catch(error => {
-        dataStore.error = error;
+        updateState(state => ({
+          ...state,
+          error,
+          status: 'error'
+        }));
       });
   }, []);
-  return dataStore;
+  return state;
 };
 
 export default useDataPromise;
