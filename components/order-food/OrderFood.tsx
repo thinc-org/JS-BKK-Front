@@ -70,8 +70,9 @@ const OrderFood: React.FC<Props> = ({ className, menu }) => {
         <Button
           type='button'
           className='bg-yellow-dark rounded p-2 m-4 text-xl'
+          aria-label='Change your lunchtime meal selection'
         >
-          Change Your mind?
+          Change your mind?
         </Button>
       </Card>
     </div>

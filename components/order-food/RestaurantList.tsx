@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import Card from '../../commons/components/Card';
 import { Restaurant } from '../../interfaces/Orders';
 import { currentMenuContext } from '../../pages/user/order';
+import { useId } from 'react-id-generator';
 
 interface ListItemProps {
   lastItem: boolean;
@@ -11,6 +12,7 @@ interface ListItemProps {
 const ListItem: React.FC<ListItemProps> = ({ lastItem, restaurant }) => {
   const { title, availability, info } = restaurant;
   const { orderFood } = useContext(currentMenuContext);
+  const [titleId] = useId(1, 'Announcement');
   return (
     <div
       role='button'
@@ -19,11 +21,13 @@ const ListItem: React.FC<ListItemProps> = ({ lastItem, restaurant }) => {
       onClick={() => orderFood(restaurant)}
       className={`cursor-pointer flex flex-row justify-between py-4 mx-4 ${!lastItem &&
         ' border-b border-grey'}`}
+      aria-labelledby={titleId}
     >
       <div className='flex flex-col'>
         <p
           className='text-lg font-bold text-black'
-          aria-label='Restaurant title'
+          data-testid='restaurant-title'
+          id='titleId'
         >
           {title}
         </p>
@@ -31,7 +35,7 @@ const ListItem: React.FC<ListItemProps> = ({ lastItem, restaurant }) => {
       </div>
       <div className='flex'>
         <div className='font-bold text-bkk-blue whitespace-no-wrap'>
-          {availability} left
+          <span data-testid='restaurant-availability'>{availability}</span> left
         </div>
       </div>
     </div>

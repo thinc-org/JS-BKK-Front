@@ -7,6 +7,7 @@ interface Props {
   type: 'submit' | 'button' | 'reset';
   onClick?: Onclick;
   disabled?: boolean;
+  'aria-label'?: string;
 }
 
 const Button: React.FC<Props> = ({
@@ -14,7 +15,8 @@ const Button: React.FC<Props> = ({
   className,
   type,
   onClick,
-  disabled
+  disabled,
+  'aria-label': ariaLabel
 }) => {
   return (
     <button
@@ -22,6 +24,7 @@ const Button: React.FC<Props> = ({
       className={className}
       type={type}
       onClick={onClick}
+      aria-label={ariaLabel}
     >
       {children}
     </button>
