@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
 interface Props {
-  className?: string;
   due: number;
 }
 
@@ -9,7 +8,7 @@ function padZero(n: string, width: number) {
   return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
 }
 
-const Countdown: React.FC<Props> = ({ className, due }) => {
+const Countdown: React.FC<Props> = ({ due }) => {
   const [time, setTime] = useState<number | null>(null);
 
   useEffect(() => {
@@ -37,7 +36,7 @@ const Countdown: React.FC<Props> = ({ className, due }) => {
     return parts.join(':');
   }, [time, due]);
 
-  return <div className={`${className}`}>{timeLeft}</div>;
+  return <>{timeLeft}</>;
 };
 
 export default Countdown;

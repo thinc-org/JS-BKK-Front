@@ -12,7 +12,7 @@ interface ListItemProps {
 const ListItem: React.FC<ListItemProps> = ({ lastItem, restaurant }) => {
   const { title, availability, info } = restaurant;
   const { orderFood } = useContext(currentMenuContext);
-  const [titleId] = useId(1, 'Announcement');
+  const [titleId] = useId(1, 'RestaurantListItem');
   return (
     <div
       role='button'

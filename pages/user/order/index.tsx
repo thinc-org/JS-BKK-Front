@@ -79,10 +79,12 @@ const Orders: React.FC = observer(() => {
             make your selection early because seatings are limited.
           </p>
           <p className='mb-4'>Please select your menu before time limit:</p>
-          <Countdown
-            due={orderingPeriodEndTime}
+          <div
             className='flex justify-center text-3xl'
-          />
+            data-testid='food-ordering-countdown-timer'
+          >
+            <Countdown due={orderingPeriodEndTime} />
+          </div>
         </Card>
         <OrderFood className='m-4' menu={menuFetchResult.data.menu.groups} />
         <div className='flex flex-col items-center'>

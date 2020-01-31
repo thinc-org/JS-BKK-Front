@@ -8,6 +8,7 @@ import {
 } from '../../interfaces/Commons';
 import ErrorMessage from '../../commons/components/ErrorMessage';
 import { useMemo } from 'react';
+import { useId } from 'react-id-generator';
 
 interface Props {
   className?: string;
@@ -17,6 +18,7 @@ interface Props {
 const OrderFood: React.FC<Props> = ({ className, menu }) => {
   const myOrderFetchStatus = useMyOrder();
   const restaurants = useMemo(() => menu.flatMap(m => m.choices), [menu]);
+  const [headingId] = useId(1, 'OrderFood');
 
   if (isFetchingFailed(myOrderFetchStatus)) {
     return <ErrorMessage error={myOrderFetchStatus.error} />;
@@ -42,11 +44,16 @@ const OrderFood: React.FC<Props> = ({ className, menu }) => {
 
   return (
     <div className={className}>
-      <h2 className='text-white text-2xl font-semibold my-2'>
+      <h2 className='text-white text-2xl font-semibold my-2' id={headingId}>
         Your Food Selection
       </h2>
-      <Card className='flex flex-col'>
-        <h3 className='flex justify-center font-bold'>{restaurant.title}</h3>
+      <Card className='flex flex-col' aria-labelledby={headingId}>
+        <h3
+          className='flex justify-center font-bold'
+          data-testid='selected-restaurant-title'
+        >
+          {restaurant.title}
+        </h3>
         {restaurant.customizations.map(customization => {
           return (
             <div className='my-4' key={customization.id}>
