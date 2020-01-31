@@ -1,3 +1,4 @@
+import { Button } from 'reakit/Button';
 import { useContext } from 'react';
 import Card from '../../commons/components/Card';
 import { Restaurant } from '../../interfaces/Orders';
@@ -14,10 +15,9 @@ const ListItem: React.FC<ListItemProps> = ({ lastItem, restaurant }) => {
   const { orderFood } = useContext(currentMenuContext);
   const [titleId] = useId(1, 'RestaurantListItem');
   return (
-    <div
+    <Button
+      as='div'
       role='button'
-      tabIndex={0}
-      onKeyDown={e => e.keyCode === 13 && orderFood(restaurant)}
       onClick={() => orderFood(restaurant)}
       className={`cursor-pointer flex flex-row justify-between py-4 mx-4 ${!lastItem &&
         ' border-b border-grey'}`}
@@ -38,7 +38,7 @@ const ListItem: React.FC<ListItemProps> = ({ lastItem, restaurant }) => {
           <span data-testid='restaurant-availability'>{availability}</span> left
         </div>
       </div>
-    </div>
+    </Button>
   );
 };
 
