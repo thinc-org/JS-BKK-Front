@@ -1,19 +1,37 @@
 import { RestaurantGroup } from '../../interfaces/Orders';
-import { FetchResult } from '../../interfaces/Commons';
-import useFetcher from './useFetcher';
-import { getFirebase } from '../firebase';
+import {
+  FetchResult,
+  isFetchingFailed,
+  isFetchingCompleted
+} from '../../interfaces/Commons';
+import { FirebaseModule, useFirestoreSnapshot } from '../firebase';
+import { useCallback } from 'react';
 
-const useOrders = (): FetchResult<RestaurantGroup[]> => {
-  return useFetcher<RestaurantGroup[]>(async () => {
-    const firebase = await getFirebase();
-    const food = await firebase
-      .getEnvDoc()
-      .collection('configuration')
-      .doc('food')
-      .get();
-    console.log('FOOD LIST', food);
-    return food.data()!.menu.groups;
-  });
+type FoodConfiguration = {
+  menu: {
+    groups: RestaurantGroup[];
+  };
+  orderingPeriodEndTime: number;
+};
+
+const useOrders = (): FetchResult<FoodConfiguration> => {
+  const getDocument = useCallback(
+    (firebase: FirebaseModule) =>
+      firebase
+        .getEnvDoc()
+        .collection('configuration')
+        .doc('food'),
+    []
+  );
+  const snapshotFetchResult = useFirestoreSnapshot(getDocument);
+  if (isFetchingFailed(snapshotFetchResult)) {
+    return { status: 'error', error: snapshotFetchResult.error };
+  }
+  if (!isFetchingCompleted(snapshotFetchResult)) {
+    return { status: 'loading' };
+  }
+  const snapshot = snapshotFetchResult.data;
+  return { status: 'completed', data: snapshot.data() as any };
 };
 
 export default useOrders;
