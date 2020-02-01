@@ -1,48 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 interface Props {
-  className?: string;
+  due: number;
 }
-
-const getDifference = (d1: Date, d2: Date) => {
-  const hours = (d2.getHours() - d1.getHours()) % 24;
-  const minutes = (d2.getMinutes() - d1.getMinutes()) % 60;
-  const seconds = (d2.getSeconds() - d1.getSeconds()) % 60;
-  const res: Date = new Date();
-  res.setHours(hours);
-  res.setMinutes(minutes);
-  res.setSeconds(seconds);
-  return res;
-};
 
 function padZero(n: string, width: number) {
   return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
 }
 
-const Countdown: React.FC<Props> = ({ className }) => {
-  // Set due date here
-  const closeFoodSale: Date = new Date();
-  closeFoodSale.setHours(new Date().getHours() + 5);
-  closeFoodSale.setMinutes(new Date().getMinutes() + 10);
-  closeFoodSale.setSeconds(new Date().getSeconds() + 1);
-  //
-  const [time, setTime] = useState<string>();
-  const [dueTime] = useState<Date>(closeFoodSale);
+const Countdown: React.FC<Props> = ({ due }) => {
+  const [time, setTime] = useState<number | null>(null);
 
   useEffect(() => {
-    const stopLoop = setInterval(() => {
-      const currentdate = getDifference(new Date(), dueTime);
-      setTime(
-        `${currentdate.getHours()}:${padZero(
-          currentdate.getMinutes().toString(),
-          2
-        )}:${padZero(currentdate.getSeconds().toString(), 2)}`
-      );
+    setTime(Date.now());
+    const interval = setInterval(() => {
+      setTime(Date.now());
     }, 1000);
-    return () => clearInterval(stopLoop);
-  }, [dueTime]);
+    return () => clearInterval(interval);
+  }, []);
 
-  return <div className={`${className}`}>{time}</div>;
+  const timeLeft = useMemo(() => {
+    if (time === null) return '…';
+    const difference = Math.floor((due - time) / 1000);
+    if (difference < 0) return '00:00:00';
+    const seconds = difference % 60;
+    const minutes = Math.floor(difference / 60) % 60;
+    const hours = Math.floor(difference / 3600) % 24;
+    const days = Math.floor(difference / 86400);
+    const parts = [
+      ...(days > 0 ? [days] : []),
+      padZero(`${hours}`, 2),
+      padZero(`${minutes}`, 2),
+      padZero(`${seconds}`, 2)
+    ];
+    return parts.join(':');
+  }, [time, due]);
+
+  return <>{timeLeft}</>;
 };
 
 export default Countdown;

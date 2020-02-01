@@ -31,16 +31,14 @@ const Orders: React.FC = observer(() => {
   const { userStore } = useContext<RootStore>(rootContext);
   const modalStore = useLocalStore(() => createModalStore(400, false));
   const menuFetchResult = useOrders();
-  const { data } = menuFetchResult;
+  const { data: foodConfiguration } = menuFetchResult;
+  const data = foodConfiguration?.menu?.groups;
   const [currentMenu, setCurrentMenu] = useState();
 
-  const orderFood = useCallback(
-    (orderData: Restaurant) => {
-      setCurrentMenu(orderData);
-      modalStore.setModalOpen(true);
-    },
-    [data]
-  );
+  const orderFood = useCallback((orderData: Restaurant) => {
+    setCurrentMenu(orderData);
+    modalStore.setModalOpen(true);
+  }, []);
 
   const restaurantGroupList = useMemo(() => {
     return data?.map(group => {
@@ -59,6 +57,8 @@ const Orders: React.FC = observer(() => {
   if (!isFetchingCompleted(menuFetchResult)) {
     return <span>Loading food menu...</span>;
   }
+
+  const orderingPeriodEndTime = menuFetchResult.data.orderingPeriodEndTime;
 
   return (
     <>
@@ -79,9 +79,14 @@ const Orders: React.FC = observer(() => {
             make your selection early because seatings are limited.
           </p>
           <p className='mb-4'>Please select your menu before time limit:</p>
-          <Countdown className='flex justify-center text-3xl' />
+          <div
+            className='flex justify-center text-3xl'
+            data-testid='food-ordering-countdown-timer'
+          >
+            <Countdown due={orderingPeriodEndTime} />
+          </div>
         </Card>
-        <OrderFood className='m-4' menu={menuFetchResult.data} />
+        <OrderFood className='m-4' menu={menuFetchResult.data.menu.groups} />
         <div className='flex flex-col items-center'>
           <h3 className='w-full px-4 text-white text-xl font-bold'>
             Select your lunch
