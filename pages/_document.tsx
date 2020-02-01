@@ -14,7 +14,7 @@ export default class MyDocument extends Document {
 
   render() {
     return (
-      <Html lang='th'>
+      <Html lang='en'>
         <Head>
           <meta
             name='msapplication-config'
