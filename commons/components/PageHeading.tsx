@@ -27,7 +27,7 @@ const PageHeading: React.FC<PropTypes> = observer(({ routeData }) => {
     ? 'authenticated'
     : 'unauthenticated';
   return (
-    <nav
+    <header
       className='flex flex-row items-center text-h text-white'
       data-authentication-state={authenticationStateDescription}
     >
@@ -37,7 +37,7 @@ const PageHeading: React.FC<PropTypes> = observer(({ routeData }) => {
           Logout
         </Button>
       )}
-    </nav>
+    </header>
   );
 });
 
