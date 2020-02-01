@@ -62,9 +62,9 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
           {routeData.hasNavbar && <PageHeading routeData={routeData} />}
           <div className='flex justify-center pb-55px'>
             <AuthModal />
-            <div className='flex items-start justify-center'>
+            <main className='flex items-start justify-center'>
               <Component {...pageProps} />
-            </div>
+            </main>
             <div className='fixed z-40 bottom-0 left-0 w-full'>
               <Nav />
             </div>

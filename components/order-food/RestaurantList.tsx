@@ -21,16 +21,16 @@ const ListItem: React.FC<ListItemProps> = ({ lastItem, restaurant }) => {
       onClick={() => orderFood(restaurant)}
       className={`cursor-pointer flex flex-row justify-between py-4 mx-4 ${!lastItem &&
         ' border-b border-grey'}`}
-      aria-labelledby={titleId}
+      data-testid='restaurant-item'
     >
       <div className='flex flex-col'>
-        <p
+        <h3
           className='text-lg font-bold text-black'
           data-testid='restaurant-title'
           id={titleId}
         >
           {title}
-        </p>
+        </h3>
         {info && <div className='text-normal'>{info}</div>}
       </div>
       <div className='flex'>

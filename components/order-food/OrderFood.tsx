@@ -44,16 +44,16 @@ const OrderFood: React.FC<Props> = ({ className, menu }) => {
 
   return (
     <div className={className}>
-      <h2 className='text-white text-2xl font-semibold my-2' id={headingId}>
+      <h1 className='text-white text-xl font-semibold my-2' id={headingId}>
         Your Food Selection
-      </h2>
+      </h1>
       <Card className='flex flex-col' aria-labelledby={headingId}>
-        <h3
+        <h2
           className='flex justify-center font-bold'
           data-testid='selected-restaurant-title'
         >
           {restaurant.title}
-        </h3>
+        </h2>
         {restaurant.customizations.map(customization => {
           return (
             <div className='my-4' key={customization.id}>
