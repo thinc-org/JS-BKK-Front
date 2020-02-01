@@ -27,7 +27,7 @@ const ListItem: React.FC<ListItemProps> = ({ lastItem, restaurant }) => {
         <p
           className='text-lg font-bold text-black'
           data-testid='restaurant-title'
-          id='titleId'
+          id={titleId}
         >
           {title}
         </p>
