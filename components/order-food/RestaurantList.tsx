@@ -33,7 +33,7 @@ const ListItem: React.FC<ListItemProps> = ({ lastItem, restaurant }) => {
         </h3>
         {info && <div className='text-normal'>{info}</div>}
       </div>
-      <div className='flex'>
+      <div className='flex ml-4'>
         <div className='font-bold text-bkk-blue whitespace-no-wrap'>
           <span data-testid='restaurant-availability'>{availability}</span> left
         </div>
