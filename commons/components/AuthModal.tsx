@@ -58,35 +58,39 @@ const AuthModal: React.FC = observer(() => {
 
   return (
     <Modal noCloseButton modalStore={authModalStore} className='px-4 my-4'>
-      <Card className='flex flex-col items-center'>
-        <p className='font-extrabold text-bg mb-4'>
-          To continue, Please log in
-        </p>
-        <p className='text-base leading-tight'>
-          Make your meal selection and meet other people through our networking
-          activity to win special prizes.
-        </p>
-        <Button
-          onClick={login}
-          type='button'
-          className='mt-12 py-3 px-20 font-bg bg-yellow-dark text-black rounded'
-        >
-          {activeSignInProcesses > 0 ? 'Please wait…' : 'Sign in with Eventpop'}
-        </Button>
-        {testUsers.map(uid => {
-          return (
-            <Button
-              key={uid}
-              onClick={e => loginTest(e, uid)}
-              type='button'
-              className='mt-2 py-2 px-8 font-bg border bg-white border-yellow-dark text-black rounded'
-            >
-              Sign in as test user {uid}
-            </Button>
-          );
-        })}
-        {loginError}
-      </Card>
+      <section aria-label='Authentication modal'>
+        <Card className='flex flex-col items-center'>
+          <p className='font-extrabold text-bg mb-4'>
+            To continue, Please log in
+          </p>
+          <p className='text-base leading-tight'>
+            Make your meal selection and meet other people through our
+            networking activity to win special prizes.
+          </p>
+          <Button
+            onClick={login}
+            type='button'
+            className='mt-12 py-3 px-20 font-bg bg-yellow-dark text-black rounded'
+          >
+            {activeSignInProcesses > 0
+              ? 'Please wait…'
+              : 'Sign in with Eventpop'}
+          </Button>
+          {testUsers.map(uid => {
+            return (
+              <Button
+                key={uid}
+                onClick={e => loginTest(e, uid)}
+                type='button'
+                className='mt-2 py-2 px-8 font-bg border bg-white border-yellow-dark text-black rounded'
+              >
+                Sign in as test user {uid}
+              </Button>
+            );
+          })}
+          {loginError}
+        </Card>
+      </section>
     </Modal>
   );
 });

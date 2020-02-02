@@ -44,7 +44,7 @@ const Orders: React.FC = observer(() => {
     return data?.map(group => {
       return (
         <div key={group.title} className='my-3 mx-4'>
-          <h4 className='text-white text-lg mb-4'>{group.title}</h4>
+          <h2 className='text-white text-lg mb-4'>{group.title}</h2>
           <RestaurantList restaurants={group.choices} />
         </div>
       );
@@ -88,9 +88,9 @@ const Orders: React.FC = observer(() => {
         </Card>
         <OrderFood className='m-4' menu={menuFetchResult.data.menu.groups} />
         <div className='flex flex-col items-center'>
-          <h3 className='w-full px-4 text-white text-xl font-bold'>
+          <h1 className='text-white text-xl font-semibold my-2'>
             Select your lunch
-          </h3>
+          </h1>
           <currentMenuContext.Provider value={{ orderFood }}>
             {restaurantGroupList}
           </currentMenuContext.Provider>

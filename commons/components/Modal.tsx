@@ -3,32 +3,48 @@ import React, { useCallback, useMemo } from 'react';
 import { observer } from 'mobx-react-lite';
 import Card from './Card';
 import { ModalStore } from '../stores/authModalStores';
+import FocusLock from 'react-focus-lock';
 
 interface PropTypes {
   modalStore: ModalStore;
   noCloseButton?: boolean;
   className?: string;
+  'aria-label'?: string;
+  'data-testid'?: string;
 }
 
 const Modal: React.FC<PropTypes> = observer(
-  ({ children, modalStore, noCloseButton = false, className }) => {
+  ({
+    children,
+    modalStore,
+    noCloseButton = false,
+    className,
+    'aria-label': ariaLabel,
+    'data-testid': dataTestid
+  }) => {
     const closeModal = useCallback(() => {
       modalStore.setModalOpen(false);
     }, []);
 
     const content = useMemo(() => {
       return (
-        <Card className='flex flex-col items-center relative'>
+        <Card
+          tabIndex={0}
+          className='flex flex-col items-center relative'
+          aria-label={ariaLabel}
+          data-testid={dataTestid}
+        >
+          {children}
           {!noCloseButton && (
             <button
               style={{ top: '-20px', right: '-20px' }}
               className='absolute p-3 bg-white rounded-full shadow-circle'
               onClick={closeModal}
+              aria-label='Close modal'
             >
               <img src='/icons/crossmark.svg' alt='close' />
             </button>
           )}
-          {children}
         </Card>
       );
     }, [noCloseButton, children]);
@@ -40,9 +56,13 @@ const Modal: React.FC<PropTypes> = observer(
       : `${isAnimating && !isModalOpen ? 'opacity-0' : ''} ${
           isHidden ? 'invisible opacity-0' : ''
         } fade`;
-    const MODAL_CLASSES = `fixed w-full h-screen overflow-y-auto justify-center ${ANIMATION_CLASSES} ${className}`;
+    const MODAL_CLASSES = `fixed top-0 left-0 w-full h-screen overflow-y-auto justify-center ${ANIMATION_CLASSES} ${className}`;
 
-    return <div className={MODAL_CLASSES}>{content}</div>;
+    return (
+      <FocusLock disabled={noCloseButton || modalStore.isHidden}>
+        <div className={MODAL_CLASSES}>{content}</div>
+      </FocusLock>
+    );
   }
 );
 

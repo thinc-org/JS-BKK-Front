@@ -13,6 +13,7 @@ import {
   isFetching,
   isFetchingCompleted
 } from '../../interfaces/Commons';
+import { registerTestCommand } from '../../commons/globals';
 
 export type ProfileData = {
   firstname: string;
@@ -192,12 +193,16 @@ export function useAuthenticationController() {
           .signInWithCustomToken(selectedTicket.firebaseToken);
       },
       async logout() {
-        const firebase = await getFirebase();
-        await firebase.auth().signOut();
+        await logoutFromFirebase();
       }
     }),
     []
   );
+}
+
+export async function logoutFromFirebase() {
+  const firebase = await getFirebase();
+  await firebase.auth().signOut();
 }
 
 /**
@@ -254,3 +259,5 @@ export function withRequiredAuthentication<T>(
     );
   };
 }
+
+registerTestCommand('logoutFromFirebase', logoutFromFirebase);
