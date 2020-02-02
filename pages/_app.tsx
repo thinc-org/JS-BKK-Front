@@ -66,9 +66,7 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
             <div className='flex justify-center pb-55px'>
               <AuthModal />
               <main className='flex items-start justify-center'>
-                <ErrorBoundary FallbackComponent={ErrorMessage}>
-                  <Component {...pageProps} />
-                </ErrorBoundary>
+                <Component {...pageProps} />
               </main>
               <div className='fixed z-40 bottom-0 left-0 w-full'>
                 <Nav />
