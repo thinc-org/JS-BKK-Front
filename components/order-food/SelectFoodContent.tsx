@@ -95,7 +95,11 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
                   )}
                   <div className='ml-2'>
                     <p>{food.title}</p>
-                    {food.availability && <p>{food.availability} Left</p>}
+                    {food.availability != null ? (
+                      <p className='font-bold text-bkk-blue whitespace-no-wrap'>
+                        {food.availability} left
+                      </p>
+                    ) : null}
                   </div>
                 </label>
               </div>
