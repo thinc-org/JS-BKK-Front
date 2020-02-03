@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/indent */
 import React, { useCallback, useMemo } from 'react';
 import { observer } from 'mobx-react-lite';
+import FocusLock from 'react-focus-lock';
 import Card from './Card';
 import { ModalStore } from '../stores/authModalStores';
-import FocusLock from 'react-focus-lock';
 
 interface PropTypes {
   modalStore: ModalStore;
@@ -56,7 +56,7 @@ const Modal: React.FC<PropTypes> = observer(
       : `${isAnimating && !isModalOpen ? 'opacity-0' : ''} ${
           isHidden ? 'invisible opacity-0' : ''
         } fade`;
-    const MODAL_CLASSES = `fixed top-0 left-0 w-full h-screen overflow-y-auto justify-center ${ANIMATION_CLASSES} ${className}`;
+    const MODAL_CLASSES = `fixed top-0 left-0 w-full h-screen overflow-y-auto ${ANIMATION_CLASSES} ${className}`;
 
     return (
       <FocusLock disabled={noCloseButton || modalStore.isHidden}>

@@ -1,10 +1,10 @@
 import { Button } from 'reakit/Button';
 import { useContext, useMemo } from 'react';
+import { useId } from 'react-id-generator';
 import Card from '../../commons/components/Card';
 import { Restaurant } from '../../interfaces/Orders';
 import { currentMenuContext } from '../../pages/user/order';
-import { useId } from 'react-id-generator';
-import { useRestaurantAvailability } from './FoodAvailabilityHooks';
+import useRestaurantAvailability from './FoodAvailabilityHooks';
 import { isFetchingCompleted } from '../../interfaces/Commons';
 
 interface ListItemProps {
@@ -17,6 +17,7 @@ const ListItem: React.FC<ListItemProps> = ({ lastItem, restaurant }) => {
   const { orderFood } = useContext(currentMenuContext);
   const [titleId] = useId(1, 'RestaurantListItem');
   const availabilityState = useRestaurantAvailability(restaurant);
+  const isDisabled = !(availabilityState.data && availabilityState.data > 0);
   const availabilityText = useMemo(() => {
     if (!isFetchingCompleted(availabilityState)) {
       return <>…</>;
@@ -34,8 +35,9 @@ const ListItem: React.FC<ListItemProps> = ({ lastItem, restaurant }) => {
       role='button'
       onClick={() => orderFood(restaurant)}
       className={`cursor-pointer flex flex-row justify-between py-4 mx-4 ${!lastItem &&
-        ' border-b border-grey'}`}
+        ' border-b border-grey'} ${isDisabled ? 'opacity-25' : ''}`}
       data-testid='restaurant-item'
+      disabled={isDisabled}
     >
       <div className='flex flex-col'>
         <h3

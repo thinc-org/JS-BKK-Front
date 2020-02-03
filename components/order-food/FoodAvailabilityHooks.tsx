@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Restaurant } from '../../interfaces/Orders';
 import {
   FetchResult,
@@ -5,11 +6,10 @@ import {
   isFetchingCompleted
 } from '../../interfaces/Commons';
 import { useRealtimeDatabaseSnapshot } from '../../commons/firebase';
-import { useMemo } from 'react';
 
-export function useRestaurantAvailability(
+const useRestaurantAvailability = (
   restaurant: Restaurant
-): FetchResult<number> {
+): FetchResult<number> => {
   const dataState = useRealtimeDatabaseSnapshot(firebase =>
     firebase
       .getEnvRef()
@@ -26,4 +26,6 @@ export function useRestaurantAvailability(
     const result = dataState.data.val() || 0;
     return { status: 'completed', data: restaurant.availability - result };
   }, [dataState]);
-}
+};
+
+export default useRestaurantAvailability;

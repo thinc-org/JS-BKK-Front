@@ -1,9 +1,10 @@
 import React, { useMemo, useState } from 'react';
-import { Restaurant, Food } from '../../interfaces/Orders';
+import { Restaurant } from '../../interfaces/Orders';
 import { ModalStore } from '../../commons/stores/authModalStores';
 import useFoodSelection from '../../commons/hooks/useFoodSelection';
 import Button from '../../commons/components/Button';
 import submitFoodOrder from '../../commons/hooks/submitFoodOrder';
+import { ModalType } from '../../interfaces/Commons';
 
 interface PropTypes {
   menuChoice?: Restaurant;
@@ -16,9 +17,11 @@ function getCustomizations(
   values: any
 ): { [key: string]: string[] } {
   const customizations: { [key: string]: string[] } = {};
+  // eslint-disable-next-line no-restricted-syntax
   for (const [index, item] of Array.from(menuChoice.customizations.entries())) {
     const isMultipleSupport = multipleSupport[index];
     if (isMultipleSupport) {
+      // eslint-disable-next-line no-restricted-syntax
       for (const choice of item.choices) {
         if (values[choice.id]) {
           if (!customizations[item.id]) customizations[item.id] = [];
@@ -56,6 +59,9 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
       );
       await submitFoodOrder(menuChoice.id, customizations);
       modalStore.setModalOpen(false);
+    } catch (e) {
+      // @TODO check if error is about stock lasts
+      modalStore.setModalType(ModalType.error);
     } finally {
       setIsSubmitting(false);
     }
@@ -66,6 +72,7 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
       menuChoice?.customizations.map((item, index) => {
         const Foods = item.choices.map((food, j) => {
           const isMultipleSupport = multipleSupport[index];
+          const isDisabled = !(food?.availability && food?.availability > 0);
           return (
             isMultipleSupport !== undefined && (
               <div className='flex items-center w-auto mt-2' key={food.id}>
@@ -75,6 +82,7 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
                 >
                   {isMultipleSupport ? (
                     <input
+                      disabled={isDisabled}
                       id={item.id + j}
                       type='checkbox'
                       name={food.id}

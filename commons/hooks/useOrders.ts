@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { RestaurantGroup } from '../../interfaces/Orders';
 import {
   FetchResult,
@@ -5,7 +6,6 @@ import {
   isFetchingCompleted
 } from '../../interfaces/Commons';
 import { FirebaseModule, useFirestoreSnapshot } from '../firebase';
-import { useCallback } from 'react';
 
 type FoodConfiguration = {
   menu: {

@@ -133,8 +133,8 @@ module.exports = {
       sm: '0.875rem', // 14px
       base: '1rem', // 16px
       bg: '1.125rem', // 18px
-      lg: '1.125rem', // 20px
-      xl: '1.25rem', // 24px
+      lg: '1.25rem', // 20px
+      xl: '1.5rem', // 24px
       '2xl': '2rem', // 32px
       '3xl': '2.5rem', // 40px
       h: '2.625rem', // 42px
