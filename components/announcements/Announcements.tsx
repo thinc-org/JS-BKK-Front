@@ -4,7 +4,7 @@ import { getFirebase } from '../../commons/firebase';
 
 function useAnnouncement() {
   const [announcement, setAnnouncement] = useState<
-    { text: string } | 'loading' | null
+  { text: string } | 'loading' | null
   >('loading');
   useEffect(() => {
     let cancel: () => void;
