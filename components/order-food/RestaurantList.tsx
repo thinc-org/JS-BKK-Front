@@ -17,6 +17,7 @@ const ListItem: React.FC<ListItemProps> = ({ lastItem, restaurant }) => {
   const { orderFood } = useContext(currentMenuContext);
   const [titleId] = useId(1, 'RestaurantListItem');
   const availabilityState = useRestaurantAvailability(restaurant);
+  const isDisabled = !(availabilityState.data && availabilityState.data > 0);
   const availabilityText = useMemo(() => {
     if (!isFetchingCompleted(availabilityState)) {
       return <>…</>;
@@ -34,8 +35,9 @@ const ListItem: React.FC<ListItemProps> = ({ lastItem, restaurant }) => {
       role='button'
       onClick={() => orderFood(restaurant)}
       className={`cursor-pointer flex flex-row justify-between py-4 mx-4 ${!lastItem &&
-        ' border-b border-grey'}`}
+        ' border-b border-grey'} ${isDisabled ? 'opacity-25' : ''}`}
       data-testid='restaurant-item'
+      disabled={isDisabled}
     >
       <div className='flex flex-col'>
         <h3
