@@ -18,6 +18,8 @@ import {
   isAuthenticated
 } from '../components/authentication';
 import { BadgeType, Badge } from '../interfaces/Badge';
+import ErrorBoundary from 'react-error-boundary';
+import ErrorMessage from '../commons/components/ErrorMessage';
 
 const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
   const routeData = useRouteData();
@@ -60,15 +62,17 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
       <rootContext.Provider value={rootStore}>
         <div className='h-screen flex flex-col font-body'>
           {routeData.hasNavbar && <PageHeading routeData={routeData} />}
-          <div className='flex justify-center pb-55px'>
-            <AuthModal />
-            <main className='flex items-start justify-center'>
-              <Component {...pageProps} />
-            </main>
-            <div className='fixed z-40 bottom-0 left-0 w-full'>
-              <Nav />
+          <ErrorBoundary FallbackComponent={ErrorMessage}>
+            <div className='flex justify-center pb-55px'>
+              <AuthModal />
+              <main className='flex items-start justify-center'>
+                <Component {...pageProps} />
+              </main>
+              <div className='fixed z-40 bottom-0 left-0 w-full'>
+                <Nav />
+              </div>
             </div>
-          </div>
+          </ErrorBoundary>
         </div>
       </rootContext.Provider>
     </>

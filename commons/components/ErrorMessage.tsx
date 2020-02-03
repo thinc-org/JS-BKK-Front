@@ -1,4 +1,4 @@
-export default function ErrorMessage(props: { error: any }) {
+export default function ErrorMessage(props: { error?: any }) {
   const { error } = props;
   return (
     <div

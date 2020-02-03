@@ -87,8 +87,8 @@ const Orders: React.FC = observer(() => {
           </div>
         </Card>
         <OrderFood className='m-4' menu={menuFetchResult.data.menu.groups} />
-        <div className='flex flex-col items-center'>
-          <h1 className='text-white text-xl font-semibold my-2'>
+        <div className='flex flex-col'>
+          <h1 className='text-white text-xl font-semibold my-2 mx-4'>
             Select your lunch
           </h1>
           <currentMenuContext.Provider value={{ orderFood }}>
