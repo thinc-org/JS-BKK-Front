@@ -33,7 +33,7 @@ const Orders: React.FC = observer(() => {
   const menuFetchResult = useOrders();
   const { data: foodConfiguration } = menuFetchResult;
   const data = foodConfiguration?.menu?.groups;
-  const [currentMenu, setCurrentMenu] = useState();
+  const [currentMenu, setCurrentMenu] = useState<Restaurant>();
 
   const orderFood = useCallback((orderData: Restaurant) => {
     setCurrentMenu(orderData);

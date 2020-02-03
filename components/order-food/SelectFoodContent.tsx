@@ -68,6 +68,7 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
       menuChoice?.customizations.map((item, index) => {
         const Foods = item.choices.map((food, j) => {
           const isMultipleSupport = multipleSupport[index];
+          const isDisabled = !(food?.availability && food?.availability > 0);
           return (
             isMultipleSupport !== undefined && (
               <div className='flex items-center w-auto mt-2' key={food.id}>
@@ -77,6 +78,7 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
                 >
                   {isMultipleSupport ? (
                     <input
+                      disabled={isDisabled}
                       id={item.id + j}
                       type='checkbox'
                       name={food.id}
@@ -85,6 +87,7 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
                   ) : (
                     <>
                       <input
+                        disabled={isDisabled}
                         id={item.id + j}
                         className='hidden'
                         value={food.id}
