@@ -13,7 +13,8 @@ import Countdown from '../../../components/order-food/CountDown';
 import {
   RootStore,
   isFetchingFailed,
-  isFetchingCompleted
+  isFetchingCompleted,
+  ModalType
 } from '../../../interfaces/Commons';
 import rootContext from '../../../commons/context.root';
 import SelectFoodModal from '../../../components/order-food/SelectFoodModal';
@@ -37,6 +38,7 @@ const Orders: React.FC = observer(() => {
 
   const orderFood = useCallback((orderData: Restaurant) => {
     setCurrentMenu(orderData);
+    modalStore.setModalType(ModalType.normal);
     modalStore.setModalOpen(true);
   }, []);
 

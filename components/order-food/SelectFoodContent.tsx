@@ -4,6 +4,7 @@ import { ModalStore } from '../../commons/stores/authModalStores';
 import useFoodSelection from '../../commons/hooks/useFoodSelection';
 import Button from '../../commons/components/Button';
 import submitFoodOrder from '../../commons/hooks/submitFoodOrder';
+import { ModalType } from '../../interfaces/Commons';
 
 interface PropTypes {
   menuChoice?: Restaurant;
@@ -58,6 +59,9 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
       );
       await submitFoodOrder(menuChoice.id, customizations);
       modalStore.setModalOpen(false);
+    } catch (e) {
+      // @TODO check if error is about stock lasts
+      modalStore.setModalType(ModalType.error);
     } finally {
       setIsSubmitting(false);
     }

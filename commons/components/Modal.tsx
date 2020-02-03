@@ -56,7 +56,7 @@ const Modal: React.FC<PropTypes> = observer(
       : `${isAnimating && !isModalOpen ? 'opacity-0' : ''} ${
           isHidden ? 'invisible opacity-0' : ''
         } fade`;
-    const MODAL_CLASSES = `fixed top-0 left-0 w-full h-screen overflow-y-auto justify-center ${ANIMATION_CLASSES} ${className}`;
+    const MODAL_CLASSES = `fixed top-0 left-0 w-full h-screen overflow-y-auto ${ANIMATION_CLASSES} ${className}`;
 
     return (
       <FocusLock disabled={noCloseButton || modalStore.isHidden}>
