@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Restaurant, Food } from '../../interfaces/Orders';
+import { Restaurant } from '../../interfaces/Orders';
 import { ModalStore } from '../../commons/stores/authModalStores';
 import useFoodSelection from '../../commons/hooks/useFoodSelection';
 import Button from '../../commons/components/Button';
@@ -16,9 +16,11 @@ function getCustomizations(
   values: any
 ): { [key: string]: string[] } {
   const customizations: { [key: string]: string[] } = {};
+  // eslint-disable-next-line no-restricted-syntax
   for (const [index, item] of Array.from(menuChoice.customizations.entries())) {
     const isMultipleSupport = multipleSupport[index];
     if (isMultipleSupport) {
+      // eslint-disable-next-line no-restricted-syntax
       for (const choice of item.choices) {
         if (values[choice.id]) {
           if (!customizations[item.id]) customizations[item.id] = [];

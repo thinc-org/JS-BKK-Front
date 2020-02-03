@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import getEnvName from './getEnvName';
 import useFetcher from '../hooks/useFetcher';
 import {
@@ -5,7 +6,6 @@ import {
   isFetchingCompleted,
   isFetchingFailed
 } from '../../interfaces/Commons';
-import { useState, useEffect } from 'react';
 
 export async function getFirebase() {
   return import(/* webpackChunkName: "firebase" */ './firebase');
@@ -47,7 +47,7 @@ export function useFirestoreSnapshot(
     return { status: 'loading' };
   }
   if (error) {
-    return { status: 'error', error: error };
+    return { status: 'error', error };
   }
   if (!snapshot) {
     return { status: 'loading' };
@@ -84,7 +84,7 @@ export function useRealtimeDatabaseSnapshot(
     return { status: 'loading' };
   }
   if (error) {
-    return { status: 'error', error: error };
+    return { status: 'error', error };
   }
   if (!snapshot) {
     return { status: 'loading' };

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/indent */
 import React, { useCallback, useMemo } from 'react';
 import { observer } from 'mobx-react-lite';
+import FocusLock from 'react-focus-lock';
 import Card from './Card';
 import { ModalStore } from '../stores/authModalStores';
-import FocusLock from 'react-focus-lock';
 
 interface PropTypes {
   modalStore: ModalStore;

@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/indent */
 import React, { useState, useEffect } from 'react';
 import { useId } from 'react-id-generator';
 import { getFirebase } from '../../commons/firebase';
 
 function useAnnouncement() {
   const [announcement, setAnnouncement] = useState<
-  { text: string } | 'loading' | null
+    { text: string } | 'loading' | null
   >('loading');
   useEffect(() => {
     let cancel: () => void;
@@ -17,6 +18,7 @@ function useAnnouncement() {
       const onValue = (snapshot: any) => {
         setAnnouncement(snapshot.val());
       };
+      // eslint-disable-next-line no-console
       ref.on('value', onValue, console.error);
       cancelPromise.then(() => {
         ref.off('value', onValue);
@@ -39,6 +41,7 @@ export default function Announcements() {
       <h2 id={headerId}>Announcement</h2>
       <p
         aria-labelledby={headerId}
+        // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: announcement.text }}
       />
     </section>

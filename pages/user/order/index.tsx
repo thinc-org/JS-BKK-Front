@@ -58,7 +58,7 @@ const Orders: React.FC = observer(() => {
     return <span>Loading food menu...</span>;
   }
 
-  const orderingPeriodEndTime = menuFetchResult.data.orderingPeriodEndTime;
+  const { orderingPeriodEndTime } = menuFetchResult.data;
 
   return (
     <>
