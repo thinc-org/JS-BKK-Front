@@ -13,7 +13,6 @@ export interface RouteData {
 export interface RootStore {
   userStore: UserStore;
   authModalStore: ModalStore;
-  scheduleStore: any;
 }
 
 export interface FetchResult<T> {
