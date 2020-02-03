@@ -87,7 +87,6 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
                   ) : (
                     <>
                       <input
-                        disabled={isDisabled}
                         id={item.id + j}
                         className='hidden'
                         value={food.id}
