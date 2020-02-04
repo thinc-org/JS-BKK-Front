@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { Food, Restaurant } from '../../interfaces/Orders';
 
 const useFoodSelection = (menuChoice?: Restaurant) => {
-  const { handleSubmit, register, errors, getValues } = useForm<Food[]>();
+  const { handleSubmit, register, errors, getValues } = useForm<any>();
   const [multipleSupport, setMultiple] = useState<boolean[]>([]);
 
   const validate = useCallback(() => {
@@ -29,7 +29,14 @@ const useFoodSelection = (menuChoice?: Restaurant) => {
     setMultiple(newMultiple);
   }, [menuChoice?.customizations]);
 
-  return { handleSubmit, register, multipleSupport, errors, validate };
+  return {
+    handleSubmit,
+    register,
+    multipleSupport,
+    errors,
+    validate,
+    getValues
+  };
 };
 
 export default useFoodSelection;

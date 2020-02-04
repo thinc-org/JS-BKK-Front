@@ -46,7 +46,8 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
     register,
     multipleSupport,
     errors,
-    validate
+    validate,
+    getValues
   } = useFoodSelection(menuChoice);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -102,7 +103,7 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
                       >
                         {isMultipleSupport ? (
                           <input
-                            disabled={isDisabled}
+                            disabled={isDisabled && !getValues()[food.id]}
                             id={item.id + j}
                             type='checkbox'
                             name={food.id}
@@ -123,10 +124,15 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
                           </>
                         )}
                         <div className='ml-2'>
-                          <p>{food.title}</p>
+                          <p data-testid='customization-choice-title'>
+                            {food.title}
+                          </p>
                           {availability != null ? (
                             <p className='font-bold text-bkk-blue whitespace-no-wrap'>
-                              {availability} left
+                              <span data-testid='customization-choice-availability'>
+                                {availability}
+                              </span>{' '}
+                              left
                             </p>
                           ) : null}
                         </div>
@@ -141,7 +147,12 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
 
         return (
           <div className='mt-5' key={item.id}>
-            <span className='font-extrabold text-base'>{item.title}</span>
+            <h3
+              data-testid='customization-title'
+              className='font-extrabold text-base'
+            >
+              {item.title}
+            </h3>
             {customizationChoices}
           </div>
         );
