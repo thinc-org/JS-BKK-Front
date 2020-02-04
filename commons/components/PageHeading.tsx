@@ -1,4 +1,6 @@
-import React, { useContext } from 'react';
+/* eslint-disable @typescript-eslint/indent */
+/* eslint-disable no-nested-ternary */
+import React from 'react';
 import { observer } from 'mobx-react-lite';
 import {
   RouteData,
@@ -28,12 +30,16 @@ const PageHeading: React.FC<PropTypes> = observer(({ routeData }) => {
     : 'unauthenticated';
   return (
     <header
-      className='flex flex-row items-center text-h text-white'
+      className='flex flex-row items-center text-h text-white font-bold'
       data-authentication-state={authenticationStateDescription}
     >
       <div className='text-4xl pt-5 px-4'>{routeData.title}</div>
       {isAuthenticated(authenticationState) && (
-        <Button type='button' onClick={() => authenticationController.logout()}>
+        <Button
+          className='text-2xl'
+          type='button'
+          onClick={() => authenticationController.logout()}
+        >
           Logout
         </Button>
       )}

@@ -1,10 +1,15 @@
-export interface Schedule{
+export interface Schedule {
   key: number;
-  topics : string;
-  speakers : string;
-  hours : string;
-  minutes : string;
-  description : string;
+  title: string;
+  speaker?: string;
+  hours: string;
+  minutes: string;
+  position?: string;
+  image?: string;
+  url?: string | null;
+  email?: string | null;
+  about?: string | null;
+  description?: string;
   happening: boolean;
   happened: boolean;
 }

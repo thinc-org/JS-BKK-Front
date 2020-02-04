@@ -1,4 +1,8 @@
 {
+  "/": {
+    "hasNavbar": true,
+    "title": "Conference"
+  },
   "/login": {
     "hasNavbar": false,
     "title": "Bangkok JS"

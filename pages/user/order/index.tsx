@@ -30,6 +30,7 @@ export const currentMenuContext = createContext<CurrentMenuContext>({
 
 const Orders: React.FC = observer(() => {
   const { userStore } = useContext<RootStore>(rootContext);
+
   const modalStore = useLocalStore(() => createModalStore(400, false));
   const menuFetchResult = useOrders();
   const { data: foodConfiguration } = menuFetchResult;
