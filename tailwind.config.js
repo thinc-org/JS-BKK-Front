@@ -32,7 +32,8 @@ module.exports = {
         nak: '#CE716F',
         position: '#153989',
         speaker: '#e7b109',
-        aboutHeader: '#c76664'
+        aboutHeader: '#c76664',
+        grey: '#767676'
       },
       yellow: { dark: '#F7D455', light: '#FCFDC8' }
     },
