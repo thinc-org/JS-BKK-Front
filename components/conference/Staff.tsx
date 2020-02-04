@@ -57,7 +57,7 @@ const Staff: React.FC<Props> = ({ schedule, modalStore }) => {
             <p className='text-lg font-bold text-bkk-position'>
               {schedule?.position}
             </p>
-            <h3 className='text-lg font-bold mb-3 mt-6'>{schedule?.title}</h3>
+            <h3 className='text-xl font-bold mb-3 mt-6'>{schedule?.title}</h3>
           </div>
           {description}
           <h3 className='text-xl text-left font-bold text-bkk-aboutHeader mb-3 mt-6'>
