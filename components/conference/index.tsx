@@ -18,10 +18,10 @@ const ScheduleBox: React.FC<{ schedules: Schedule[] }> = observer(
               <div className='text-bg text-bkk-grey'>
                 {e.hours}:{e.minutes}
               </div>
-              <div className='text-yellow-dark text-base'>{e.topics}</div>
-              {e.speakers && (
+              <div className='text-yellow-dark text-base'>{e.title}</div>
+              {e.speaker && (
                 <div className=' text-right text-sm text-bkk-grey mt-3 mr-4'>
-                  By {e.speakers}
+                  By {e.speaker}
                 </div>
               )}
             </div>
