@@ -23,6 +23,8 @@ import useOrders from '../../../commons/hooks/useOrders';
 import RestaurantList from '../../../components/order-food/RestaurantList';
 import { withRequiredAuthentication } from '../../../components/authentication';
 import ErrorMessage from '../../../commons/components/ErrorMessage';
+import useMyOrder from '../../../commons/hooks/useMyOrder';
+import Button from '../../../commons/components/Button';
 
 export const currentMenuContext = createContext<CurrentMenuContext>({
   orderFood: () => {}
@@ -32,17 +34,21 @@ const Orders: React.FC = observer(() => {
   const { userStore } = useContext<RootStore>(rootContext);
 
   const modalStore = useLocalStore(() => createModalStore(400, false));
+
+  const [mindChanged, setMindChanged] = useState(false);
+  const changeMind = useCallback(() => setMindChanged(true), []);
+  const unchangeMind = useCallback(() => setMindChanged(false), []);
+  const myOrderFetchStatus = useMyOrder();
   const menuFetchResult = useOrders();
+
   const { data: foodConfiguration } = menuFetchResult;
   const data = foodConfiguration?.menu?.groups;
   const [currentMenu, setCurrentMenu] = useState<Restaurant>();
-
   const orderFood = useCallback((orderData: Restaurant) => {
     setCurrentMenu(orderData);
     modalStore.setModalType(ModalType.normal);
     modalStore.setModalOpen(true);
   }, []);
-
   const restaurantGroupList = useMemo(() => {
     return data?.map(group => {
       return (
@@ -54,6 +60,12 @@ const Orders: React.FC = observer(() => {
     });
   }, [data]);
 
+  if (isFetchingFailed(myOrderFetchStatus)) {
+    return <ErrorMessage error={myOrderFetchStatus.error} />;
+  }
+  if (!isFetchingCompleted(myOrderFetchStatus)) {
+    return <div>Loading your food selection...</div>;
+  }
   if (isFetchingFailed(menuFetchResult)) {
     return <ErrorMessage error={menuFetchResult.error} />;
   }
@@ -62,7 +74,7 @@ const Orders: React.FC = observer(() => {
   }
 
   const { orderingPeriodEndTime } = menuFetchResult.data;
-
+  const myOrder = myOrderFetchStatus.data;
   return (
     <>
       <SelectFoodModal menuChoice={currentMenu} modalStore={modalStore} />
@@ -89,15 +101,32 @@ const Orders: React.FC = observer(() => {
             <Countdown due={orderingPeriodEndTime} />
           </div>
         </Card>
-        <OrderFood className='m-4' menu={menuFetchResult.data.menu.groups} />
-        <div className='flex flex-col'>
-          <h1 className='text-white text-xl font-semibold my-2 mx-4'>
-            Select your lunch
-          </h1>
-          <currentMenuContext.Provider value={{ orderFood }}>
-            {restaurantGroupList}
-          </currentMenuContext.Provider>
-        </div>
+        {myOrder && !mindChanged ? (
+          <OrderFood
+            className='m-4'
+            menu={menuFetchResult.data.menu.groups}
+            myOrder={myOrder}
+            onChangeSelection={changeMind}
+          />
+        ) : (
+          <div className='flex flex-col'>
+            {myOrder ? (
+              <Button
+                type='button'
+                className='bg-yellow-dark rounded p-2 m-4 text-xl'
+                onClick={unchangeMind}
+              >
+                Back to my selection
+              </Button>
+            ) : null}
+            <h1 className='text-white text-xl font-semibold my-2 mx-4'>
+              Select your lunch
+            </h1>
+            <currentMenuContext.Provider value={{ orderFood }}>
+              {restaurantGroupList}
+            </currentMenuContext.Provider>
+          </div>
+        )}
       </div>
     </>
   );
