@@ -8,28 +8,24 @@ const ScheduleBox: React.FC<{ schedules: Schedule[] }> = observer(
     return (
       <div>
         {schedules?.map((e: Schedule) => (
-          <div key={e.key} className='bg-white mx-4'>
-            <Link href='/schedule/[key]' as={`/schedule/${e.key}`}>
-              <div
-                className={`border ${
-                  e.happening && e.happened
-                    ? 'border-yellow-dark'
-                    : 'border-black'
-                }  bg-w-10/12 h-2/12 mt-4 rounded-lg 
+          <Link key={e.key} href='/schedule/[key]' as={`/schedule/${e.key}`}>
+            <div
+              className={`bg-white font-bold mx-4 ${
+                e.happening ? 'border-2 border-yellow-dark' : ''
+              } mt-4 p-4 rounded-lg 
               ${e.happened && !e.happening ? 'opacity-50' : 'opacity-100'}`}
-              >
-                <div className='mt-2 ml-2'>
-                  <b>
-                    {e.hours}:{e.minutes}
-                  </b>
-                </div>
-                <div className='ml-2 text-yellow-dark'>{e.topics}</div>
-                <div className='flex justify-end mt-4 mr-4 '>
-                  {e.speakers && `By ${e.speakers}`}
-                </div>
+            >
+              <div className='text-bg text-bkk-grey'>
+                {e.hours}:{e.minutes}
               </div>
-            </Link>
-          </div>
+              <div className='text-yellow-dark text-base'>{e.topics}</div>
+              {e.speakers && (
+                <div className=' text-right text-sm text-bkk-grey mt-3 mr-4'>
+                  By {e.speakers}
+                </div>
+              )}
+            </div>
+          </Link>
         ))}
       </div>
     );

@@ -16,7 +16,9 @@ const Home: React.FC = () => {
       </div>
       <div className='text-white text-1xl mx-4 mt-4 font-bold'>Schedule</div>
       <ScheduleBox schedules={schedules} />
-      <TweetButton />
+      <div className='flex items-center justify-center my-4'>
+        <TweetButton />
+      </div>
     </div>
   );
 };
@@ -28,7 +30,7 @@ const TweetButton: React.FC = () => {
       target='_blank'
       rel='noopener noreferrer'
       data-testid='tweet-button'
-      className='block mt-12 py-3 text-center font-bg bg-yellow-dark text-black rounded'
+      className='block py-3 px-4 text-center font-bg bg-yellow-dark text-black rounded'
     >
       Tweet #jsbangkok
     </a>
