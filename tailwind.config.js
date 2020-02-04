@@ -29,7 +29,10 @@ module.exports = {
       bkk: {
         white: '#F5F1E9',
         blue: '#164194',
-        nak: '#CE716F'
+        nak: '#CE716F',
+        position: '#153989',
+        speaker: '#e7b109',
+        aboutHeader: '#c76664'
       },
       yellow: { dark: '#F7D455', light: '#FCFDC8' }
     },
