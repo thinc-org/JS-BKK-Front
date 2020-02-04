@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import Announcements from '../../components/announcements/Announcements';
 import ScheduleBox from '../../components/conference';
 import getSchedules from '../../utils/schedules';
+// import Staff from '../../components/conference/staff';
 
 const Home: React.FC = () => {
   const schedules = useMemo(() => {
@@ -16,6 +17,7 @@ const Home: React.FC = () => {
       </div>
       <div className='text-white text-1xl mx-4 mt-4 font-bold'>Schedule</div>
       <ScheduleBox schedules={schedules} />
+      {/* <Staff /> */}
       <div className='flex items-center justify-center my-4'>
         <TweetButton />
       </div>
