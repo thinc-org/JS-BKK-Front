@@ -38,7 +38,7 @@ const Staff: React.FC<Props> = ({ schedule }) => {
     <Card className='m-4 flex flex-col p-8'>
       <img
         className='w-32 h-32 rounded-full self-center mb-8'
-        src='https://javascriptbangkok.com/speaker-images/04.jpg'
+        src={schedule.image}
         alt='Italian Trulli'
       />
       <div className='text-center'>
