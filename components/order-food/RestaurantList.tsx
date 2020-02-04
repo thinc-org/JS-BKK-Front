@@ -4,7 +4,7 @@ import { useId } from 'react-id-generator';
 import Card from '../../commons/components/Card';
 import { Restaurant } from '../../interfaces/Orders';
 import { currentMenuContext } from '../../pages/user/order';
-import useRestaurantAvailability from './FoodAvailabilityHooks';
+import { useRestaurantAvailability } from './FoodAvailabilityHooks';
 import { isFetchingCompleted } from '../../interfaces/Commons';
 
 interface ListItemProps {
