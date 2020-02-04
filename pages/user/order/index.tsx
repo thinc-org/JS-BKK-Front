@@ -9,7 +9,9 @@ import React, {
 import Card from '../../../commons/components/Card';
 import OrderFood from '../../../components/order-food/OrderFood';
 import { Restaurant, CurrentMenuContext } from '../../../interfaces/Orders';
-import Countdown from '../../../components/order-food/CountDown';
+import Countdown, {
+  useCurrentTime
+} from '../../../components/order-food/CountDown';
 import {
   RootStore,
   isFetchingFailed,
@@ -119,17 +121,48 @@ const Orders: React.FC = observer(() => {
                 Back to my selection
               </Button>
             ) : null}
-            <h1 className='text-white text-xl font-semibold my-2 mx-4'>
-              Select your lunch
-            </h1>
-            <currentMenuContext.Provider value={{ orderFood }}>
-              {restaurantGroupList}
-            </currentMenuContext.Provider>
+            <MealTimeLimitCurtain
+              due={orderingPeriodEndTime}
+              fallback={<TimeIsUp />}
+            >
+              <h1 className='text-white text-xl font-semibold my-2 mx-4'>
+                Select your lunch
+              </h1>
+              <currentMenuContext.Provider value={{ orderFood }}>
+                {restaurantGroupList}
+              </currentMenuContext.Provider>
+            </MealTimeLimitCurtain>
           </div>
         )}
       </div>
     </>
   );
 });
+
+const MealTimeLimitCurtain: React.FC<{
+  due: number;
+  fallback: React.ReactNode;
+  children: React.ReactNode;
+}> = ({ due, fallback, children }) => {
+  const time = useCurrentTime();
+  return <>{time && time > due ? fallback : children}</>;
+  // return <>{fallback}</>;
+};
+
+const TimeIsUp = () => (
+  <>
+    <Card className='m-4'>
+      <div className='font-bold text-bkk-nak text-center'>
+        <span className='text-lg'>
+          Meal selection is finished
+          <br />
+        </span>
+        <span className='text-bg text-black'>
+          If you need further assistance, please contact our staff.
+        </span>
+      </div>
+    </Card>
+  </>
+);
 
 export default withRequiredAuthentication(Orders);
