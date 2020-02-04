@@ -86,7 +86,7 @@ const getSchedules = (): Schedule[] => {
       hours: '10',
       minutes: '55',
       position: 'CTO @ Builk One Group Co., Ltd.',
-      image: '/speaker-images/14.jpg',
+      image: 'https://javascriptbangkok.com/speaker-images/14.jpg',
       url: 'https://medium.com/@coalapaparazzi',
       email: 'kra.yonatan@gmail.com',
       about:
@@ -103,7 +103,7 @@ const getSchedules = (): Schedule[] => {
       hours: '11',
       minutes: '25',
       position: 'Developer & eXtreme Programming Coach @ Marmicode Wishtack',
-      image: '/speaker-images/08.jpg',
+      image: 'https://javascriptbangkok.com/speaker-images/08.jpg',
       url: 'https://marmicode.io',
       email: 'yjaaidi@gmail.com',
       about:
@@ -121,7 +121,7 @@ const getSchedules = (): Schedule[] => {
       hours: '11',
       minutes: '55',
       position: 'Product Engineer @ Gojek',
-      image: '/speaker-images/07.jpg',
+      image: 'https://javascriptbangkok.com/speaker-images/07.jpg',
       url: 'https://vtno.me/',
       email: 'tino@vtno.me',
       about:
@@ -146,7 +146,7 @@ const getSchedules = (): Schedule[] => {
       hours: '13',
       minutes: '25',
       position: 'Senior Engineer & Thought Leader @ Shine Solutions',
-      image: '/speaker-images/09.jpg',
+      image: 'https://javascriptbangkok.com/speaker-images/09.jpg',
       url: 'https://ez.codes',
       email: 'ejzimmer@gmail.com',
       about:
@@ -163,7 +163,7 @@ const getSchedules = (): Schedule[] => {
       hours: '13',
       minutes: '55',
       position: 'Organizer @ GraphQL Hong Kong',
-      image: '/speaker-images/10.jpg',
+      image: 'https://javascriptbangkok.com/speaker-images/10.jpg',
       url: 'https://medium.com/@swcarlosrj',
       email: 'info@carlosrj.com',
       about:
@@ -189,7 +189,7 @@ const getSchedules = (): Schedule[] => {
       hours: '14',
       minutes: '35',
       position: 'Senior Software Engineer @ Omise',
-      image: '/speaker-images/06.png',
+      image: 'https://javascriptbangkok.com/speaker-images/06.png',
       url: 'https://medium.com/@chrisza',
       email: 'chakrit.lj@gmail.com',
       about:
@@ -206,7 +206,7 @@ const getSchedules = (): Schedule[] => {
       hours: '15',
       minutes: '05',
       position: 'Developer Advocate @ Nexmo',
-      image: '/speaker-images/12.jpg',
+      image: 'https://javascriptbangkok.com/speaker-images/12.jpg',
       url: 'https://www.chenhuijing.com',
       email: 'kakyou_tensai@yahoo.com',
       about:
@@ -232,7 +232,7 @@ const getSchedules = (): Schedule[] => {
       hours: '15',
       minutes: '45',
       position: 'Application Architect @ EGG Digital, Ascend Group',
-      image: '/speaker-images/13.jpg',
+      image: 'https://javascriptbangkok.com/speaker-images/13.jpg',
       url: 'https://www.atp-tha.com/',
       email: 'atp.tha77@gmail.com',
       about:
@@ -249,7 +249,7 @@ const getSchedules = (): Schedule[] => {
       hours: '16',
       minutes: '15',
       position: 'Tech Lead @ Dropbox',
-      image: '/speaker-images/11.jpg',
+      image: 'https://javascriptbangkok.com/speaker-images/11.jpg',
       url: 'https://www.linkedin.com/in/akiriati/',
       email: 'akiriati@hotmail.com',
       about:
@@ -274,7 +274,7 @@ const getSchedules = (): Schedule[] => {
       hours: '16',
       minutes: '55',
       position: 'Freelancer',
-      image: '/speaker-images/03.jpg',
+      image: 'https://javascriptbangkok.com/speaker-images/03.jpg',
       url: 'https://ramonh.dev',
       email: 'hola@ramonh.dev',
       about:
@@ -291,7 +291,7 @@ const getSchedules = (): Schedule[] => {
       hours: '17',
       minutes: '25',
       position: 'Frontend Developer Team Lead @ AppMan',
-      image: '/speaker-images/15.jpg',
+      image: 'https://javascriptbangkok.com/speaker-images/15.jpg',
       url: null,
       email: null,
       about: null,
@@ -307,7 +307,7 @@ const getSchedules = (): Schedule[] => {
       hours: '17',
       minutes: '55',
       position: 'Software Engineer @ Undefined Labs',
-      image: '/speaker-images/01.jpg',
+      image: 'https://javascriptbangkok.com/speaker-images/01.jpg',
       url: 'https://speakerdex.co/soyguijarro',
       email: 'hola@soyguijarro.com',
       about:
