@@ -1,19 +1,34 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
-import Link from 'next/link';
 import { Schedule } from '../../interfaces/Schedule';
 
-const ScheduleBox: React.FC<{ schedules: Schedule[] }> = observer(
-  ({ schedules }) => {
+interface PropTypes {
+  schedules: Schedule[];
+  openSchedule: (shedule: Schedule) => void;
+}
+
+const ScheduleBox: React.FC<PropTypes> = observer(
+  ({ schedules, openSchedule }) => {
     return (
       <div>
-        {schedules?.map((e: Schedule) => (
-          <Link key={e.key} href='/schedule/[key]' as={`/schedule/${e.key}`}>
+        {schedules?.map((e: Schedule) => {
+          const disabled = !e.description;
+          return (
             <div
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...(!disabled && {
+                role: 'button',
+                onKeyPress: () => openSchedule(e),
+                onClick: () => openSchedule(e),
+                tabIndex: 0
+              })}
+              key={e.key}
               className={`bg-white font-bold mx-4 ${
                 e.happening ? 'border-2 border-yellow-dark' : ''
               } mt-4 p-4 rounded-lg 
-              ${e.happened && !e.happening ? 'opacity-50' : 'opacity-100'}`}
+                ${e.happened && !e.happening ? 'opacity-50' : 'opacity-100'} ${
+                disabled ? '' : 'cursor-pointer'
+              }`}
             >
               <div className='text-bg text-bkk-grey'>
                 {e.hours}:{e.minutes}
@@ -25,8 +40,8 @@ const ScheduleBox: React.FC<{ schedules: Schedule[] }> = observer(
                 </div>
               )}
             </div>
-          </Link>
-        ))}
+          );
+        })}
       </div>
     );
   }

@@ -1,27 +1,41 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
+import { useLocalStore } from 'mobx-react-lite';
 import Announcements from '../../components/announcements/Announcements';
 import ScheduleBox from '../../components/conference';
 import getSchedules from '../../utils/schedules';
-// import Staff from '../../components/conference/staff';
+import { Schedule } from '../../interfaces/Schedule';
+import Staff from '../../components/conference/Staff';
+import createModalStore from '../../commons/stores/authModalStores';
 
 const Home: React.FC = () => {
+  const [selectedSchedule, setSelectedSchedule] = useState<Schedule>();
+  const modalStore = useLocalStore(() => createModalStore(400, false));
+
+  const openScheduleModal = (schedule: Schedule) => {
+    setSelectedSchedule(schedule);
+    modalStore.setModalOpen(true);
+  };
+
   const schedules = useMemo(() => {
     return getSchedules();
   }, []);
+
   return (
-    <div>
-      <div className='flex justify-center'>
-        <div className='border-2 border-yellow-dark rounded-lg bg-yellow-light p-4 m-4'>
-          <Announcements />
+    <>
+      <Staff modalStore={modalStore} schedule={selectedSchedule} />
+      <div>
+        <div className='flex justify-center'>
+          <div className='border-2 border-yellow-dark rounded-lg bg-yellow-light p-4 m-4'>
+            <Announcements />
+          </div>
+        </div>
+        <div className='text-white text-1xl mx-4 mt-4 font-bold'>Schedule</div>
+        <ScheduleBox openSchedule={openScheduleModal} schedules={schedules} />
+        <div className='flex items-center justify-center my-4'>
+          <TweetButton />
         </div>
       </div>
-      <div className='text-white text-1xl mx-4 mt-4 font-bold'>Schedule</div>
-      <ScheduleBox schedules={schedules} />
-      {/* <Staff /> */}
-      <div className='flex items-center justify-center my-4'>
-        <TweetButton />
-      </div>
-    </div>
+    </>
   );
 };
 

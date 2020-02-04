@@ -1,16 +1,18 @@
 import sanitizeHTML from 'sanitize-html';
 import { useMemo } from 'react';
 import { Schedule } from '../../interfaces/Schedule';
-import Card from '../../commons/components/Card';
+import { ModalStore } from '../../commons/stores/authModalStores';
+import Modal from '../../commons/components/Modal';
 
 interface Props {
-  schedule: Schedule;
+  schedule?: Schedule;
+  modalStore: ModalStore;
 }
 
-const Staff: React.FC<Props> = ({ schedule }) => {
+const Staff: React.FC<Props> = ({ schedule, modalStore }) => {
   const description = useMemo(() => {
     return (
-      schedule.description && (
+      schedule?.description && (
         <p
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{
@@ -19,11 +21,11 @@ const Staff: React.FC<Props> = ({ schedule }) => {
         />
       )
     );
-  }, [schedule.description]);
+  }, [schedule?.description]);
 
   const about = useMemo(() => {
     return (
-      schedule.about && (
+      schedule?.about && (
         <p
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{
@@ -32,41 +34,52 @@ const Staff: React.FC<Props> = ({ schedule }) => {
         />
       )
     );
-  }, [schedule.description]);
+  }, [schedule?.description]);
 
   return (
-    <Card className='m-4 flex flex-col p-8'>
-      <img
-        className='w-32 h-32 rounded-full self-center mb-8'
-        src={schedule.image}
-        alt='Italian Trulli'
-      />
-      <div className='text-center'>
-        <p className='text-xl font-bold text-bkk-speaker'>{schedule.speaker}</p>
-        <p className='text-xl font-bold text-bkk-position mb-16'>
-          {schedule.position}
-        </p>
-        <h3 className='text-3xl font-bold mb-3 mt-6'>{schedule.title}</h3>
-      </div>
-      {description}
-      <h3 className='text-2xl font-bold text-bkk-aboutHeader mb-3 mt-6'>
-        About The Speaker
-      </h3>
-      {about}
-      {schedule.url && schedule.email && (
+    <Modal
+      modalStore={modalStore}
+      className='bg-dim top-0 p-6 min-h-500px z-50'
+      data-testid='food-customization-modal'
+      aria-label='Customize your meal'
+    >
+      {!modalStore.isHidden && (
         <>
-          <h3 className='text-2xl font-bold text-bkk-aboutHeader mb-3 mt-6'>
-            Contact
-          </h3>
-          {schedule.url && (
-            <p>
-              Website: <a href={schedule.url}>{schedule.url}</a>
+          <img
+            className='w-32 h-32 rounded-full mb-8'
+            src={schedule?.image}
+            alt='Italian Trulli'
+          />
+          <div className='text-center'>
+            <p className='text-lg font-bold text-bkk-speaker'>
+              {schedule?.speaker}
             </p>
+            <p className='text-lg font-bold text-bkk-position'>
+              {schedule?.position}
+            </p>
+            <h3 className='text-lg font-bold mb-3 mt-6'>{schedule?.title}</h3>
+          </div>
+          {description}
+          <h3 className='text-xl text-left font-bold text-bkk-aboutHeader mb-3 mt-6'>
+            About The Speaker
+          </h3>
+          {about}
+          {schedule?.url && schedule.email && (
+            <>
+              <h3 className='text-xl text-left font-bold text-bkk-aboutHeader mb-3 mt-6'>
+                Contact
+              </h3>
+              {schedule.url && (
+                <p>
+                  Website: <a href={schedule.url}>{schedule.url}</a>
+                </p>
+              )}
+              {schedule.email && <p>Email: rajasegar.c@gmail.com</p>}
+            </>
           )}
-          {schedule.email && <p>Email: rajasegar.c@gmail.com</p>}
         </>
       )}
-    </Card>
+    </Modal>
   );
 };
 
