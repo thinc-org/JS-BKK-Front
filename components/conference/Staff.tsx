@@ -63,7 +63,7 @@ const Staff: React.FC<Props> = ({ schedule }) => {
               Website: <a href={schedule.url}>{schedule.url}</a>
             </p>
           )}
-          {schedule.email && <p>Email: rajasegar.c@gmail.com</p>}
+          {schedule.email && <p>Email: {schedule.email}</p>}
         </>
       )}
     </Card>
