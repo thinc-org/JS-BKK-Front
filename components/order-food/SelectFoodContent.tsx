@@ -80,6 +80,7 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
           const isMultipleSupport = multipleSupport[index];
           return (
             <CustomizationChoiceAvailabilityConnector
+              key={food.id}
               restaurant={menuChoice}
               customization={item}
               customizationChoice={food}

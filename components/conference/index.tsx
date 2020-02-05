@@ -33,7 +33,7 @@ const ScheduleBox: React.FC<PropTypes> = observer(
               <div className='text-bg text-bkk-grey'>
                 {e.hours}:{e.minutes}
               </div>
-              <div className='text-yellow-dark text-base'>{e.title}</div>
+              <div className='text-yellow-font text-base'>{e.title}</div>
               {e.speaker && (
                 <div className=' text-right text-sm text-bkk-grey mt-3 mr-4'>
                   By {e.speaker}

@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useEffect, useState, useCallback } from 'react';
-import { Food, Restaurant } from '../../interfaces/Orders';
+import { Restaurant } from '../../interfaces/Orders';
 
 const useFoodSelection = (menuChoice?: Restaurant) => {
   const { handleSubmit, register, errors, getValues } = useForm<any>();
