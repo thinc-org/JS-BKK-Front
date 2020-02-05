@@ -35,7 +35,7 @@ module.exports = {
         aboutHeader: '#c76664',
         grey: '#767676'
       },
-      yellow: { dark: '#F7D455', light: '#FCFDC8' }
+      yellow: { dark: '#F7D455', light: '#FCFDC8', font: '#EABA06' }
     },
     spacing: {
       px: '1px',
