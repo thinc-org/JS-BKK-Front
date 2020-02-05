@@ -2,34 +2,24 @@ import { useMemo } from 'react';
 import { useId } from 'react-id-generator';
 import Card from '../../commons/components/Card';
 import Button from '../../commons/components/Button';
-import useMyOrder from '../../commons/hooks/useMyOrder';
-import { RestaurantGroup } from '../../interfaces/Orders';
-import {
-  isFetchingFailed,
-  isFetchingCompleted
-} from '../../interfaces/Commons';
+import { RestaurantGroup, MyOrder } from '../../interfaces/Orders';
 import ErrorMessage from '../../commons/components/ErrorMessage';
 
 interface Props {
   className?: string;
   menu: RestaurantGroup[];
+  myOrder: MyOrder;
+  onChangeSelection: () => void;
 }
 
-const OrderFood: React.FC<Props> = ({ className, menu }) => {
-  const myOrderFetchStatus = useMyOrder();
+const OrderFood: React.FC<Props> = ({
+  className,
+  menu,
+  myOrder,
+  onChangeSelection
+}) => {
   const restaurants = useMemo(() => menu.flatMap(m => m.choices), [menu]);
   const [headingId] = useId(1, 'OrderFood');
-
-  if (isFetchingFailed(myOrderFetchStatus)) {
-    return <ErrorMessage error={myOrderFetchStatus.error} />;
-  }
-  if (!isFetchingCompleted(myOrderFetchStatus)) {
-    return <div>(Loading my food selection)</div>;
-  }
-  const myOrder = myOrderFetchStatus.data;
-  if (!myOrder) {
-    return <div>(No food selection yet)</div>;
-  }
 
   const restaurant = restaurants.find(r => r.id === myOrder.restaurantId);
   if (!restaurant) {
@@ -78,6 +68,7 @@ const OrderFood: React.FC<Props> = ({ className, menu }) => {
           type='button'
           className='bg-yellow-dark rounded p-2 m-4 text-xl'
           aria-label='Change your lunchtime meal selection'
+          onClick={onChangeSelection}
         >
           Change your mind?
         </Button>
