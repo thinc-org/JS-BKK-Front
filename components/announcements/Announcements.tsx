@@ -39,7 +39,7 @@ const AnnouncementContent: React.FC<{ text: string; headerId: string }> = ({
       <p
         aria-labelledby={headerId}
         // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: sanitizeHtml(text) }}
+        dangerouslySetInnerHTML={{ __html: text }}
       />
     ),
     [text]
