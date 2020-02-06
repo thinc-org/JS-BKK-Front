@@ -16,6 +16,21 @@ export default class MyDocument extends Document {
     return (
       <Html lang='en'>
         <Head>
+          <script
+            async
+            src='https://www.googletagmanager.com/gtag/js?id=UA-99360357-6'
+          />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', 'UA-99360357-6');
+              `
+            }}
+          />
           <meta
             name='msapplication-config'
             content='/static/icons/browserconfig.xml'
