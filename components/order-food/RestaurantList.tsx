@@ -47,7 +47,7 @@ const ListItem: React.FC<ListItemProps> = ({ lastItem, restaurant }) => {
         >
           {title}
         </h3>
-        {info && <div className='text-normal'>{info}</div>}
+        {info && <div className='text-normal whitespace-pre-wrap'>{info}</div>}
       </div>
       <div className='flex ml-4'>
         <div className='font-bold text-bkk-blue whitespace-no-wrap'>
