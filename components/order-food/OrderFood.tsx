@@ -32,6 +32,19 @@ const OrderFood: React.FC<Props> = ({
     );
   }
 
+  const renderTitle = (text: string) => {
+    const m = String(text).match(/^([^]+)\s*?\(([^]+?)\)$/);
+    if (m) {
+      return (
+        <>
+          <span className='text-xl block'>{m[2]}</span>
+          <span className='text-gray-700'>{m[1]}</span>
+        </>
+      );
+    }
+    return <span className='text-xl block'>{text}</span>;
+  };
+
   return (
     <div className={className}>
       <h1 className='text-white text-xl font-semibold my-2' id={headingId}>
@@ -57,7 +70,7 @@ const OrderFood: React.FC<Props> = ({
                 .map(choice => {
                   return (
                     <p className='font-bold' key={choice.id}>
-                      {choice.title}
+                      {renderTitle(choice.title)}
                     </p>
                   );
                 })}
