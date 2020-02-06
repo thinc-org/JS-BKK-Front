@@ -3,8 +3,9 @@ import { AppProps } from 'next/app';
 import { NextPage } from 'next';
 import { useLocalStore, observer } from 'mobx-react-lite';
 import Head from 'next/head';
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import ErrorBoundary from 'react-error-boundary';
+import * as Sentry from '@sentry/browser';
 import Nav from '../commons/components/Nav';
 import createUserStore from '../commons/stores/userStores';
 import '../styles/index.css';
@@ -22,6 +23,11 @@ import { BadgeType, Badge } from '../interfaces/Badge';
 import ErrorMessage from '../commons/components/ErrorMessage';
 
 const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
+  useLayoutEffect(() => {
+    Sentry.init({
+      dsn: 'https://881d1cb8969940678bdc4bda4394207d@sentry.io/2292751'
+    });
+  }, []);
   const routeData = useRouteData();
   const rootStore = useLocalStore(
     (): RootStore => ({
