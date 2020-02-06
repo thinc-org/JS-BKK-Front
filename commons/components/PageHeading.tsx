@@ -30,19 +30,21 @@ const PageHeading: React.FC<PropTypes> = observer(({ routeData }) => {
     : 'unauthenticated';
   return (
     <header
-      className='flex flex-row items-center text-h text-white font-bold'
+      className='flex flex-row items-start text-h text-white font-bold'
       data-authentication-state={authenticationStateDescription}
     >
-      <div className='text-4xl pt-5 px-4'>{routeData.title}</div>
-      {isAuthenticated(authenticationState) && (
-        <Button
-          className='text-2xl'
-          type='button'
-          onClick={() => authenticationController.logout()}
-        >
-          Logout
-        </Button>
-      )}
+      <div className='text-4xl pt-5 px-4 flex-auto'>{routeData.title}</div>
+      <div className='px-4'>
+        {isAuthenticated(authenticationState) && (
+          <Button
+            className='text-base border border-white rounded px-2 block mt-4'
+            type='button'
+            onClick={() => authenticationController.logout()}
+          >
+            Logout
+          </Button>
+        )}
+      </div>
     </header>
   );
 });
