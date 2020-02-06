@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useMemo, useState, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import QRCode from 'qrcode.react';
 
@@ -7,6 +7,8 @@ import Button from '../../../../commons/components/Button';
 import { RootStore } from '../../../../interfaces/Commons';
 import rootContext from '../../../../commons/context.root';
 import { withRequiredAuthentication } from '../../../../components/authentication';
+import Card from '../../../../commons/components/Card';
+import { getEnvName } from '../../../../commons/firebase';
 
 const Loading: React.FC<{}> = () => <div>...Loading</div>;
 
@@ -82,4 +84,25 @@ const Dashboard: React.FC = observer(() => {
   );
 });
 
-export default withRequiredAuthentication(Dashboard);
+const withComingSoon: <T>(
+  BaseComponent: React.ComponentType<T>
+) => React.ComponentType<T> = BaseComponent => {
+  return function ComingSoon(props) {
+    const [enabled, setEnabled] = useState(false);
+    useEffect(() => {
+      if (getEnvName() === 'test') setEnabled(true);
+    }, []);
+    return enabled ? (
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      <BaseComponent {...props} />
+    ) : (
+      <Card className='m-4'>
+        <div className='my-4'>
+          Networking features are in development, please stay tuned...
+        </div>
+      </Card>
+    );
+  };
+};
+
+export default withComingSoon(withRequiredAuthentication(Dashboard));

@@ -60,12 +60,12 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
         <title>JavaScript Bangkok 1.0.0</title>
       </Head>
       <rootContext.Provider value={rootStore}>
-        <div className='h-screen flex flex-col font-body'>
+        <div className='font-body mx-auto' style={{ maxWidth: '640px' }}>
           {routeData.hasNavbar && <PageHeading routeData={routeData} />}
           <ErrorBoundary FallbackComponent={ErrorMessage}>
             <div className='pb-55px'>
               <AuthModal />
-              <main className='mx-auto' style={{ maxWidth: '640px' }}>
+              <main>
                 <Component {...pageProps} />
               </main>
               <div className='fixed z-40 bottom-0 left-0 w-full'>
