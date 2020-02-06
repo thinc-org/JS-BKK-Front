@@ -23,7 +23,7 @@ import { BadgeType, Badge } from '../interfaces/Badge';
 import ErrorMessage from '../commons/components/ErrorMessage';
 
 const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
-  useLayoutEffect(() => {
+  useEffect(() => {
     Sentry.init({
       dsn: 'https://881d1cb8969940678bdc4bda4394207d@sentry.io/2292751'
     });
