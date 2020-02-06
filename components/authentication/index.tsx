@@ -204,6 +204,14 @@ export function useAuthenticationController() {
   );
 }
 
+function useIsClientSide() {
+  const [flag, setFlag] = useState(false);
+  useEffect(() => {
+    setFlag(true);
+  }, []);
+  return flag;
+}
+
 /**
  * This component renders the children only if user is authenticated.
  * Otherwise, it requests the auth modal to be displayed.
@@ -243,7 +251,13 @@ export function RequiresAuthentication(props: {
 }
 
 function DefaultAuthenticationChecking() {
-  return <Loading message='Checking authentication state' color='light' />;
+  const isClientSide = useIsClientSide();
+  return (
+    <Loading
+      message={isClientSide ? 'Checking authentication state' : 'Loading'}
+      color='light'
+    />
+  );
 }
 
 export function withRequiredAuthentication<T>(

@@ -9,6 +9,7 @@ import Modal from './Modal';
 import rootContext from '../context.root';
 import { useAuthenticationController } from '../../components/authentication';
 import { getEnvName } from '../firebase';
+import TextSpinner from './TextSpinner';
 
 const QrReader = dynamic(() => import('react-qr-reader'), {
   ssr: false,
@@ -70,11 +71,17 @@ const AuthModal: React.FC = observer(() => {
           <Button
             onClick={login}
             type='button'
-            className='mt-12 py-3 px-20 font-bg bg-yellow-dark text-black rounded'
+            className={`mt-12 py-3 px-20 font-bg bg-yellow-dark text-black rounded ${
+              activeSignInProcesses > 0 ? 'opacity-50' : ''
+            }`}
           >
-            {activeSignInProcesses > 0
-              ? 'Please wait…'
-              : 'Sign in with Eventpop'}
+            {activeSignInProcesses > 0 ? (
+              <>
+                Please wait… <TextSpinner />
+              </>
+            ) : (
+              'Sign in with Eventpop'
+            )}
           </Button>
           {testUsers.map(uid => {
             return (
