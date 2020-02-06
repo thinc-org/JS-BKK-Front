@@ -57,7 +57,7 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
   return (
     <>
       <Head>
-        <title>Bangkok JS</title>
+        <title>JavaScript Bangkok 1.0.0</title>
       </Head>
       <rootContext.Provider value={rootStore}>
         <div className='h-screen flex flex-col font-body'>
