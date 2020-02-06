@@ -85,24 +85,6 @@ const Orders: React.FC = observer(() => {
           Ordering as{' '}
           <span className='font-extrabold'>{userStore.userInfo?.name}</span>
         </div>
-        <Card className='m-4'>
-          <p className='mb-4'>
-            We have a lot of food for you to choose! We have partnered with
-            restaurants on floor 4 and 5, and food stalls are available on floor
-            8.
-          </p>
-          <p className='mb-4'>
-            You can pick one restaurant or two food stalls. We recommend you to
-            make your selection early because seatings are limited.
-          </p>
-          <p className='mb-4'>Please select your menu before time limit:</p>
-          <div
-            className='flex justify-center text-3xl'
-            data-testid='food-ordering-countdown-timer'
-          >
-            <Countdown due={orderingPeriodEndTime} />
-          </div>
-        </Card>
         {myOrder && !mindChanged ? (
           <OrderFood
             className='m-4'
@@ -121,6 +103,26 @@ const Orders: React.FC = observer(() => {
                 Back to my selection
               </Button>
             ) : null}
+
+            <Card className='m-4'>
+              <p className='mb-4'>
+                We have a lot of food for you to choose! We have partnered with
+                restaurants on floor 4 and 5, and food stalls are available on
+                floor 8.
+              </p>
+              <p className='mb-4'>
+                You can pick one restaurant or two food stalls. We recommend you
+                to make your selection early because seatings are limited.
+              </p>
+              <p className='mb-4'>Please select your menu before time limit:</p>
+              <div
+                className='flex justify-center text-3xl'
+                data-testid='food-ordering-countdown-timer'
+              >
+                <Countdown due={orderingPeriodEndTime} />
+              </div>
+            </Card>
+
             <MealTimeLimitCurtain
               due={orderingPeriodEndTime}
               fallback={<TimeIsUp />}
