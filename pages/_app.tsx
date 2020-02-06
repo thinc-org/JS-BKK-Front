@@ -3,7 +3,7 @@ import { AppProps } from 'next/app';
 import { NextPage } from 'next';
 import { useLocalStore, observer } from 'mobx-react-lite';
 import Head from 'next/head';
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import ErrorBoundary from 'react-error-boundary';
 import * as Sentry from '@sentry/browser';
 import Nav from '../commons/components/Nav';
