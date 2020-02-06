@@ -14,6 +14,7 @@ import { useCustomizationChoiceAvailability } from './FoodAvailabilityHooks';
 interface PropTypes {
   menuChoice?: Restaurant;
   modalStore: ModalStore;
+  onFinish: () => void;
 }
 
 function getCustomizations(
@@ -40,7 +41,11 @@ function getCustomizations(
   return customizations;
 }
 
-const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
+const SelectFoodContent: React.FC<PropTypes> = ({
+  menuChoice,
+  modalStore,
+  onFinish
+}) => {
   const {
     handleSubmit,
     register,
@@ -65,6 +70,7 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
       );
       await submitFoodOrder(menuChoice.id, customizations);
       modalStore.setModalOpen(false);
+      onFinish();
     } catch (e) {
       // @TODO check if error is about stock lasts
       modalStore.setModalType(ModalType.error);

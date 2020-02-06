@@ -79,7 +79,11 @@ const Orders: React.FC = observer(() => {
   const myOrder = myOrderFetchStatus.data;
   return (
     <>
-      <SelectFoodModal menuChoice={currentMenu} modalStore={modalStore} />
+      <SelectFoodModal
+        menuChoice={currentMenu}
+        modalStore={modalStore}
+        onFinish={unchangeMind}
+      />
       <div>
         <div className='text-sm'>
           Ordering as{' '}

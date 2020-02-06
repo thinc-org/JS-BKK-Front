@@ -10,10 +10,11 @@ import { ModalType } from '../../interfaces/Commons';
 interface PropTypes {
   menuChoice?: Restaurant;
   modalStore: ModalStore;
+  onFinish: () => void;
 }
 
 const SelectFoodModal: React.FC<PropTypes> = observer(
-  ({ menuChoice, modalStore }) => {
+  ({ menuChoice, modalStore, onFinish }) => {
     return (
       <Modal
         modalStore={modalStore}
@@ -23,7 +24,11 @@ const SelectFoodModal: React.FC<PropTypes> = observer(
       >
         {!modalStore.isHidden &&
         modalStore.currentModal === ModalType.normal ? (
-          <SelectFoodContent menuChoice={menuChoice} modalStore={modalStore} />
+          <SelectFoodContent
+            menuChoice={menuChoice}
+            modalStore={modalStore}
+            onFinish={onFinish}
+          />
         ) : (
           <>
             <h3 className='text-base font-bold mb-8'>{menuChoice?.title}</h3>
