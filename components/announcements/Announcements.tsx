@@ -3,7 +3,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useId } from 'react-id-generator';
 import { getFirebase } from '../../commons/firebase';
 
-function useAnnouncement() {
+export function useAnnouncement() {
   const [announcement, setAnnouncement] = useState<
     { text: string } | 'loading' | null
   >('loading');

@@ -15,6 +15,7 @@ import {
   isFetchingCompleted
 } from '../../interfaces/Commons';
 import { registerTestCommand } from '../../commons/globals';
+import Loading from '../../commons/components/Loading';
 
 export type ProfileData = {
   firstname: string;
@@ -242,7 +243,7 @@ export function RequiresAuthentication(props: {
 }
 
 function DefaultAuthenticationChecking() {
-  return <div className='text-xl text-white'>Checking authentication...</div>;
+  return <Loading message='Checking authentication state' color='light' />;
 }
 
 export function withRequiredAuthentication<T>(

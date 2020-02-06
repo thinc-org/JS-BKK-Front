@@ -11,7 +11,8 @@ import Button from './Button';
 import {
   useAuthenticationState,
   useAuthenticationController,
-  isAuthenticated
+  isAuthenticated,
+  ProfileData
 } from '../../components/authentication';
 
 interface PropTypes {
@@ -28,20 +29,22 @@ const PageHeading: React.FC<PropTypes> = observer(({ routeData }) => {
     : isAuthenticated(authenticationState)
     ? 'authenticated'
     : 'unauthenticated';
+  const getName = (profile: ProfileData) =>
+    `${profile.firstname} ${profile.lastname}`;
   return (
     <header
-      className='flex flex-row items-start text-h text-white font-bold'
+      className='text-h text-white font-bold relative'
       data-authentication-state={authenticationStateDescription}
     >
-      <div className='text-4xl pt-5 px-4 flex-auto'>{routeData.title}</div>
-      <div className='px-4'>
+      <div className='text-4xl pt-10 px-4 flex-auto'>{routeData.title}</div>
+      <div className='px-4 right-0 top-0 absolute'>
         {isAuthenticated(authenticationState) && (
           <Button
             className='text-base border border-white rounded px-2 block mt-4'
             type='button'
             onClick={() => authenticationController.logout()}
           >
-            Logout
+            Logout ({getName(authenticationState.data.profile)})
           </Button>
         )}
       </div>

@@ -27,6 +27,7 @@ import { withRequiredAuthentication } from '../../../components/authentication';
 import ErrorMessage from '../../../commons/components/ErrorMessage';
 import useMyOrder from '../../../commons/hooks/useMyOrder';
 import Button from '../../../commons/components/Button';
+import Loading from '../../../commons/components/Loading';
 
 export const currentMenuContext = createContext<CurrentMenuContext>({
   orderFood: () => {}
@@ -62,17 +63,17 @@ const Orders: React.FC = observer(() => {
     });
   }, [data]);
 
-  if (isFetchingFailed(myOrderFetchStatus)) {
-    return <ErrorMessage error={myOrderFetchStatus.error} />;
-  }
-  if (!isFetchingCompleted(myOrderFetchStatus)) {
-    return <div>Loading your food selection...</div>;
-  }
   if (isFetchingFailed(menuFetchResult)) {
     return <ErrorMessage error={menuFetchResult.error} />;
   }
   if (!isFetchingCompleted(menuFetchResult)) {
-    return <span>Loading food menu...</span>;
+    return <Loading message='Loading menu' color='light' />;
+  }
+  if (isFetchingFailed(myOrderFetchStatus)) {
+    return <ErrorMessage error={myOrderFetchStatus.error} />;
+  }
+  if (!isFetchingCompleted(myOrderFetchStatus)) {
+    return <Loading message='Loading your selection' color='light' />;
   }
 
   const { orderingPeriodEndTime } = menuFetchResult.data;
@@ -85,10 +86,6 @@ const Orders: React.FC = observer(() => {
         onFinish={unchangeMind}
       />
       <div>
-        <div className='text-sm'>
-          Ordering as{' '}
-          <span className='font-extrabold'>{userStore.userInfo?.name}</span>
-        </div>
         {myOrder && !mindChanged ? (
           <OrderFood
             className='m-4'

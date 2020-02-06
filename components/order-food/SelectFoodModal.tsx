@@ -18,7 +18,7 @@ const SelectFoodModal: React.FC<PropTypes> = observer(
     return (
       <Modal
         modalStore={modalStore}
-        className='bg-dim top-0 p-6 min-h-500px z-50 items-center'
+        className='bg-dim top-0 p-6 z-50 items-center'
         data-testid='food-customization-modal'
         aria-label='Customize your meal'
       >
