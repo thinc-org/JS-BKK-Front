@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/indent */
 import React, { useState, useEffect, useMemo } from 'react';
 import { useId } from 'react-id-generator';
-import sanitizeHtml from 'sanitize-html';
 import { getFirebase } from '../../commons/firebase';
 
 function useAnnouncement() {
