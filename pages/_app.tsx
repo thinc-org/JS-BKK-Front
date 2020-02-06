@@ -63,9 +63,9 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
         <div className='h-screen flex flex-col font-body'>
           {routeData.hasNavbar && <PageHeading routeData={routeData} />}
           <ErrorBoundary FallbackComponent={ErrorMessage}>
-            <div className='flex justify-center pb-55px'>
+            <div className='pb-55px'>
               <AuthModal />
-              <main className='flex items-start justify-center'>
+              <main className='mx-auto' style={{ maxWidth: '640px' }}>
                 <Component {...pageProps} />
               </main>
               <div className='fixed z-40 bottom-0 left-0 w-full'>
