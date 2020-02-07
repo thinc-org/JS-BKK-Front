@@ -23,19 +23,24 @@ import SelectFoodModal from '../../../components/order-food/SelectFoodModal';
 import createModalStore from '../../../commons/stores/authModalStores';
 import useOrders from '../../../commons/hooks/useOrders';
 import RestaurantList from '../../../components/order-food/RestaurantList';
-import { withRequiredAuthentication } from '../../../components/authentication';
+import {
+  withRequiredAuthentication,
+  useAuthenticationState
+} from '../../../components/authentication';
 import ErrorMessage from '../../../commons/components/ErrorMessage';
 import useMyOrder from '../../../commons/hooks/useMyOrder';
 import Button from '../../../commons/components/Button';
 import Loading from '../../../commons/components/Loading';
+import {
+  FirebaseModule,
+  useFirestoreSnapshot
+} from '../../../commons/firebase';
 
 export const currentMenuContext = createContext<CurrentMenuContext>({
   orderFood: () => {}
 });
 
 const Orders: React.FC = observer(() => {
-  const { userStore } = useContext<RootStore>(rootContext);
-
   const modalStore = useLocalStore(() => createModalStore(400, false));
 
   const [mindChanged, setMindChanged] = useState(false);
@@ -124,6 +129,8 @@ const Orders: React.FC = observer(() => {
               </div>
             </Card>
 
+            <DietaryRestrictionContainer />
+
             <MealTimeLimitCurtain
               due={orderingPeriodEndTime}
               fallback={<TimeIsUp />}
@@ -167,5 +174,52 @@ const TimeIsUp = () => (
     </Card>
   </>
 );
+
+const DietaryRestrictionContainer: React.FC<{}> = () => {
+  const authenticationState = useAuthenticationState();
+  if (!isFetchingCompleted(authenticationState) || !authenticationState.data) {
+    return null;
+  }
+  return (
+    <DietaryRestrictionConnector
+      referenceCode={authenticationState.data.profile.referenceCode}
+    >
+      {result => {
+        if (result) {
+          return (
+            <div className='border-2 border-yellow-dark rounded-lg bg-yellow-light p-4 m-4'>
+              <h2 className='text-lg font-bold'>Dietary Restrictions Note</h2>
+              Our record shows that you have specified your dietary restrictions
+              as “<strong>{result}</strong>” which may not be on the below lunch
+              menu, or is not available in abundance. Therefore, we’ve prepared
+              a lunchtime meal for you. Please contact our staff at lunchtime
+              for assistance. (Don’t have to make a selection here.)
+            </div>
+          );
+        }
+        return null;
+      }}
+    </DietaryRestrictionConnector>
+  );
+};
+
+const DietaryRestrictionConnector: React.FC<{
+  referenceCode: string;
+  children: (result: string) => React.ReactNode;
+}> = ({ children, referenceCode }) => {
+  const getDocument = useCallback(
+    (firebase: FirebaseModule) =>
+      firebase
+        .getEnvDoc()
+        .collection('dietaryRestrictions')
+        .doc(referenceCode),
+    [referenceCode]
+  );
+  const snapshotFetchResult = useFirestoreSnapshot(getDocument);
+  if (!isFetchingCompleted(snapshotFetchResult)) {
+    return null;
+  }
+  return <>{children(snapshotFetchResult.data.get('info'))}</>;
+};
 
 export default withRequiredAuthentication(Orders);
