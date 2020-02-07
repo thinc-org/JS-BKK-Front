@@ -5,12 +5,11 @@ import Card from '../../../../commons/components/Card';
 import Button from '../../../../commons/components/Button';
 import { createNetworkingProfile } from '../../../../commons/hooks/networkingHooks';
 
+const EditBio: React.FC = () => {
 
-
-const Welcome: React.FC = () => {
   const [bio, setBio] = useState<string>('');
-
   const router = useRouter();
+
   const submitForm = useCallback(
     async e => {
       e.preventDefault();
@@ -23,17 +22,14 @@ const Welcome: React.FC = () => {
 
   return (
     <div className='flex w-screen'>
+      
       <Card className='w-screen m-4 self-center text-center'>
+      
         <h1 className='text-lg font-bold text-black my-2'>
-          Welcome to Networking
+          Editing your bio
+          
         </h1>
-        <p className='mb-4 text-gray-600'>
-          The goal of networking is to offer a chance for you to meet new people
-          whom you never met before.
-        </p>
-        <h2 className='text-lg font-semibold text-black mb-4'>
-          Please enter your details :
-        </h2>
+        
         <form onSubmit={submitForm}>
           <div className='flex flex-row items-center'>
             <h3 className='mr-4 text-lg text-black self-start'>Bio:</h3>
@@ -47,7 +43,7 @@ const Welcome: React.FC = () => {
             type='submit'
             className='bg-yellow-dark rounded px-4 py-1 m-4 text-lg'
           >
-            Submit
+            Edit
           </Button>
         </form>
       </Card>
@@ -55,4 +51,4 @@ const Welcome: React.FC = () => {
   );
 };
 
-export default withRequiredAuthentication(Welcome);
+export default withRequiredAuthentication(EditBio);
