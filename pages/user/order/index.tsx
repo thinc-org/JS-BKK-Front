@@ -1,40 +1,32 @@
 import { observer, useLocalStore } from 'mobx-react-lite';
-import React, {
-  useCallback,
-  useContext,
-  useMemo,
-  createContext,
-  useState
-} from 'react';
-import Card from '../../../commons/components/Card';
-import OrderFood from '../../../components/order-food/OrderFood';
-import { Restaurant, CurrentMenuContext } from '../../../interfaces/Orders';
-import Countdown, {
-  useCurrentTime
-} from '../../../components/order-food/CountDown';
-import {
-  RootStore,
-  isFetchingFailed,
-  isFetchingCompleted,
-  ModalType
-} from '../../../interfaces/Commons';
-import rootContext from '../../../commons/context.root';
-import SelectFoodModal from '../../../components/order-food/SelectFoodModal';
-import createModalStore from '../../../commons/stores/authModalStores';
-import useOrders from '../../../commons/hooks/useOrders';
-import RestaurantList from '../../../components/order-food/RestaurantList';
-import {
-  withRequiredAuthentication,
-  useAuthenticationState
-} from '../../../components/authentication';
-import ErrorMessage from '../../../commons/components/ErrorMessage';
-import useMyOrder from '../../../commons/hooks/useMyOrder';
+import React, { createContext, useCallback, useMemo, useState } from 'react';
 import Button from '../../../commons/components/Button';
+import Card from '../../../commons/components/Card';
+import ErrorMessage from '../../../commons/components/ErrorMessage';
 import Loading from '../../../commons/components/Loading';
 import {
   FirebaseModule,
   useFirestoreSnapshot
 } from '../../../commons/firebase';
+import useMyOrder from '../../../commons/hooks/useMyOrder';
+import useOrders from '../../../commons/hooks/useOrders';
+import createModalStore from '../../../commons/stores/authModalStores';
+import {
+  useAuthenticationState,
+  withRequiredAuthentication
+} from '../../../components/authentication';
+import Countdown, {
+  useCurrentTime
+} from '../../../components/order-food/CountDown';
+import OrderFood from '../../../components/order-food/OrderFood';
+import RestaurantList from '../../../components/order-food/RestaurantList';
+import SelectFoodModal from '../../../components/order-food/SelectFoodModal';
+import {
+  isFetchingCompleted,
+  isFetchingFailed,
+  ModalType
+} from '../../../interfaces/Commons';
+import { CurrentMenuContext, Restaurant } from '../../../interfaces/Orders';
 
 export const currentMenuContext = createContext<CurrentMenuContext>({
   orderFood: () => {}
