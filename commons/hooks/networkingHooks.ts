@@ -25,17 +25,32 @@ export default async function addUserToNetwork(uid: string) {
   });
 }
 
-export async function createNetworkingProfile() {
+export async function createNetworkingProfile(bio: string) {
   const firebase = await getFirebase();
   const _createNetworkingProfile = firebase
     .functions('asia-northeast1')
     .httpsCallable('createNetworkingProfile');
   await _createNetworkingProfile({
     uid: firebase.auth().currentUser!.uid,
+    env: getEnvName(),
+    bio
+  });
+}
+
+<<<<<<< HEAD
+=======
+export async function updateBio(bio: string) {
+  const firebase = await getFirebase();
+  const _createNetworkingProfile = firebase
+    .functions('asia-northeast1')
+    .httpsCallable('updateBio');
+  await _createNetworkingProfile({
+    bio,
     env: getEnvName()
   });
 }
 
+>>>>>>> 2e908875ea63b99ed75b62da47462375c5cc4429
 export async function addWinner() {
   const firebase = await getFirebase();
   const add = firebase.functions('asia-northeast1').httpsCallable('addWinner');

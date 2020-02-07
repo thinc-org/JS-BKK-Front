@@ -1,22 +1,18 @@
 import React, { useCallback, useState } from 'react';
-import { observer } from 'mobx-react-lite';
 import { useRouter } from 'next/router';
 import { withRequiredAuthentication } from '../../../../components/authentication';
 import Card from '../../../../commons/components/Card';
 import Button from '../../../../commons/components/Button';
-import {
-  createNetworkingProfile,
-  updateBio
-} from '../../../../commons/hooks/networkingHooks';
+import { createNetworkingProfile } from '../../../../commons/hooks/networkingHooks';
 
-const Welcome: React.FC = observer(() => {
+const Welcome: React.FC = () => {
   const [bio, setBio] = useState<string>('');
   const router = useRouter();
   const submitForm = useCallback(
     async e => {
       e.preventDefault();
-      await createNetworkingProfile();
-      await updateBio(bio);
+      await createNetworkingProfile(bio);
+      // await updateBio(bio);
       router.push('/user/networking/my-badge');
     },
     [bio]
@@ -54,6 +50,6 @@ const Welcome: React.FC = observer(() => {
       </Card>
     </div>
   );
-});
+};
 
 export default withRequiredAuthentication(Welcome);
