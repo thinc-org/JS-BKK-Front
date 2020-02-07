@@ -5,13 +5,15 @@ import Button from '../../../../commons/components/Button';
 import { withRequiredAuthentication } from '../../../../components/authentication';
 import Card from '../../../../commons/components/Card';
 import BadgeList from '../../../../commons/components/BadgeList';
+import { useNetworking } from '../../../../commons/hooks/networkingHooks';
 
 const MyBadge: React.FC = observer(() => {
+  const network = useNetworking();
   return (
     <div>
       <Card className='flex flex-col items-center m-4 text-center p-5'>
         <p className='mb-4 font-bold text-xl'>Your badge is</p>
-        <BadgeList id={1} />
+        <BadgeList id={network.data?.badge} />
         <p className='mb-8 mt-4'>
           There are 7 total badges. Please talk to other people and scan their
           QR code to obtain other 6 badges! The first 3 people will get the

@@ -53,6 +53,7 @@ const Dashboard: React.FC = observer(() => {
     const onlyUnique = (value: number, index: number, self: number[]) => {
       return self.indexOf(value) === index;
     };
+    console.log(networks, 'networks', network);
     return (
       <div className='flex overflow-x-auto'>
         {networks
