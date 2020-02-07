@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
-
+import Link from 'next/link';
 import Button from '../../../../commons/components/Button';
 import { withRequiredAuthentication } from '../../../../components/authentication';
 import Card from '../../../../commons/components/Card';
@@ -21,12 +21,14 @@ const MyBadge: React.FC = observer(() => {
           src='/icons/scanQR.svg'
           alt='Scan QRCode instruction '
         />
-        <Button
-          type='button'
-          className='bg-yellow-dark w-full rounded px-4 py-3 m-4 text-lg'
-        >
-          Submit
-        </Button>
+        <Link href='/user/networking/dashboard'>
+          <Button
+            type='button'
+            className='bg-yellow-dark w-full rounded px-4 py-3 m-4 text-lg'
+          >
+            Continue
+          </Button>
+        </Link>
       </Card>
     </div>
   );
