@@ -1,13 +1,22 @@
-import React, { useContext } from 'react';
-import { observer } from 'mobx-react-lite';
-import { RootStore } from '../../../../interfaces/Commons';
-import rootContext from '../../../../commons/context.root';
+import React, { useCallback, useState } from 'react';
+import { useRouter } from 'next/router';
 import { withRequiredAuthentication } from '../../../../components/authentication';
 import Card from '../../../../commons/components/Card';
 import Button from '../../../../commons/components/Button';
+import { createNetworkingProfile } from '../../../../commons/hooks/networkingHooks';
 
-const Welcome: React.FC = observer(() => {
-  // const { userStore } = useContext<RootStore>(rootContext);
+const Welcome: React.FC = () => {
+  const [bio, setBio] = useState<string>('');
+  const router = useRouter();
+  const submitForm = useCallback(
+    async e => {
+      e.preventDefault();
+      await createNetworkingProfile(bio);
+      // await updateBio(bio);
+      router.push('/user/networking/my-badge');
+    },
+    [bio]
+  );
 
   return (
     <div className='flex w-screen'>
@@ -22,25 +31,25 @@ const Welcome: React.FC = observer(() => {
         <h2 className='text-lg font-semibold text-black mb-4'>
           Please enter your details :
         </h2>
-        <form className='flex flex-row items-center'>
-          <h3 className='mr-4 text-lg text-black self-start'>Bio:</h3>
-          <textarea
-            className='border-gray-500 border-solid border w-full rounded p-2'
-            // rows={3}
+        <form onSubmit={submitForm}>
+          <div className='flex flex-row items-center'>
+            <h3 className='mr-4 text-lg text-black self-start'>Bio:</h3>
+            <textarea
+              value={bio}
+              onChange={e => setBio(e.target.value)}
+              className='border-gray-500 border-solid border w-full rounded p-2'
+            />
+          </div>
+          <Button
+            type='submit'
+            className='bg-yellow-dark rounded px-4 py-1 m-4 text-lg'
           >
-            ds
-          </textarea>
+            Submit
+          </Button>
         </form>
-        <Button
-          type='button'
-          className='bg-yellow-dark rounded px-4 py-1 m-4 text-lg'
-          // onClick={}
-        >
-          Submit
-        </Button>
       </Card>
     </div>
   );
-});
+};
 
 export default withRequiredAuthentication(Welcome);

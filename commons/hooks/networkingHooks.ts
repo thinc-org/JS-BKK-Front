@@ -25,24 +25,25 @@ export default async function addUserToNetwork(uid: string) {
   });
 }
 
-export async function createNetworkingProfile() {
+export async function createNetworkingProfile(bio: string) {
   const firebase = await getFirebase();
   const _createNetworkingProfile = firebase
     .functions('asia-northeast1')
     .httpsCallable('createNetworkingProfile');
   await _createNetworkingProfile({
     uid: firebase.auth().currentUser!.uid,
-    env: getEnvName()
+    env: getEnvName(),
+    bio
   });
 }
 
-// export async function addWinner() {
-//   const firebase = await getFirebase();
-//   const add = firebase.functions('asia-northeast1').httpsCallable('addWinner');
-//   return add({
-//     env: getEnvName()
-//   });
-// }
+export async function addWinner() {
+  const firebase = await getFirebase();
+  const add = firebase.functions('asia-northeast1').httpsCallable('addWinner');
+  return add({
+    env: getEnvName()
+  });
+}
 
 export const useNetworking = (): Networking => {
   const [uuid, setUuid] = useState();
@@ -69,7 +70,7 @@ export const useNetworking = (): Networking => {
   const realtimeFetchResult = useRealtimeDatabaseSnapshot(getWinner);
 
   useEffect(() => {
-    // addWinner();
+    addWinner();
     getFirebase().then(firebase => {
       setUuid(firebase.auth().currentUser!.uid);
     });
@@ -96,7 +97,8 @@ export const useNetworking = (): Networking => {
     status: 'completed',
     data: snapshot.data() as NetworkingProfile,
     hasAllWinner,
-    isWinner
+    isWinner,
+    uuid: snapshot.id
   };
 
   if (result.status === 'completed' && result.data === undefined) {
