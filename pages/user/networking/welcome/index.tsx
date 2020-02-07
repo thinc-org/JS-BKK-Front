@@ -9,7 +9,7 @@ import {
   updateBio
 } from '../../../../commons/hooks/networkingHooks';
 
-const Welcome: React.FC = observer(() => {
+const Welcome: React.FC = () => {
   const [bio, setBio] = useState<string>('');
   const router = useRouter();
   const submitForm = useCallback(
@@ -54,6 +54,6 @@ const Welcome: React.FC = observer(() => {
       </Card>
     </div>
   );
-});
+};
 
 export default withRequiredAuthentication(Welcome);
