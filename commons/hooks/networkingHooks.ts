@@ -37,10 +37,13 @@ export async function createNetworkingProfile(bio: string) {
   });
 }
 
-export async function addWinner() {
+export async function updateBio(bio: string) {
   const firebase = await getFirebase();
-  const add = firebase.functions('asia-northeast1').httpsCallable('addWinner');
-  return add({
+  const _createNetworkingProfile = firebase
+    .functions('asia-northeast1')
+    .httpsCallable('updateBio');
+  await _createNetworkingProfile({
+    bio,
     env: getEnvName()
   });
 }
@@ -70,7 +73,6 @@ export const useNetworking = (): Networking => {
   const realtimeFetchResult = useRealtimeDatabaseSnapshot(getWinner);
 
   useEffect(() => {
-    addWinner();
     getFirebase().then(firebase => {
       setUuid(firebase.auth().currentUser!.uid);
     });
@@ -81,9 +83,12 @@ export const useNetworking = (): Networking => {
   const hasAllWinner = winnersArray.length >= 3;
   const isWinner =
     hasAllWinner &&
-    winnersArray.slice(0, 3).filter(winner => {
-      return winner[0] === uuid;
-    }).length !== 0;
+    winnersArray
+      .sort((w1, w2) => (w1 as any)[1] - (w2 as any)[1])
+      .slice(0, 3)
+      .filter(winner => {
+        return winner[0] === uuid;
+      }).length !== 0;
 
   if (isFetchingFailed(snapshotFetchResult)) {
     return { status: 'error', error: snapshotFetchResult.error };

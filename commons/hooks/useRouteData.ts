@@ -5,7 +5,7 @@ import { RouteData } from '../../interfaces/Commons';
 
 const defaultRouteData = {
   hasNavbar: true,
-  title: 'Bangkok JS'
+  title: 'JavaScript Bangkok 1.0.0'
 };
 
 const useRouteData = (): RouteData => {
