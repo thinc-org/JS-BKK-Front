@@ -1,22 +1,32 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { withRequiredAuthentication } from '../../../../components/authentication';
 import Card from '../../../../commons/components/Card';
 import Button from '../../../../commons/components/Button';
-import { updateBio } from '../../../../commons/hooks/networkingHooks';
+import {
+  updateBio,
+  useNetworking
+} from '../../../../commons/hooks/networkingHooks';
 
 const EditBio: React.FC = () => {
   const [bio, setBio] = useState<string>('');
   const router = useRouter();
+  const network = useNetworking();
 
   const submitForm = useCallback(
     async e => {
       e.preventDefault();
-      await updateBio(bio);
-      router.push('/user/networking/my-badge');
+      updateBio(bio);
+      router.push('/user/networking/dashboard');
     },
     [bio]
   );
+
+  const _bio = network.data?.bio;
+
+  useEffect(() => {
+    setBio(_bio || '');
+  }, [_bio]);
 
   return (
     <div className='flex w-screen'>
