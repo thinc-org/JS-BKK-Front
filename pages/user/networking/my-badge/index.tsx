@@ -22,12 +22,14 @@ const MyBadge: React.FC = observer(() => {
           alt='Scan QRCode instruction '
         />
         <Link href='/user/networking/dashboard'>
-          <Button
-            type='button'
-            className='bg-yellow-dark w-full rounded px-4 py-3 m-4 text-lg'
-          >
-            Continue
-          </Button>
+          <a href='/user/networking/dashboard'>
+            <Button
+              type='button'
+              className='bg-yellow-dark w-full rounded px-4 py-3 m-4 text-lg'
+            >
+              Continue
+            </Button>
+          </a>
         </Link>
       </Card>
     </div>

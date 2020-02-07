@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import QRCode from 'qrcode.react';
 import React, { useContext, useMemo } from 'react';
+import { useRouter } from 'next/router';
 import Button from '../../../../commons/components/Button';
 import rootContext from '../../../../commons/context.root';
 import { withRequiredAuthentication } from '../../../../components/authentication';
@@ -17,8 +18,16 @@ const Loading: React.FC<{}> = () => <div>...Loading</div>;
 const Dashboard: React.FC = observer(() => {
   const { userStore } = useContext<RootStore>(rootContext);
   const { firstname, lastname } = userStore.userInfo || {};
+  const router = useRouter();
   const network = useNetworking();
-  console.log(network, 'network');
+
+  if (network.status === 'notRegistered') {
+    router.push('/user/networking/welcome');
+  }
+
+  if (network.status === 'loading') {
+    return null;
+  }
 
   // const BadgeItems = useMemo(
   //   () => (
@@ -75,7 +84,7 @@ const Dashboard: React.FC = observer(() => {
           No idea? Here are some questions!
         </button>
 
-        <button onClick={() => createNetworkingProfile()}>
+        <button onClick={() => createNetworkingProfile('')}>
           create profile
         </button>
         <ul className='pl-16'>

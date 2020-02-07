@@ -25,14 +25,15 @@ export default async function addUserToNetwork(uid: string) {
   });
 }
 
-export async function createNetworkingProfile() {
+export async function createNetworkingProfile(bio: string) {
   const firebase = await getFirebase();
   const _createNetworkingProfile = firebase
     .functions('asia-northeast1')
     .httpsCallable('createNetworkingProfile');
   await _createNetworkingProfile({
     uid: firebase.auth().currentUser!.uid,
-    env: getEnvName()
+    env: getEnvName(),
+    bio
   });
 }
 
