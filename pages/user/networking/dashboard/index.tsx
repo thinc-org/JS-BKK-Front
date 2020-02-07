@@ -100,10 +100,25 @@ const Dashboard: React.FC = observer(() => {
       <div className='flex'>{BadgeItems}</div>
       <div className='mt-12'>
         <div className='text-white text-lg font-bold'>Your new Friends</div>
-        <div className='mt-4 px-24 py-8 bg-white rounded-t'>
+
+        {/* <div className='mt-4 px-24 py-8 bg-white rounded-t'>
           Firstname Lastname
         </div>
-        <div className=' px-24 py-8 bg-white rounded-b'>Firstname Lastname</div>
+        <div className=' px-24 py-8 bg-white rounded-b'>Firstname Lastname</div> */}
+        <Card>
+          <div className='flex flex-row items-center my-4'>
+            <BadgeList id={1} className="h-8 mr-4" />
+            <p>Patt sd</p>
+          </div>
+          <div className='flex flex-row items-center my-4'>
+            <BadgeList id={2} className="h-8 mr-4" />
+            <p>Patt sd</p>
+          </div>
+          <div className='flex flex-row items-center my-4'>
+            <BadgeList id={3} className="h-8 mr-4" />
+            <p>Patt sd</p>
+          </div>
+        </Card>
       </div>
     </div>
   );
