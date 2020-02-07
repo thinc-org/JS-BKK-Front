@@ -1,24 +1,21 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { useLocalStore } from 'mobx-react-lite';
 import Announcements from '../../components/announcements/Announcements';
 import ScheduleBox from '../../components/conference';
-import getSchedules from '../../utils/schedules';
 import { Schedule } from '../../interfaces/Schedule';
 import Staff from '../../components/conference/Staff';
 import createModalStore from '../../commons/stores/authModalStores';
+import useSchedule from '../../commons/hooks/scheduleHook';
 
 const Home: React.FC = () => {
   const [selectedSchedule, setSelectedSchedule] = useState<Schedule>();
+  const schedules = useSchedule();
   const modalStore = useLocalStore(() => createModalStore(400, false));
 
   const openScheduleModal = (schedule: Schedule) => {
     setSelectedSchedule(schedule);
     modalStore.setModalOpen(true);
   };
-
-  const schedules = useMemo(() => {
-    return getSchedules();
-  }, []);
 
   return (
     <>
