@@ -28,7 +28,11 @@ const Dashboard: React.FC = observer(() => {
     if (network.status === 'notRegistered') {
       router.push('/user/networking/welcome');
     } else if (network.hasAllWinner === true) {
-      router.push('/user/networking/winner');
+      if (network.isWinner) {
+        router.push('/user/networking/winner');
+      } else {
+        router.push('/user/networking/timeout');
+      }
     }
   }, [network.status, network.hasAllWinner]);
 
@@ -64,7 +68,7 @@ const Dashboard: React.FC = observer(() => {
   }, [networks]);
 
   return (
-    <div className={`m-4 ${isLoading ? 'hidden' : ''}`}>
+    <div className={`m-4 w-full ${isLoading ? 'hidden' : ''}`}>
       <div className='flex justify-center w-full items-center'>
         <Card className='flex w-full items-center text-lg flex-col font-bold justify-center items-end'>
           {isCameraOpen ? (

@@ -93,9 +93,12 @@ export const useNetworking = (): Networking => {
   const hasAllWinner = winnersArray.length >= 3;
   const isWinner =
     hasAllWinner &&
-    winnersArray.slice(0, 3).filter(winner => {
-      return winner[0] === uuid;
-    }).length !== 0;
+    winnersArray
+      .sort((w1, w2) => (w1 as any)[1] - (w2 as any)[1])
+      .slice(0, 3)
+      .filter(winner => {
+        return winner[0] === uuid;
+      }).length !== 0;
 
   if (isFetchingFailed(snapshotFetchResult)) {
     return { status: 'error', error: snapshotFetchResult.error };
