@@ -177,7 +177,47 @@ export function useAuthenticationController() {
           if (result.length === 1) {
             return result[0];
           }
-          const message = `You have multiple ticket. Please enter the number of the ticket you want to sign in with:\n\n${result
+          const message = `You have multiple tickets. Please enter the number of the ticket you want to sign in with:\n\n${result
+            .map((row: any, index: number) => {
+              return `${index + 1}. ${row.profile.firstname} ${
+                row.profile.lastname
+              } [${row.profile.referenceCode}]`;
+            })
+            .join('\n')}`;
+          for (;;) {
+            // eslint-disable-next-line no-alert
+            const answer = +(prompt(message) as any);
+            if (answer && result[answer - 1]) {
+              return result[answer - 1];
+            }
+          }
+        })();
+        await firebase
+          .auth()
+          .signInWithCustomToken(selectedTicket.firebaseToken);
+      },
+      async loginWithEventpopInfo(referenceCode: string, phoneNumber: string) {
+        const firebase = await getFirebase();
+        const signInWithEventpopInfo = firebase
+          .functions('asia-northeast1')
+          .httpsCallable('signInWithEventpopInfo');
+        const signInResponse = await signInWithEventpopInfo({
+          env: getEnvName(),
+          referenceCode,
+          phoneNumber
+        });
+        console.log('Sign in response: ', signInResponse);
+        const { result } = signInResponse.data;
+        if (result.length === 0) {
+          throw new Error(
+            'We did not find a valid ticket from your information provided.'
+          );
+        }
+        const selectedTicket = (() => {
+          if (result.length === 1) {
+            return result[0];
+          }
+          const message = `You have multiple tickets. Please enter the number of the ticket you want to sign in with:\n\n${result
             .map((row: any, index: number) => {
               return `${index + 1}. ${row.profile.firstname} ${
                 row.profile.lastname

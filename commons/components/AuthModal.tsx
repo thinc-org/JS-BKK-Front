@@ -35,6 +35,31 @@ const AuthModal: React.FC = observer(() => {
     }
   }, []);
 
+  const login2 = useCallback(async e => {
+    e.preventDefault();
+    setActiveSignInProcesses(x => x + 1);
+    try {
+      // eslint-disable-next-line no-alert
+      const referenceCode = prompt('Ticket reference code');
+      if (!referenceCode) {
+        throw new Error('No reference code provided');
+      }
+      // eslint-disable-next-line no-alert
+      const phoneNumber = prompt('Your phone number registered with Eventpop');
+      if (!phoneNumber) {
+        throw new Error('No phone number provided');
+      }
+      await authenticationController.loginWithEventpopInfo(
+        referenceCode,
+        phoneNumber
+      );
+    } catch (error) {
+      setLoginError(`Failed! ${error}`);
+    } finally {
+      setActiveSignInProcesses(x => x - 1);
+    }
+  }, []);
+
   const loginTest = useCallback(async (e, uid: string) => {
     e.preventDefault();
     setActiveSignInProcesses(x => x + 1);
@@ -82,6 +107,14 @@ const AuthModal: React.FC = observer(() => {
             ) : (
               'Sign in with Eventpop'
             )}
+          </Button>
+          - or -
+          <Button
+            onClick={e => login2(e)}
+            type='button'
+            className='py-2 px-4 font-bg border bg-white border-yellow-dark text-black rounded'
+          >
+            Sign in with your ticket code and phone number
           </Button>
           {testUsers.map(uid => {
             return (
