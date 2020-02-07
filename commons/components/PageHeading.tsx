@@ -1,6 +1,12 @@
-import React, { useContext } from 'react';
+/* eslint-disable @typescript-eslint/indent */
+/* eslint-disable no-nested-ternary */
+import React from 'react';
 import { observer } from 'mobx-react-lite';
-import { RouteData } from '../../interfaces/Commons';
+import {
+  RouteData,
+  isFetchingFailed,
+  isFetchingCompleted
+} from '../../interfaces/Commons';
 import Button from './Button';
 import {
   useAuthenticationState,
@@ -15,15 +21,29 @@ interface PropTypes {
 const PageHeading: React.FC<PropTypes> = observer(({ routeData }) => {
   const authenticationState = useAuthenticationState();
   const authenticationController = useAuthenticationController();
+  const authenticationStateDescription = isFetchingFailed(authenticationState)
+    ? 'checking-failed'
+    : !isFetchingCompleted(authenticationState)
+    ? 'checking'
+    : isAuthenticated(authenticationState)
+    ? 'authenticated'
+    : 'unauthenticated';
   return (
-    <nav className='flex flex-row items-center text-h text-white'>
+    <header
+      className='flex flex-row items-center text-h text-white font-bold'
+      data-authentication-state={authenticationStateDescription}
+    >
       <div className='text-4xl pt-5 px-4'>{routeData.title}</div>
       {isAuthenticated(authenticationState) && (
-        <Button type='button' onClick={() => authenticationController.logout()}>
+        <Button
+          className='text-2xl'
+          type='button'
+          onClick={() => authenticationController.logout()}
+        >
           Logout
         </Button>
       )}
-    </nav>
+    </header>
   );
 });
 

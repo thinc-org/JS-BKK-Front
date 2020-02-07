@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/indent */
 import { ReactNode, useContext, useEffect, useMemo, useState } from 'react';
 import rootContext from '../../commons/context.root';
 import {
@@ -13,6 +14,7 @@ import {
   isFetching,
   isFetchingCompleted
 } from '../../interfaces/Commons';
+import { registerTestCommand } from '../../commons/globals';
 
 export type ProfileData = {
   firstname: string;
@@ -96,6 +98,11 @@ export function isAuthenticated(
   return isFetchingCompleted(state) && state.data !== null;
 }
 
+export async function logoutFromFirebase() {
+  const firebase = await getFirebase();
+  await firebase.auth().signOut();
+}
+
 /**
  * Returns an object with methods to authenticate user.
  */
@@ -117,13 +124,11 @@ export function useAuthenticationController() {
       },
       async loginWithEventpop() {
         const firebase = await getFirebase();
-        const url =
-          'https://www.eventpop.me/oauth/authorize?' +
-          [
-            'client_id=ba3bd8b639664043a8f1c3c6bef737620a84841d7e5a38aa84fdbf872920ab71',
-            'redirect_uri=https://javascriptbangkok.com/1.0.0/eventpop_oauth_callback.html',
-            'response_type=code'
-          ].join('&');
+        const url = `https://www.eventpop.me/oauth/authorize?${[
+          'client_id=ba3bd8b639664043a8f1c3c6bef737620a84841d7e5a38aa84fdbf872920ab71',
+          'redirect_uri=https://javascriptbangkok.com/1.0.0/eventpop_oauth_callback.html',
+          'response_type=code'
+        ].join('&')}`;
         const features =
           'width=720,height=480,location=1,resizable=1,statusbar=1,toolbar=0';
         const popup = window.open(url, '_blank', features);
@@ -137,10 +142,13 @@ export function useAuthenticationController() {
               typeof e.data === 'string' &&
               e.data.startsWith('?')
             ) {
-              const source: any = e.source;
-              const code = e.data.match(/code=([^&]+)/)?.[1];
-              resolve(code);
-              source?.postMessage('close', 'https://javascriptbangkok.com');
+              const { source } = e;
+              const _code = e.data.match(/code=([^&]+)/)?.[1];
+              resolve(_code);
+              (source as any)?.postMessage(
+                'close',
+                'https://javascriptbangkok.com'
+              );
               window.removeEventListener('message', listener);
             }
           };
@@ -157,30 +165,26 @@ export function useAuthenticationController() {
           .httpsCallable('signInWithEventpop');
         const signInResponse = await signInWithEventpop({
           env: getEnvName(),
-          code: code
+          code
         });
         console.log('Sign in response: ', signInResponse);
-        const result: {
-          profile: ProfileData;
-          firebaseToken: string;
-        }[] = signInResponse.data.result;
+        const { result } = signInResponse.data;
         if (result.length === 0) {
           throw new Error('You do not have any registered ticket.');
         }
-        let selectedTicket = (() => {
+        const selectedTicket = (() => {
           if (result.length === 1) {
             return result[0];
           }
-          const message =
-            'You have multiple ticket. Please enter the number of the ticket you want to sign in with:\n\n' +
-            result
-              .map((row, index) => {
-                return `${index + 1}. ${row.profile.firstname} ${
-                  row.profile.lastname
-                } [${row.profile.referenceCode}]`;
-              })
-              .join('\n');
+          const message = `You have multiple ticket. Please enter the number of the ticket you want to sign in with:\n\n${result
+            .map((row: any, index: number) => {
+              return `${index + 1}. ${row.profile.firstname} ${
+                row.profile.lastname
+              } [${row.profile.referenceCode}]`;
+            })
+            .join('\n')}`;
           for (;;) {
+            // eslint-disable-next-line no-alert
             const answer = +(prompt(message) as any);
             if (answer && result[answer - 1]) {
               return result[answer - 1];
@@ -192,8 +196,7 @@ export function useAuthenticationController() {
           .signInWithCustomToken(selectedTicket.firebaseToken);
       },
       async logout() {
-        const firebase = await getFirebase();
-        await firebase.auth().signOut();
+        await logoutFromFirebase();
       }
     }),
     []
@@ -254,3 +257,5 @@ export function withRequiredAuthentication<T>(
     );
   };
 }
+
+registerTestCommand('logoutFromFirebase', logoutFromFirebase);

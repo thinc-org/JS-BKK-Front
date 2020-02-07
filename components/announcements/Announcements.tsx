@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable @typescript-eslint/indent */
+import React, { useState, useEffect, useMemo } from 'react';
 import { useId } from 'react-id-generator';
+import sanitizeHtml from 'sanitize-html';
 import { getFirebase } from '../../commons/firebase';
 
 function useAnnouncement() {
@@ -17,6 +19,7 @@ function useAnnouncement() {
       const onValue = (snapshot: any) => {
         setAnnouncement(snapshot.val());
       };
+      // eslint-disable-next-line no-console
       ref.on('value', onValue, console.error);
       cancelPromise.then(() => {
         ref.off('value', onValue);
@@ -27,20 +30,39 @@ function useAnnouncement() {
   return announcement;
 }
 
+const AnnouncementContent: React.FC<{ text: string; headerId: string }> = ({
+  text,
+  headerId
+}) => {
+  const Announcement = useMemo(
+    () => (
+      <p
+        aria-labelledby={headerId}
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: sanitizeHtml(text) }}
+      />
+    ),
+    [text]
+  );
+
+  return (
+    <section>
+      <h2 className='text-xl font-bold' id={headerId}>
+        Announcements
+      </h2>
+      {Announcement}
+    </section>
+  );
+};
+
 export default function Announcements() {
   const [headerId] = useId(1, 'Announcement');
   const announcement = useAnnouncement();
+
   if (announcement === 'loading') {
     return <section>(Loading announcement)</section>;
   }
   if (!announcement) return null;
-  return (
-    <section>
-      <h2 id={headerId}>Announcement</h2>
-      <p
-        aria-labelledby={headerId}
-        dangerouslySetInnerHTML={{ __html: announcement.text }}
-      />
-    </section>
-  );
+
+  return <AnnouncementContent headerId={headerId} text={announcement.text} />;
 }

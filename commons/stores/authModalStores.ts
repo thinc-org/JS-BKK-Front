@@ -1,11 +1,18 @@
+import { ModalType } from '../../interfaces/Commons';
+
 const createModalStore = (timeout: number, defaultOpen = true) => ({
   isModalOpen: defaultOpen,
   hiddenClassTimer: null as NodeJS.Timeout | null,
+  currentModal: ModalType.normal as ModalType,
 
   /**
    * Number of components currently requesting for the modal to be open.
    */
   referenceCount: 0,
+
+  setModalType(modalType: ModalType) {
+    this.currentModal = modalType;
+  },
 
   /**
    * Requests for a modal to be open.

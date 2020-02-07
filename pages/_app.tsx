@@ -4,6 +4,7 @@ import { NextPage } from 'next';
 import { useLocalStore, observer } from 'mobx-react-lite';
 import Head from 'next/head';
 import { useEffect } from 'react';
+import ErrorBoundary from 'react-error-boundary';
 import Nav from '../commons/components/Nav';
 import createUserStore from '../commons/stores/userStores';
 import '../styles/index.css';
@@ -18,6 +19,7 @@ import {
   isAuthenticated
 } from '../components/authentication';
 import { BadgeType, Badge } from '../interfaces/Badge';
+import ErrorMessage from '../commons/components/ErrorMessage';
 
 const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
   const routeData = useRouteData();
@@ -60,15 +62,17 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
       <rootContext.Provider value={rootStore}>
         <div className='h-screen flex flex-col font-body'>
           {routeData.hasNavbar && <PageHeading routeData={routeData} />}
-          <div className='flex justify-center pb-55px'>
-            <AuthModal />
-            <div className='flex items-start justify-center'>
-              <Component {...pageProps} />
+          <ErrorBoundary FallbackComponent={ErrorMessage}>
+            <div className='flex justify-center pb-55px'>
+              <AuthModal />
+              <main className='flex items-start justify-center'>
+                <Component {...pageProps} />
+              </main>
+              <div className='fixed z-40 bottom-0 left-0 w-full'>
+                <Nav />
+              </div>
             </div>
-            <div className='fixed z-40 bottom-0 left-0 w-full'>
-              <Nav />
-            </div>
-          </div>
+          </ErrorBoundary>
         </div>
       </rootContext.Provider>
     </>

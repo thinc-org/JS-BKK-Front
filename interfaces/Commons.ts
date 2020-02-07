@@ -39,6 +39,11 @@ export interface OngoingFetchResult<T> extends FetchResult<T> {
   status: 'loading';
 }
 
+export enum ModalType {
+  normal,
+  error
+}
+
 /**
  * Checks if fetching is completed.
  * If yes, then fetchResult.data will not be undefined.

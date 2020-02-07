@@ -7,7 +7,7 @@ const Nav: React.FC<{}> = () => {
       <MyLink
         prefetch={false}
         href='/'
-        className='focus:outline-none text-center flex flex-col items-center py-2 w-1/3'
+        className='text-center flex flex-col items-center py-2 w-1/3'
       >
         <div className='w-5 h-5 bg-grey' />
         Conference
@@ -15,7 +15,7 @@ const Nav: React.FC<{}> = () => {
       <MyLink
         prefetch
         href='/user/order'
-        className='focus:outline-none text-center flex flex-col items-center py-2 w-1/3'
+        className='text-center flex flex-col items-center py-2 w-1/3'
       >
         <div className='w-5 h-5 bg-grey' />
         Food
@@ -23,7 +23,7 @@ const Nav: React.FC<{}> = () => {
       <MyLink
         prefetch
         href='/user/networking/dashboard'
-        className='focus:outline-none text-center flex flex-col items-center py-2 w-1/3'
+        className='text-center flex flex-col items-center py-2 w-1/3'
       >
         <div className='w-5 h-5 bg-grey' />
         Networking

@@ -1,33 +1,25 @@
+import { useMemo } from 'react';
+import { useId } from 'react-id-generator';
 import Card from '../../commons/components/Card';
 import Button from '../../commons/components/Button';
-import useMyOrder from '../../commons/hooks/useMyOrder';
-import { RestaurantGroup } from '../../interfaces/Orders';
-import {
-  isFetchingFailed,
-  isFetchingCompleted
-} from '../../interfaces/Commons';
+import { RestaurantGroup, MyOrder } from '../../interfaces/Orders';
 import ErrorMessage from '../../commons/components/ErrorMessage';
-import { useMemo } from 'react';
 
 interface Props {
   className?: string;
   menu: RestaurantGroup[];
+  myOrder: MyOrder;
+  onChangeSelection: () => void;
 }
 
-const OrderFood: React.FC<Props> = ({ className, menu }) => {
-  const myOrderFetchStatus = useMyOrder();
+const OrderFood: React.FC<Props> = ({
+  className,
+  menu,
+  myOrder,
+  onChangeSelection
+}) => {
   const restaurants = useMemo(() => menu.flatMap(m => m.choices), [menu]);
-
-  if (isFetchingFailed(myOrderFetchStatus)) {
-    return <ErrorMessage error={myOrderFetchStatus.error} />;
-  }
-  if (!isFetchingCompleted(myOrderFetchStatus)) {
-    return <div>(Loading my food selection)</div>;
-  }
-  const myOrder = myOrderFetchStatus.data;
-  if (!myOrder) {
-    return <div>(No food selection yet)</div>;
-  }
+  const [headingId] = useId(1, 'OrderFood');
 
   const restaurant = restaurants.find(r => r.id === myOrder.restaurantId);
   if (!restaurant) {
@@ -42,11 +34,16 @@ const OrderFood: React.FC<Props> = ({ className, menu }) => {
 
   return (
     <div className={className}>
-      <h2 className='text-white text-2xl font-semibold my-2'>
+      <h1 className='text-white text-xl font-semibold my-2' id={headingId}>
         Your Food Selection
-      </h2>
-      <Card className='flex flex-col'>
-        <h3 className='flex justify-center font-bold'>{restaurant.title}</h3>
+      </h1>
+      <Card className='flex flex-col' aria-labelledby={headingId}>
+        <h2
+          className='flex justify-center font-bold'
+          data-testid='selected-restaurant-title'
+        >
+          {restaurant.title}
+        </h2>
         {restaurant.customizations.map(customization => {
           return (
             <div className='my-4' key={customization.id}>
@@ -70,8 +67,10 @@ const OrderFood: React.FC<Props> = ({ className, menu }) => {
         <Button
           type='button'
           className='bg-yellow-dark rounded p-2 m-4 text-xl'
+          aria-label='Change your lunchtime meal selection'
+          onClick={onChangeSelection}
         >
-          Change Your mind?
+          Change your mind?
         </Button>
       </Card>
     </div>

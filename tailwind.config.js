@@ -29,9 +29,13 @@ module.exports = {
       bkk: {
         white: '#F5F1E9',
         blue: '#164194',
-        nak: '#CE716F'
+        nak: '#CE716F',
+        position: '#153989',
+        speaker: '#e7b109',
+        aboutHeader: '#c76664',
+        grey: '#767676'
       },
-      yellow: { dark: '#F7D455', light: '#FCFDC8' }
+      yellow: { dark: '#F7D455', light: '#FCFDC8', font: '#EABA06' }
     },
     spacing: {
       px: '1px',
@@ -133,8 +137,9 @@ module.exports = {
       sm: '0.875rem', // 14px
       base: '1rem', // 16px
       bg: '1.125rem', // 18px
-      lg: '1.125rem', // 20px
-      xl: '1.25rem', // 24px
+      lg: '1.25rem', // 20px
+      xl: '1.5rem', // 24px
+      '1xl': '1.625rem', // 26px
       '2xl': '2rem', // 32px
       '3xl': '2.5rem', // 40px
       h: '2.625rem', // 42px
