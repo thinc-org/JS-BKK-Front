@@ -25,7 +25,7 @@ export function useAnnouncement() {
       });
     })();
     return () => cancel();
-  });
+  }, []);
   return announcement;
 }
 
