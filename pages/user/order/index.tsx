@@ -33,6 +33,7 @@ export const currentMenuContext = createContext<CurrentMenuContext>({
 });
 
 const Orders: React.FC = observer(() => {
+  const authenticationState = useAuthenticationState();
   const modalStore = useLocalStore(() => createModalStore(400, false));
 
   const [mindChanged, setMindChanged] = useState(false);
@@ -50,15 +51,24 @@ const Orders: React.FC = observer(() => {
     modalStore.setModalOpen(true);
   }, []);
   const restaurantGroupList = useMemo(() => {
-    return data?.map(group => {
-      return (
-        <div key={group.title} className='my-3 mx-4'>
-          <h2 className='text-white text-lg mb-4'>{group.title}</h2>
-          <RestaurantList restaurants={group.choices} />
-        </div>
-      );
-    });
-  }, [data]);
+    return data
+      ?.slice(
+        0,
+        isFetchingCompleted(authenticationState) &&
+          authenticationState.data &&
+          authenticationState.data.profile.ticketType === 'Booth Staff'
+          ? 1
+          : undefined
+      )
+      .map(group => {
+        return (
+          <div key={group.title} className='my-3 mx-4'>
+            <h2 className='text-white text-lg mb-4'>{group.title}</h2>
+            <RestaurantList restaurants={group.choices} />
+          </div>
+        );
+      });
+  }, [data, authenticationState]);
 
   if (isFetchingFailed(menuFetchResult)) {
     return <ErrorMessage error={menuFetchResult.error} />;
