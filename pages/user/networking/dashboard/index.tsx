@@ -11,6 +11,8 @@ import addUserToNetwork, {
 } from '../../../../commons/hooks/networkingHooks';
 import BadgeList from '../../../../commons/components/BadgeList';
 import { withRequiredAuthentication } from '../../../../components/authentication';
+import Winner from '../../../../components/networking/winner';
+import TimeOut from '../../../../components/networking/timeout';
 
 const Loading: React.FC<{}> = () => <div>...Loading</div>;
 
@@ -28,14 +30,8 @@ const Dashboard: React.FC = observer(() => {
   useEffect(() => {
     if (network.status === 'notRegistered') {
       router.push('/user/networking/welcome');
-    } else if (network.hasAllWinner === true) {
-      if (network.isWinner) {
-        router.push('/user/networking/winner');
-      } else {
-        router.push('/user/networking/timeout');
-      }
     }
-  }, [network.status, network.hasAllWinner]);
+  }, [network.status]);
 
   const isLoading = network.status === 'loading';
 
@@ -59,8 +55,8 @@ const Dashboard: React.FC = observer(() => {
           ?.map(
             (badge, i) =>
               badge && (
-                <div className={`${i === 0 ? '' : 'ml-2'}`}>
-                  <BadgeList key={badge} id={badge} />
+                <div key={badge} className={`${i === 0 ? '' : 'ml-2'}`}>
+                  <BadgeList id={badge} />
                 </div>
               )
           )}
@@ -68,9 +64,19 @@ const Dashboard: React.FC = observer(() => {
     );
   }, [networks]);
 
-  return (
-    <div className={`m-4 ${isLoading ? 'hidden' : ''}`}>
-      <div className='flex justify-center w-full items-center'>
+  const NetworkingResult = useMemo(() => {
+    if (network.hasAllWinner === true) {
+      if (network.isWinner) {
+        return <Winner />;
+      }
+      return <TimeOut />;
+    }
+    return null;
+  }, [network.hasAllWinner]);
+
+  const networkingCard = useMemo(() => {
+    return (
+      NetworkingResult || (
         <Card className='flex w-full items-center text-lg flex-col font-bold justify-center items-end'>
           {isCameraOpen ? (
             <div className='w-full h-full mb-4'>
@@ -100,6 +106,14 @@ const Dashboard: React.FC = observer(() => {
             {isCameraOpen ? 'Close Camera' : 'Open Camera'}
           </Button>
         </Card>
+      )
+    );
+  }, [isCameraOpen, network]);
+
+  return (
+    <div className={`m-4 ${isLoading ? 'hidden' : ''}`}>
+      <div className='flex justify-center w-full items-center mb-4'>
+        {networkingCard}
       </div>
       <div className='text-white text-lg font-bold'>Total Badge</div>
       <div className='flex'>{BadgeItems}</div>
