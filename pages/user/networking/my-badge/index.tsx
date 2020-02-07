@@ -40,7 +40,6 @@ const MyBadge: React.FC = observer(() => {
     <div>
       <Card className='flex flex-col items-center m-4 text-center p-5'>
         <p className="mb-8 font-bold">Your badge is</p>
-        <img className='h-32 mb-4' src='/icons/myBadge.svg' alt='My Badge' />
         <BadgeList id={1}/>
         <p className="mb-6">
           There are 7 total badges. Please talk to other people and scan their
