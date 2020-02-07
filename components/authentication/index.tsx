@@ -206,7 +206,6 @@ export function useAuthenticationController() {
           referenceCode,
           phoneNumber
         });
-        console.log('Sign in response: ', signInResponse);
         const { result } = signInResponse.data;
         if (result.length === 0) {
           throw new Error(
