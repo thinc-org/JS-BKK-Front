@@ -1,6 +1,11 @@
-.FloorMap svg {
+.FloorMap svg,
+.FloorMap img {
   max-width: 100%;
   height: auto;
+}
+
+.FloorMap img {
+  display: block;
 }
 
 [data-highlight='IamThaiPasta'] path#IamThaiPasta,
@@ -14,6 +19,19 @@
 [data-highlight='Sutadonya'] path#Sutadonya,
 [data-highlight='Kin'] path#Kin {
   animation: 2s FloorMapHighlight linear infinite;
+}
+
+.FloorMap:not([data-highlight='IamThaiPasta']) #v_IamThaiPasta,
+.FloorMap:not([data-highlight='Doodee']) #v_Doodee,
+.FloorMap:not([data-highlight='NoodlesAndMore']) #v_NoodlesAndMore,
+.FloorMap:not([data-highlight='HuaSengHong']) #v_HuaSengHong,
+.FloorMap:not([data-highlight='MarugameSeimen']) #v_MarugameSeimen,
+.FloorMap:not([data-highlight='Karayama']) #v_Karayama,
+.FloorMap:not([data-highlight='SushiDen']) #v_SushiDen,
+.FloorMap:not([data-highlight='HongKongNoodle']) #v_HongKongNoodle,
+.FloorMap:not([data-highlight='Sutadonya']) #v_Sutadonya,
+.FloorMap:not([data-highlight='Kin']) #v_Kin {
+  opacity: 0;
 }
 
 @keyframes FloorMapHighlight {
