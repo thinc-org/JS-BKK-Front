@@ -22,7 +22,7 @@ const BadgeList: React.FC<Props> = ({ id, className }) => {
     case 7:
       return <img className={className} src='/icons/badges/typescript.svg' alt='typescript' />;
     default: {
-      return <div>dfdf</div>;
+      return <></>;
     }
   }
 };
