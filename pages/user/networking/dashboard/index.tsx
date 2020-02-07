@@ -11,6 +11,7 @@ import addUserToNetwork, {
 } from '../../../../commons/hooks/networkingHooks';
 import BadgeList from '../../../../commons/components/BadgeList';
 import { withRequiredAuthentication } from '../../../../components/authentication';
+import FriendList from './FriendList';
 
 const Loading: React.FC<{}> = () => <div>...Loading</div>;
 
@@ -24,6 +25,8 @@ const Dashboard: React.FC = observer(() => {
   const router = useRouter();
   const [isCameraOpen, openCamera] = useState(false);
   const network = useNetworking();
+
+  console.log(network.data?.networks[0]);
 
   useEffect(() => {
     if (network.status === 'notRegistered') {
@@ -111,7 +114,7 @@ const Dashboard: React.FC = observer(() => {
         </div>
         <div className=' px-24 py-8 bg-white rounded-b'>Firstname Lastname</div> */}
         <Card >
-          <div className='flex flex-row items-center'>
+          {/* <div className='flex flex-row items-center'>
             <BadgeList id={1} className="h-8 mr-4" />
             <p>Patt sd</p>
           </div>
@@ -122,7 +125,8 @@ const Dashboard: React.FC = observer(() => {
           <div className='flex flex-row items-center'>
             <BadgeList id={3} className="h-8 mr-4" />
             <p>Patt sd</p>
-          </div>
+          </div> */}
+          <FriendList networks={network.data?.networks} />
         </Card>
       </div>
     </div>
