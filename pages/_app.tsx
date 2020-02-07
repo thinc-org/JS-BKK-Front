@@ -53,8 +53,11 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
           <ErrorBoundary FallbackComponent={ErrorMessage}>
             <div className='pb-55px'>
               <AuthModal />
-              <main>
-                <Component {...pageProps} />
+              <main className='flex items-start justify-center w-full'>
+                <div>
+                  <Component {...pageProps} />
+                  <div className='m-6 text-transparent'>Easter Egg?</div>
+                </div>
               </main>
               <div className='fixed z-40 bottom-0 left-0 w-full'>
                 <Nav />

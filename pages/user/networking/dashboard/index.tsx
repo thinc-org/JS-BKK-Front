@@ -9,10 +9,11 @@ import { getEnvName } from '../../../../commons/firebase';
 import addUserToNetwork, {
   useNetworking
 } from '../../../../commons/hooks/networkingHooks';
-import BadgeList from '../../../../components/networking/BadgeList';
 import { withRequiredAuthentication } from '../../../../components/authentication';
 import Winner from '../../../../components/networking/winner';
 import TimeOut from '../../../../components/networking/timeout';
+import FriendList from '../../../../components/networking/FriendList';
+import BadgeList from '../../../../components/networking/BadgeList';
 
 const Loading: React.FC<{}> = () => <div>...Loading</div>;
 
@@ -45,18 +46,18 @@ const Dashboard: React.FC = observer(() => {
       openCamera(false);
     }
   };
+
   const networks = network.data?.networks;
   const BadgeItems = useMemo(() => {
-    const badges = networks
-      ?.map(_network => _network.badge)
-      ?.filter(onlyUnique);
+    const badges = networks?.map(_network => _network.badge);
     badges?.unshift(network.data!.badge);
-    const badgesAmount = badges ? badges.length : 0;
+    const uniqueBadges = badges?.filter(onlyUnique);
+    const badgesAmount = uniqueBadges ? uniqueBadges.length : 0;
     // eslint-disable-next-line no-plusplus
     for (let i = 1; i <= 7; i++) {
-      if (!badges?.includes(i)) badges?.push(i);
+      if (!uniqueBadges?.includes(i)) uniqueBadges?.push(i);
     }
-    const badgesComponents = badges?.map(
+    const badgesComponents = uniqueBadges?.map(
       (badge, i) =>
         badge && (
           <div
@@ -130,12 +131,13 @@ const Dashboard: React.FC = observer(() => {
       </div>
       <div className='text-white text-lg font-bold'>Total Badge</div>
       <div className='flex mt-2'>{BadgeItems}</div>
-      <div className='mt-12'>
-        <div className='text-white text-lg font-bold'>Your new Friends</div>
-        <div className='mt-4 px-24 py-8 bg-white rounded-t'>
-          Firstname Lastname
+      <div className='mt-4'>
+        <div className='text-white text-lg font-bold mb-2'>
+          Your new Friends
         </div>
-        <div className=' px-24 py-8 bg-white rounded-b'>Firstname Lastname</div>
+        <Card noPadding>
+          <FriendList networks={network.data?.networks} />
+        </Card>
       </div>
     </div>
   );
