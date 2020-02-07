@@ -2,25 +2,23 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 
 import { withRequiredAuthentication } from '../../../../components/authentication';
+import Card from '../../../../commons/components/Card';
 
-const UserProfile: React.FC = observer(() => {
-
+const UserProfile: React.FC = () => {
   return (
-    <div className='h-full flex flex-col'>
-      
-      <div className='h-full text-center w-full flex flex-col items-center justify-center'>
-        <div className='max-w-small'>
-          <div className='mb-5 text-2xl  font-extrabold text-center'>
-            Congratulations! You are the winner.
-          </div>
-          <div className='text-center'>
-            Please <span className='font-extrabold'>claim your reward</span>
-            at the information desk.
-          </div>
+    <div className='w-full flex flex-col m-4 text-center'>
+      <Card className='text-center w-full flex flex-col items-center justify-center'>
+        <div className='mb-5 text-2xl font-bold '>
+          Congratulations! <br /> You are the winner.
         </div>
-      </div>
+        <div>
+          Please <span className='font-extrabold'>claim your reward </span>{' '}
+          <br />
+          at the information desk.
+        </div>
+      </Card>
     </div>
   );
-});
+};
 
 export default withRequiredAuthentication(UserProfile);
