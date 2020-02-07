@@ -1,5 +1,6 @@
 import { ModalStore } from '../commons/stores/authModalStores';
 import { UserStore } from '../commons/stores/userStores';
+import { NetworkingProfile } from './Users';
 
 export type Onclick =
   | ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void)
@@ -37,6 +38,14 @@ export interface OngoingFetchResult<T> extends FetchResult<T> {
   data?: T;
   error?: any;
   status: 'loading';
+}
+
+export interface Networking {
+  status: string;
+  data?: NetworkingProfile;
+  hasAllwinner?: boolean;
+  isWinner?: boolean;
+  error?: any;
 }
 
 export enum ModalType {

@@ -18,7 +18,6 @@ import {
   useAuthenticationState,
   isAuthenticated
 } from '../components/authentication';
-import { BadgeType, Badge } from '../interfaces/Badge';
 import ErrorMessage from '../commons/components/ErrorMessage';
 
 const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
@@ -33,24 +32,7 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
   useEffect(() => {
     if (isAuthenticated(authenticationState)) {
       const authenticatedState = authenticationState.data;
-      const name = [
-        authenticatedState.profile.firstname,
-        authenticatedState.profile.lastname
-      ].join(' ');
-
-      // TODO: Subscribe to actual data instead of mocked data.
-      rootStore.userStore.setUserInfo({
-        name,
-        username: 'new5558',
-        points: 10,
-        currentBadge: { type: BadgeType.B1, owner: 'new' } as Badge,
-        badges: [
-          { type: BadgeType.B1, owner: 'Jotaro' },
-          { type: BadgeType.B2, owner: 'Dio' },
-          { type: BadgeType.B3, owner: 'Joruno' },
-          { type: BadgeType.B4, owner: 'Bucharate' }
-        ] as Badge[]
-      });
+      rootStore.userStore.setUserInfo(authenticatedState.profile);
     }
   }, [authenticationState]);
 
