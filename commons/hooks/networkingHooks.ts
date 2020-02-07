@@ -89,6 +89,7 @@ export const useNetworking = (): Networking => {
 
   const winners = realtimeFetchResult.data?.val();
   const winnersArray = winners ? Object.entries(winners) : [];
+  console.log(winnersArray, 'arr');
   const hasAllWinner = winnersArray.length >= 3;
   const isWinner =
     hasAllWinner &&
