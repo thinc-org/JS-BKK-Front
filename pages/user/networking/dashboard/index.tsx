@@ -22,6 +22,10 @@ const QrReader = dynamic(() => import('react-qr-reader'), {
   loading: () => <Loading />
 });
 
+const onlyUnique = (value: number, index: number, self: number[]) => {
+  return self.indexOf(value) === index;
+};
+
 const Dashboard: React.FC = observer(() => {
   const router = useRouter();
   const [isCameraOpen, openCamera] = useState(false);
@@ -43,23 +47,32 @@ const Dashboard: React.FC = observer(() => {
   };
   const networks = network.data?.networks;
   const BadgeItems = useMemo(() => {
-    const onlyUnique = (value: number, index: number, self: number[]) => {
-      return self.indexOf(value) === index;
-    };
-    console.log(networks, 'networks', network);
+    const badges = networks
+      ?.map(_network => _network.badge)
+      ?.filter(onlyUnique);
+    badges?.unshift(network.data!.badge);
+    const badgesAmount = badges ? badges.length : 0;
+    // eslint-disable-next-line no-plusplus
+    for (let i = 1; i <= 7; i++) {
+      if (!badges?.includes(i)) badges?.push(i);
+    }
+    const badgesComponents = badges?.map(
+      (badge, i) =>
+        badge && (
+          <div
+            key={badge}
+            className={`w-10 sm:w-auto ${i === 0 ? '' : 'ml-3'} ${
+              badgesAmount < i + 1 ? 'opacity-25' : ''
+            }`}
+            style={badgesAmount < i + 1 ? { filter: 'blur(3px)' } : {}}
+          >
+            <BadgeList id={badge} />
+          </div>
+        )
+    );
     return (
-      <div className='flex overflow-x-auto'>
-        {networks
-          ?.map(_network => _network.badge)
-          ?.filter(onlyUnique)
-          ?.map(
-            (badge, i) =>
-              badge && (
-                <div key={badge} className={`${i === 0 ? '' : 'ml-2'}`}>
-                  <BadgeList id={badge} />
-                </div>
-              )
-          )}
+      <div className='flex flex-wrap justify-center overflow-x-auto'>
+        {badgesComponents}
       </div>
     );
   }, [networks]);
@@ -116,7 +129,7 @@ const Dashboard: React.FC = observer(() => {
         {networkingCard}
       </div>
       <div className='text-white text-lg font-bold'>Total Badge</div>
-      <div className='flex'>{BadgeItems}</div>
+      <div className='flex mt-2'>{BadgeItems}</div>
       <div className='mt-12'>
         <div className='text-white text-lg font-bold'>Your new Friends</div>
         <div className='mt-4 px-24 py-8 bg-white rounded-t'>
