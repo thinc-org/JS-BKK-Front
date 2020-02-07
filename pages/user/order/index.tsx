@@ -85,6 +85,7 @@ const Orders: React.FC = observer(() => {
           Ordering as{' '}
           <span className='font-extrabold'>{userStore.userInfo?.name}</span>
         </div>
+        
         <Card className='m-4'>
           <p className='mb-4'>
             We have a lot of food for you to choose! We have partnered with
