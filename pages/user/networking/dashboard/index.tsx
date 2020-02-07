@@ -1,7 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import QRCode from 'qrcode.react';
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useState } from 'react';
 import { useRouter } from 'next/router';
+import Webcam from 'react-webcam';
 import Button from '../../../../commons/components/Button';
 import rootContext from '../../../../commons/context.root';
 import { withRequiredAuthentication } from '../../../../components/authentication';
@@ -11,7 +12,6 @@ import addUserToNetwork, {
   createNetworkingProfile,
   useNetworking
 } from '../../../../commons/hooks/networkingHooks';
-import { getFirebase } from '../../../../commons/firebase';
 
 const Loading: React.FC<{}> = () => <div>...Loading</div>;
 
@@ -19,15 +19,14 @@ const Dashboard: React.FC = observer(() => {
   const { userStore } = useContext<RootStore>(rootContext);
   const { firstname, lastname } = userStore.userInfo || {};
   const router = useRouter();
+  const [isCameraOpen, openCamera] = useState(false);
   const network = useNetworking();
 
   if (network.status === 'notRegistered') {
     router.push('/user/networking/welcome');
   }
 
-  if (network.status === 'loading') {
-    return null;
-  }
+  const isLoading = network.status === 'loading';
 
   // const BadgeItems = useMemo(
   //   () => (
@@ -50,52 +49,63 @@ const Dashboard: React.FC = observer(() => {
   // );
 
   return (
-    <div className='px-10'>
-      <span className='text-gray-500'>{name}</span>
-      <div className='flex justify-center items-center my-16'>
-        <div className='bg-gray-200 w-40 h-40 flex justify-center items-center'>
-          {/* {useMemo(
-            () =>
-              currentBadge && currentBadge.type ? (
-                <QRCode
-                  className='w-full h-full'
-                  renderAs='svg'
-                  value={currentBadge.type as string}
-                />
-              ) : (
-                <Loading />
-              ),
-            [currentBadge]
-          )} */}
+    <div className={`px-10 ${isLoading ? 'hidden' : ''}`}>
+      <span className='text-gray-500'>
+        {firstname} {lastname}
+      </span>
+      <div className='flex justify-center  items-center my-16'>
+        <div>
+          <div className='bg-gray-200 align-bottom w-64 h-40  justify-center items-end'>
+            {isCameraOpen ? <Webcam /> : <div>QR code</div>}
+            <div className={!isCameraOpen ? 'mt-24' : 'mt-1'}>
+              <div className='border border-yellow-dark px-2 mx-4 mb-2  flex rounded'>
+                <div className='px-2 py-2 ml-1 my-1 mr-2  rounded bg-yellow-dark' />
+                <Button
+                  className='font-semibold'
+                  type='button'
+                  onClick={() => {
+                    openCamera(!isCameraOpen);
+                  }}
+                >
+                  {isCameraOpen ? (
+                    <div>Close Camera</div>
+                  ) : (
+                    <div>Open Camera</div>
+                  )}
+                </Button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <hr />
-      <div>
-        <div className='flex justify-between my-6'>
-          {/* <p>Your Badge ({badges && badges.length + 1})</p> */}
-          <Button className='font-semibold' type='button'>
-            Open Camera
-          </Button>
-        </div>
-        {/* {BadgeItems} */}
-      </div>
+
+      <div className='text-white font-semibold'>Total Badge</div>
       <div className='mt-12'>
-        <button onClick={() => addUserToNetwork('test04')}>
+        <div className='text-white font-semibold'>Your new Friends</div>
+        <div className='mt-4 px-24 py-8 bg-white rounded-t'>
+          Firstname Lastname
+        </div>
+        <div className=' px-24 py-8 bg-white rounded-b'>Firstname Lastname</div>
+        <button
+          className='text-white font-semibold'
+          onClick={() => addUserToNetwork('test04')}
+        >
           No idea? Here are some questions!
         </button>
-
-        <button onClick={() => createNetworkingProfile('')}>
-          create profile
-        </button>
-        <ul className='pl-16'>
+        <ul className='pl-16 '>
           <li>
-            <span className='block py-1'>Where do you work?</span>
+            <span className='block py-1 text-white font-semibold'>
+              Where do you work?
+            </span>
           </li>
           <li>
-            <span className='block py-1'>What is your slack?</span>
+            <span className='block py-1 text-white font-semibold'>
+              What is your stack?
+            </span>
           </li>
           <li>
-            <span className='block py-1'>...</span>
+            <span className='block py-1 text-white font-semibold'>...</span>
           </li>
         </ul>
       </div>
