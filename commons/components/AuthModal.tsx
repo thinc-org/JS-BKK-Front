@@ -40,7 +40,7 @@ const AuthModal: React.FC = observer(() => {
     setActiveSignInProcesses(x => x + 1);
     try {
       // eslint-disable-next-line no-alert
-      const referenceCode = prompt('Ticket reference code');
+      const referenceCode = prompt('Ticket reference code (6 digits code)');
       if (!referenceCode) {
         throw new Error('No reference code provided');
       }
