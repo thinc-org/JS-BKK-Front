@@ -30,7 +30,7 @@ const Modal: React.FC<PropTypes> = observer(
       return (
         <Card
           tabIndex={0}
-          className='flex flex-col items-center relative'
+          className='flex flex-col items-center relative my-6'
           aria-label={ariaLabel}
           data-testid={dataTestid}
         >

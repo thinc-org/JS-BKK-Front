@@ -8,6 +8,7 @@ import Modal from './Modal';
 import rootContext from '../context.root';
 import { useAuthenticationController } from '../../components/authentication';
 import { getEnvName } from '../firebase';
+import TextSpinner from './TextSpinner';
 
 const AuthModal: React.FC = observer(() => {
   const [loginError, setLoginError] = useState<string | null>(null);
@@ -20,6 +21,31 @@ const AuthModal: React.FC = observer(() => {
     setActiveSignInProcesses(x => x + 1);
     try {
       await authenticationController.loginWithEventpop();
+    } catch (error) {
+      setLoginError(`Failed! ${error}`);
+    } finally {
+      setActiveSignInProcesses(x => x - 1);
+    }
+  }, []);
+
+  const login2 = useCallback(async e => {
+    e.preventDefault();
+    setActiveSignInProcesses(x => x + 1);
+    try {
+      // eslint-disable-next-line no-alert
+      const referenceCode = prompt('Ticket reference code');
+      if (!referenceCode) {
+        throw new Error('No reference code provided');
+      }
+      // eslint-disable-next-line no-alert
+      const phoneNumber = prompt('Your phone number registered with Eventpop');
+      if (!phoneNumber) {
+        throw new Error('No phone number provided');
+      }
+      await authenticationController.loginWithEventpopInfo(
+        referenceCode,
+        phoneNumber
+      );
     } catch (error) {
       setLoginError(`Failed! ${error}`);
     } finally {
@@ -63,11 +89,25 @@ const AuthModal: React.FC = observer(() => {
           <Button
             onClick={login}
             type='button'
-            className='mt-12 py-3 px-20 font-bg bg-yellow-dark text-black rounded'
+            className={`mt-12 py-3 px-20 font-bg bg-yellow-dark text-black rounded ${
+              activeSignInProcesses > 0 ? 'opacity-50' : ''
+            }`}
           >
-            {activeSignInProcesses > 0
-              ? 'Please wait…'
-              : 'Sign in with Eventpop'}
+            {activeSignInProcesses > 0 ? (
+              <>
+                Please wait… <TextSpinner />
+              </>
+            ) : (
+              'Sign in with Eventpop'
+            )}
+          </Button>
+          - or -
+          <Button
+            onClick={e => login2(e)}
+            type='button'
+            className='py-2 px-4 font-bg border bg-white border-yellow-dark text-black rounded'
+          >
+            Sign in with your ticket code and phone number
           </Button>
           {testUsers.map(uid => {
             return (

@@ -6,7 +6,7 @@ import Card from '../../../../commons/components/Card';
 
 const UserProfile: React.FC = () => {
   return (
-    <div className='w-full flex flex-col m-4 text-center'>
+    <div className='flex flex-col m-4 text-center'>
       <Card className='text-center w-full flex flex-col items-center justify-center'>
         <div className='mb-5 text-2xl font-bold '>
           Congratulations! <br /> You are the winner.

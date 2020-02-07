@@ -10,10 +10,12 @@ import {
   isFetchingCompleted
 } from '../../interfaces/Commons';
 import { useCustomizationChoiceAvailability } from './FoodAvailabilityHooks';
+import TextSpinner from '../../commons/components/TextSpinner';
 
 interface PropTypes {
   menuChoice?: Restaurant;
   modalStore: ModalStore;
+  onFinish: () => void;
 }
 
 function getCustomizations(
@@ -40,7 +42,11 @@ function getCustomizations(
   return customizations;
 }
 
-const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
+const SelectFoodContent: React.FC<PropTypes> = ({
+  menuChoice,
+  modalStore,
+  onFinish
+}) => {
   const {
     handleSubmit,
     register,
@@ -65,6 +71,7 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
       );
       await submitFoodOrder(menuChoice.id, customizations);
       modalStore.setModalOpen(false);
+      onFinish();
     } catch (e) {
       // @TODO check if error is about stock lasts
       modalStore.setModalType(ModalType.error);
@@ -176,7 +183,14 @@ const SelectFoodContent: React.FC<PropTypes> = ({ menuChoice, modalStore }) => {
             {Object.entries(errors).length !== 0 &&
               'Please select your preferred meal'}
           </span>
-          {!isSubmitting && (
+          {isSubmitting ? (
+            <Button
+              className='w-auto py-2 bg-yellow-dark rounded-bg text-lg mt-5 opacity-50 pointer-events-none'
+              type='button'
+            >
+              Saving your meal selection <TextSpinner />
+            </Button>
+          ) : (
             <Button
               className='w-auto py-2 bg-yellow-dark rounded-bg text-lg mt-5'
               type='submit'

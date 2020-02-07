@@ -1,15 +1,16 @@
+import React, { useMemo, useState, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import QRCode from 'qrcode.react';
-import React, { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import Button from '../../../../commons/components/Button';
-import { withRequiredAuthentication } from '../../../../components/authentication';
+import Card from '../../../../commons/components/Card';
+import { getEnvName } from '../../../../commons/firebase';
 import addUserToNetwork, {
   useNetworking
 } from '../../../../commons/hooks/networkingHooks';
-import Card from '../../../../commons/components/Card';
 import BadgeList from '../../../../commons/components/BadgeList';
+import { withRequiredAuthentication } from '../../../../components/authentication';
 
 const Loading: React.FC<{}> = () => <div>...Loading</div>;
 
@@ -68,7 +69,7 @@ const Dashboard: React.FC = observer(() => {
   }, [networks]);
 
   return (
-    <div className={`m-4 w-full ${isLoading ? 'hidden' : ''}`}>
+    <div className={`m-4 ${isLoading ? 'hidden' : ''}`}>
       <div className='flex justify-center w-full items-center'>
         <Card className='flex w-full items-center text-lg flex-col font-bold justify-center items-end'>
           {isCameraOpen ? (
@@ -112,5 +113,26 @@ const Dashboard: React.FC = observer(() => {
     </div>
   );
 });
+
+const withComingSoon: <T>(
+  BaseComponent: React.ComponentType<T>
+) => React.ComponentType<T> = BaseComponent => {
+  return function ComingSoon(props) {
+    const [enabled, setEnabled] = useState(false);
+    useEffect(() => {
+      if (getEnvName() === 'test') setEnabled(true);
+    }, []);
+    return enabled ? (
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      <BaseComponent {...props} />
+    ) : (
+      <Card className='m-4'>
+        <div className='my-4'>
+          Networking features are in development, please stay tuned...
+        </div>
+      </Card>
+    );
+  };
+};
 
 export default withRequiredAuthentication(Dashboard);

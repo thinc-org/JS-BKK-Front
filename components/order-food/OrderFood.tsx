@@ -4,6 +4,7 @@ import Card from '../../commons/components/Card';
 import Button from '../../commons/components/Button';
 import { RestaurantGroup, MyOrder } from '../../interfaces/Orders';
 import ErrorMessage from '../../commons/components/ErrorMessage';
+import FloorMap, { floor4, floor5 } from './FloorMap';
 
 interface Props {
   className?: string;
@@ -11,6 +12,13 @@ interface Props {
   myOrder: MyOrder;
   onChangeSelection: () => void;
 }
+
+const groupToFloorMap: {
+  [title: string]: { title: string; mapData: React.ReactNode };
+} = {
+  'Floor 4: Restaurants': { title: 'Floor 4', mapData: floor4 },
+  'Floor 5: Restaurants': { title: 'Floor 5', mapData: floor5 }
+};
 
 const OrderFood: React.FC<Props> = ({
   className,
@@ -31,6 +39,22 @@ const OrderFood: React.FC<Props> = ({
       />
     );
   }
+
+  const groupTitle = menu.find(r => r.choices.includes(restaurant))?.title;
+
+  const renderTitle = (text: string) => {
+    const m = String(text).match(/^([^]+)\s*?\(([^]+?)\)$/);
+    if (m) {
+      return (
+        <>
+          <span className='text-xl block'>{m[2]}</span>
+          <span className='text-gray-700'>{m[1]}</span>
+        </>
+      );
+    }
+    return <span className='text-xl block'>{text}</span>;
+  };
+  const map = groupToFloorMap[groupTitle || ''];
 
   return (
     <div className={className}>
@@ -57,7 +81,7 @@ const OrderFood: React.FC<Props> = ({
                 .map(choice => {
                   return (
                     <p className='font-bold' key={choice.id}>
-                      {choice.title}
+                      {renderTitle(choice.title)}
                     </p>
                   );
                 })}
@@ -73,6 +97,16 @@ const OrderFood: React.FC<Props> = ({
           Change your mind?
         </Button>
       </Card>
+      {!!map && (
+        <>
+          <h1 className='text-white text-xl font-semibold mt-4 mb-2'>
+            {map.title} Map
+          </h1>
+          <Card>
+            <FloorMap map={map.mapData} highlight={restaurant.id} />
+          </Card>
+        </>
+      )}
     </div>
   );
 };

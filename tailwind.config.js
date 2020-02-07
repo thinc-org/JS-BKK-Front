@@ -130,7 +130,15 @@ module.exports = {
       default: '1'
     },
     fontFamily: {
-      body: ['K2D', 'Inter']
+      body: ['K2D', 'Inter'],
+      mono: [
+        'Menlo',
+        'Monaco',
+        'Consolas',
+        'Liberation Mono',
+        'Courier New',
+        'monospace'
+      ]
     },
     fontSize: {
       xs: '0.75rem', // 12px

@@ -6,7 +6,7 @@ import Card from '../../../../commons/components/Card';
 
 const TimeOut: React.FC = () => {
   return (
-    <div className='w-full flex flex-col m-4'>
+    <div className='flex flex-col m-4'>
       <Card className='h-full text-center w-full flex flex-col items-center justify-center'>
         <div className='max-w-small'>
           <div className='mb-5 text-2xl  font-extrabold text-center'>

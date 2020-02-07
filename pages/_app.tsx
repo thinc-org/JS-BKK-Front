@@ -5,6 +5,7 @@ import { useLocalStore, observer } from 'mobx-react-lite';
 import Head from 'next/head';
 import { useEffect } from 'react';
 import ErrorBoundary from 'react-error-boundary';
+import * as Sentry from '@sentry/browser';
 import Nav from '../commons/components/Nav';
 import createUserStore from '../commons/stores/userStores';
 import '../styles/index.css';
@@ -21,6 +22,11 @@ import {
 import ErrorMessage from '../commons/components/ErrorMessage';
 
 const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
+  useEffect(() => {
+    Sentry.init({
+      dsn: 'https://881d1cb8969940678bdc4bda4394207d@sentry.io/2292751'
+    });
+  }, []);
   const routeData = useRouteData();
   const rootStore = useLocalStore(
     (): RootStore => ({
@@ -39,15 +45,15 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
   return (
     <>
       <Head>
-        <title>Bangkok JS</title>
+        <title>JavaScript Bangkok 1.0.0</title>
       </Head>
       <rootContext.Provider value={rootStore}>
-        <div className='h-screen flex flex-col font-body'>
+        <div className='font-body mx-auto' style={{ maxWidth: '640px' }}>
           {routeData.hasNavbar && <PageHeading routeData={routeData} />}
           <ErrorBoundary FallbackComponent={ErrorMessage}>
-            <div className='flex justify-center pb-55px'>
+            <div className='pb-55px'>
               <AuthModal />
-              <main className='flex items-start justify-center w-full'>
+              <main>
                 <Component {...pageProps} />
               </main>
               <div className='fixed z-40 bottom-0 left-0 w-full'>

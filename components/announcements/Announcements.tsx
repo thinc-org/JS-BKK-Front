@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/indent */
 import React, { useState, useEffect, useMemo } from 'react';
 import { useId } from 'react-id-generator';
-import sanitizeHtml from 'sanitize-html';
 import { getFirebase } from '../../commons/firebase';
 
-function useAnnouncement() {
+export function useAnnouncement() {
   const [announcement, setAnnouncement] = useState<
     { text: string } | 'loading' | null
   >('loading');
@@ -26,7 +25,7 @@ function useAnnouncement() {
       });
     })();
     return () => cancel();
-  });
+  }, []);
   return announcement;
 }
 
@@ -39,7 +38,7 @@ const AnnouncementContent: React.FC<{ text: string; headerId: string }> = ({
       <p
         aria-labelledby={headerId}
         // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: sanitizeHtml(text) }}
+        dangerouslySetInnerHTML={{ __html: text }}
       />
     ),
     [text]
