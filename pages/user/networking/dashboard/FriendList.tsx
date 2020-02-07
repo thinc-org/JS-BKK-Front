@@ -3,6 +3,7 @@ import { Network } from '../../../../interfaces/Users';
 
 interface Props {
   networks: Network[];
+  
 }
 
 const FriendList: React.FC<Props> = ({ networks }) => {

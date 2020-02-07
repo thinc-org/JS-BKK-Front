@@ -109,16 +109,16 @@ const Dashboard: React.FC = observer(() => {
           Firstname Lastname
         </div>
         <div className=' px-24 py-8 bg-white rounded-b'>Firstname Lastname</div> */}
-        <Card>
-          <div className='flex flex-row items-center my-4'>
+        <Card >
+          <div className='flex flex-row items-center'>
             <BadgeList id={1} className="h-8 mr-4" />
             <p>Patt sd</p>
           </div>
-          <div className='flex flex-row items-center my-4'>
+          <div className='flex flex-row items-center'>
             <BadgeList id={2} className="h-8 mr-4" />
             <p>Patt sd</p>
           </div>
-          <div className='flex flex-row items-center my-4'>
+          <div className='flex flex-row items-center'>
             <BadgeList id={3} className="h-8 mr-4" />
             <p>Patt sd</p>
           </div>
