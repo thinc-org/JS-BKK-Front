@@ -11,7 +11,9 @@ const UserProfile: React.FC = observer(() => {
     <div className='h-full flex flex-col'>
       <div className='text-sm'>
         Ordering as{' '}
-        <span className='font-extrabold'>{userStore.userInfo?.name}</span>
+        <span className='font-extrabold'>
+          {userStore.userInfo?.firstname} {userStore.userInfo?.lastname}
+        </span>
       </div>
       <div className='h-full text-center w-full flex flex-col items-center justify-center'>
         <div className='max-w-small'>

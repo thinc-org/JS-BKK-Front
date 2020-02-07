@@ -9,9 +9,6 @@ import React, {
 import Card from '../../../commons/components/Card';
 import OrderFood from '../../../components/order-food/OrderFood';
 import { Restaurant, CurrentMenuContext } from '../../../interfaces/Orders';
-import Countdown, {
-  useCurrentTime
-} from '../../../components/order-food/CountDown';
 import {
   RootStore,
   isFetchingFailed,
@@ -23,10 +20,13 @@ import SelectFoodModal from '../../../components/order-food/SelectFoodModal';
 import createModalStore from '../../../commons/stores/authModalStores';
 import useOrders from '../../../commons/hooks/useOrders';
 import RestaurantList from '../../../components/order-food/RestaurantList';
-import { withRequiredAuthentication } from '../../../components/authentication';
 import ErrorMessage from '../../../commons/components/ErrorMessage';
 import useMyOrder from '../../../commons/hooks/useMyOrder';
 import Button from '../../../commons/components/Button';
+import Countdown, {
+  useCurrentTime
+} from '../../../components/order-food/CountDown';
+import { withRequiredAuthentication } from '../../../components/authentication';
 
 export const currentMenuContext = createContext<CurrentMenuContext>({
   orderFood: () => {}
@@ -83,7 +83,9 @@ const Orders: React.FC = observer(() => {
       <div>
         <div className='text-sm'>
           Ordering as{' '}
-          <span className='font-extrabold'>{userStore.userInfo?.name}</span>
+          <span className='font-extrabold'>
+            {userStore.userInfo?.firstname} {userStore.userInfo?.lastname}
+          </span>
         </div>
         
         <Card className='m-4'>
