@@ -36,6 +36,17 @@ export async function createNetworkingProfile() {
   });
 }
 
+export async function updateBio(bio: string) {
+  const firebase = await getFirebase();
+  const _createNetworkingProfile = firebase
+    .functions('asia-northeast1')
+    .httpsCallable('updateBio');
+  await _createNetworkingProfile({
+    bio,
+    env: getEnvName()
+  });
+}
+
 // export async function addWinner() {
 //   const firebase = await getFirebase();
 //   const add = firebase.functions('asia-northeast1').httpsCallable('addWinner');
