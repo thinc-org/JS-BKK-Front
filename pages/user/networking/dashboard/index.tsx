@@ -28,7 +28,7 @@ const Dashboard: React.FC = observer(() => {
   const router = useRouter();
   const [isCameraOpen, openCamera] = useState(false);
   const network = useNetworking();
-  const [scanResult, setScanResult] = useState<string>();
+  // const [scanResult, setScanResult] = useState<string>();
 
   useEffect(() => {
     if (network.status === 'notRegistered') {
@@ -42,7 +42,8 @@ const Dashboard: React.FC = observer(() => {
 
   const handleScan = (data: string | null) => {
     if (data) {
-      setScanResult(data);
+      addUserToNetwork(data);
+      openCamera(false);
     }
   };
   // handleError = err => {
@@ -74,7 +75,6 @@ const Dashboard: React.FC = observer(() => {
   return (
     <div className={`m-4 ${isLoading ? 'hidden' : ''}`}>
       <div className='flex justify-center w-full items-center'>
-        {scanResult}
         <Card className='flex w-full items-center text-lg flex-col font-bold justify-center items-end'>
           {isCameraOpen ? (
             <div className='w-full h-full mb-4'>
