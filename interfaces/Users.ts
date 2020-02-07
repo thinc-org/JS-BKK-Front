@@ -17,6 +17,7 @@ export interface UserInfo {
 }
 
 export interface NetworkingProfile {
+  key: string;
   firstname: string;
   lastname: string;
   badge: number;
@@ -28,4 +29,5 @@ export interface Network {
   uid: string;
   name: string;
   badge: number;
+  bio: string;
 }

@@ -46,6 +46,7 @@ export interface Networking {
   hasAllwinner?: boolean;
   isWinner?: boolean;
   error?: any;
+  uuid?: string;
 }
 
 export enum ModalType {

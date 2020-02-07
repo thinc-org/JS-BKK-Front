@@ -81,7 +81,6 @@ export const useNetworking = (): Networking => {
   const realtimeFetchResult = useRealtimeDatabaseSnapshot(getWinner);
 
   useEffect(() => {
-    
     addWinner();
     getFirebase().then(firebase => {
       setUuid(firebase.auth().currentUser!.uid);
@@ -109,7 +108,8 @@ export const useNetworking = (): Networking => {
     status: 'completed',
     data: snapshot.data() as NetworkingProfile,
     hasAllWinner,
-    isWinner
+    isWinner,
+    uuid: snapshot.id
   };
 
   if (result.status === 'completed' && result.data === undefined) {
