@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Button from '../../../../commons/components/Button';
 import { withRequiredAuthentication } from '../../../../components/authentication';
 import Card from '../../../../commons/components/Card';
-import BadgeList from '../../../../commons/components/BadgeList';
+import BadgeList from '../../../../components/networking/BadgeList';
 import { useNetworking } from '../../../../commons/hooks/networkingHooks';
 
 const MyBadge: React.FC = observer(() => {

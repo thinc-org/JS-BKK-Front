@@ -5,8 +5,6 @@ import Card from '../../../../commons/components/Card';
 import Button from '../../../../commons/components/Button';
 import { createNetworkingProfile } from '../../../../commons/hooks/networkingHooks';
 
-
-
 const Welcome: React.FC = () => {
   const [bio, setBio] = useState<string>('');
 
@@ -15,7 +13,6 @@ const Welcome: React.FC = () => {
     async e => {
       e.preventDefault();
       await createNetworkingProfile(bio);
-      // await updateBio(bio);
       router.push('/user/networking/my-badge');
     },
     [bio]

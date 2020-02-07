@@ -9,7 +9,7 @@ import { getEnvName } from '../../../../commons/firebase';
 import addUserToNetwork, {
   useNetworking
 } from '../../../../commons/hooks/networkingHooks';
-import BadgeList from '../../../../commons/components/BadgeList';
+import BadgeList from '../../../../components/networking/BadgeList';
 import { withRequiredAuthentication } from '../../../../components/authentication';
 import Winner from '../../../../components/networking/winner';
 import TimeOut from '../../../../components/networking/timeout';

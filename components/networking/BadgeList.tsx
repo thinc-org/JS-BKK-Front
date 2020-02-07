@@ -56,7 +56,7 @@ const BadgeList: React.FC<Props> = ({ id, className }) => {
         />
       );
     default: {
-      return <div>error</div>;
+      return null;
     }
   }
 };
