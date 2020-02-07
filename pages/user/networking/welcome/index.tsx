@@ -35,13 +35,15 @@ const Welcome: React.FC = observer(() => {
         <h2 className='text-lg font-semibold text-black mb-4'>
           Please enter your details :
         </h2>
-        <form onSubmit={submitForm} className='flex flex-row items-center'>
-          <h3 className='mr-4 text-lg text-black self-start'>Bio:</h3>
-          <textarea
-            value={bio}
-            onChange={e => setBio(e.target.value)}
-            className='border-gray-500 border-solid border w-full rounded p-2'
-          />
+        <form onSubmit={submitForm}>
+          <div className='flex flex-row items-center'>
+            <h3 className='mr-4 text-lg text-black self-start'>Bio:</h3>
+            <textarea
+              value={bio}
+              onChange={e => setBio(e.target.value)}
+              className='border-gray-500 border-solid border w-full rounded p-2'
+            />
+          </div>
           <Button
             type='submit'
             className='bg-yellow-dark rounded px-4 py-1 m-4 text-lg'
