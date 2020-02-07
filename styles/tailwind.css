@@ -4,7 +4,7 @@
 
 body {
   background: linear-gradient(151.33deg, #de726f 4.46%, #2254b6 90.47%)
-    no-repeat center center fixed;
+    no-repeat top left fixed;
   background-size: 100vw 100vh;
 }
 
