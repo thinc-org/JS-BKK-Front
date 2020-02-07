@@ -30,6 +30,7 @@
     "react-hook-form": "^4.7.1",
     "react-id-generator": "^3.0.0",
     "react-qr-reader": "^2.2.1",
+    "react-webcam": "^5.0.0",
     "reakit": "^1.0.0-beta.14",
     "sanitize-html": "^1.21.1"
   },
