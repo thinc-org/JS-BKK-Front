@@ -48,14 +48,6 @@ export async function updateBio(bio: string) {
   });
 }
 
-// export async function addWinner() {
-//   const firebase = await getFirebase();
-//   const add = firebase.functions('asia-northeast1').httpsCallable('addWinner');
-//   return add({
-//     env: getEnvName()
-//   });
-// }
-
 export const useNetworking = (): Networking => {
   const [uuid, setUuid] = useState();
 
@@ -81,7 +73,6 @@ export const useNetworking = (): Networking => {
   const realtimeFetchResult = useRealtimeDatabaseSnapshot(getWinner);
 
   useEffect(() => {
-    // addWinner();
     getFirebase().then(firebase => {
       setUuid(firebase.auth().currentUser!.uid);
     });
@@ -89,7 +80,6 @@ export const useNetworking = (): Networking => {
 
   const winners = realtimeFetchResult.data?.val();
   const winnersArray = winners ? Object.entries(winners) : [];
-  console.log(winnersArray, 'arr');
   const hasAllWinner = winnersArray.length >= 3;
   const isWinner =
     hasAllWinner &&

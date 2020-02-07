@@ -19,7 +19,7 @@ const Welcome: React.FC = () => {
   );
 
   return (
-    <div className='flex w-screen'>
+    <div className='flex'>
       <Card className='w-screen m-4 self-center text-center'>
         <h1 className='text-lg font-bold text-black my-2'>
           Welcome to Networking
