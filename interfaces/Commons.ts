@@ -43,7 +43,7 @@ export interface OngoingFetchResult<T> extends FetchResult<T> {
 export interface Networking {
   status: string;
   data?: NetworkingProfile;
-  hasAllwinner?: boolean;
+  hasAllWinner?: boolean;
   isWinner?: boolean;
   error?: any;
   uuid?: string;

@@ -33,9 +33,16 @@ const Dashboard: React.FC = observer(() => {
   useEffect(() => {
     if (network.status === 'notRegistered') {
       router.push('/user/networking/welcome');
-    } else if (network.hasAllwinner === true) {
+    } else if (network.hasAllWinner === true) {
+      console.log('push');
       router.push('/user/networking/winner');
     }
+    console.log(
+      network,
+      'effect',
+      network.hasAllWinner === true,
+      network.hasAllWinner
+    );
   }, [network.status]);
 
   const isLoading = network.status === 'loading';
