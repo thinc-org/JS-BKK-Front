@@ -9,7 +9,9 @@ const Nav: React.FC<{}> = () => {
         href='/'
         className='text-center flex flex-col items-center py-2 w-1/3'
       >
-        <div className='w-5 h-5 bg-grey' />
+        <p className='leading-none text-lg sm:text-xl'>
+          📅
+        </p>
         Conference
       </MyLink>
       <MyLink
@@ -17,7 +19,9 @@ const Nav: React.FC<{}> = () => {
         href='/user/order'
         className='text-center flex flex-col items-center py-2 w-1/3'
       >
-        <div className='w-5 h-5 bg-grey' />
+        <p className='leading-none text-xl sm:text-2xl'>
+          🍛
+        </p>
         Food
       </MyLink>
       <MyLink
@@ -25,7 +29,9 @@ const Nav: React.FC<{}> = () => {
         href='/user/networking/dashboard'
         className='text-center flex flex-col items-center py-2 w-1/3'
       >
-        <div className='w-5 h-5 bg-grey' />
+        <p className='leading-none text-lg sm:text-xl'>
+          💬
+        </p>
         Networking
       </MyLink>
     </nav>
