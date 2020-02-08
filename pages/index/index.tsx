@@ -23,15 +23,20 @@ const Home: React.FC = () => {
   return (
     <>
       <Staff modalStore={modalStore} schedule={selectedSchedule} />
-      <div>
-        <div className='border-2 border-yellow-dark rounded-lg bg-yellow-light p-4 m-4'>
+      <div className='m-4'>
+        <div className='p-4 border-2 border-yellow-dark rounded-lg bg-yellow-light'>
           <Announcements />
         </div>
-        <div className='text-white text-1xl mx-4 mt-4 font-bold'>Schedule</div>
-        <ScheduleBox openSchedule={openScheduleModal} schedules={schedules} />
-        <div className='flex items-center justify-center my-4'>
-          <TweetButton />
-        </div>
+        <a
+          href='https://javascriptbangkok.com/#schedule'
+          target='_blank'
+          rel='noopener noreferrer'
+          data-testid='tweet-button'
+          className='block font-bold mt-4 py-3 px-4 text-center font-bg bg-yellow-dark text-black rounded'
+        >
+          View conference schedule
+        </a>
+        <TweetButton />
       </div>
     </>
   );
@@ -44,7 +49,7 @@ const TweetButton: React.FC = () => {
       target='_blank'
       rel='noopener noreferrer'
       data-testid='tweet-button'
-      className='block py-3 px-4 text-center font-bg bg-yellow-dark text-black rounded'
+      className='block mt-4 py-3 px-4 text-center font-bg bg-yellow-dark text-black rounded'
     >
       Tweet #jsbangkok
     </a>
