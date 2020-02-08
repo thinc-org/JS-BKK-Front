@@ -6,7 +6,11 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import Button from '../../../../commons/components/Button';
 import Card from '../../../../commons/components/Card';
-import { getEnvName } from '../../../../commons/firebase';
+import {
+  getEnvName,
+  useFirestoreSnapshot,
+  FirebaseModule
+} from '../../../../commons/firebase';
 import addUserToNetwork, {
   useNetworking
 } from '../../../../commons/hooks/networkingHooks';
@@ -178,15 +182,28 @@ const withComingSoon: <T>(
   BaseComponent: React.ComponentType<T>
 ) => React.ComponentType<T> = BaseComponent => {
   return function ComingSoon(props) {
-    const [enabled, setEnabled] = useState(false);
+    const [enabled, setEnabled] = useState();
+    const getDocument = useCallback(
+      (firebase: FirebaseModule) =>
+        firebase
+          .getEnvDoc()
+          .collection('networking')
+          .doc('properties'),
+      []
+    );
+    const properties = useFirestoreSnapshot(getDocument);
+
     useEffect(() => {
-      if (getEnvName() === 'test') setEnabled(true);
-    }, []);
+      const isEnabled =
+        properties.data?.data()?.isEnabled || getEnvName() === 'test';
+      setEnabled(isEnabled);
+    }, [properties.data?.data()?.isEnabled]);
+    const isLoading = properties.status === 'loading';
     return enabled ? (
       // eslint-disable-next-line react/jsx-props-no-spreading
       <BaseComponent {...props} />
     ) : (
-      <Card className='m-4'>
+      <Card className={`m-4 ${isLoading ? 'hidden' : ''}`}>
         <div className='my-4'>
           Networking features are in development, please stay tuned...
         </div>
@@ -195,4 +212,4 @@ const withComingSoon: <T>(
   };
 };
 
-export default withRequiredAuthentication(Dashboard);
+export default withComingSoon(withRequiredAuthentication(Dashboard));
