@@ -1,13 +1,14 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useCallback, useState, useContext, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { useAuthenticationController } from '../../components/authentication';
 import { RootStore } from '../../interfaces/Commons';
+import rootContext from '../context.root';
+import { getEnvName } from '../firebase';
 import Button from './Button';
 import Card from './Card';
 import Modal from './Modal';
-import rootContext from '../context.root';
-import { useAuthenticationController } from '../../components/authentication';
-import { getEnvName } from '../firebase';
+import TextSpinner from './TextSpinner';
 
 const AuthModal: React.FC = observer(() => {
   const [loginError, setLoginError] = useState<string | null>(null);
@@ -15,17 +16,17 @@ const AuthModal: React.FC = observer(() => {
   const { authModalStore } = useContext<RootStore>(rootContext);
   const authenticationController = useAuthenticationController();
 
-  // const login = useCallback(async e => {
-  //   e.preventDefault();
-  //   setActiveSignInProcesses(x => x + 1);
-  //   try {
-  //     await authenticationController.loginWithEventpop();
-  //   } catch (error) {
-  //     setLoginError(`Failed! ${error}`);
-  //   } finally {
-  //     setActiveSignInProcesses(x => x - 1);
-  //   }
-  // }, []);
+  const login = useCallback(async e => {
+    e.preventDefault();
+    setActiveSignInProcesses(x => x + 1);
+    try {
+      await authenticationController.loginWithEventpop();
+    } catch (error) {
+      setLoginError(`Failed! ${error}`);
+    } finally {
+      setActiveSignInProcesses(x => x - 1);
+    }
+  }, []);
 
   const login2 = useCallback(async e => {
     e.preventDefault();
@@ -92,7 +93,7 @@ const AuthModal: React.FC = observer(() => {
           >
             Sign in with your ticket code and phone number
           </Button>
-          {/* - or -
+          - or -
           <Button
             onClick={login}
             type='button'
@@ -105,9 +106,9 @@ const AuthModal: React.FC = observer(() => {
                 Please wait… <TextSpinner />
               </>
             ) : (
-              'Sign in with your Eventpop account'
+              'Sign in with Eventpop (Chrome/Safari)'
             )}
-          </Button> */}
+          </Button>
           {testUsers.map(uid => {
             return (
               <Button
