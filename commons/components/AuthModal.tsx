@@ -8,7 +8,6 @@ import Modal from './Modal';
 import rootContext from '../context.root';
 import { useAuthenticationController } from '../../components/authentication';
 import { getEnvName } from '../firebase';
-import TextSpinner from './TextSpinner';
 
 const AuthModal: React.FC = observer(() => {
   const [loginError, setLoginError] = useState<string | null>(null);
@@ -16,24 +15,24 @@ const AuthModal: React.FC = observer(() => {
   const { authModalStore } = useContext<RootStore>(rootContext);
   const authenticationController = useAuthenticationController();
 
-  const login = useCallback(async e => {
-    e.preventDefault();
-    setActiveSignInProcesses(x => x + 1);
-    try {
-      await authenticationController.loginWithEventpop();
-    } catch (error) {
-      setLoginError(`Failed! ${error}`);
-    } finally {
-      setActiveSignInProcesses(x => x - 1);
-    }
-  }, []);
+  // const login = useCallback(async e => {
+  //   e.preventDefault();
+  //   setActiveSignInProcesses(x => x + 1);
+  //   try {
+  //     await authenticationController.loginWithEventpop();
+  //   } catch (error) {
+  //     setLoginError(`Failed! ${error}`);
+  //   } finally {
+  //     setActiveSignInProcesses(x => x - 1);
+  //   }
+  // }, []);
 
   const login2 = useCallback(async e => {
     e.preventDefault();
     setActiveSignInProcesses(x => x + 1);
     try {
       // eslint-disable-next-line no-alert
-      const referenceCode = prompt('Ticket reference code');
+      const referenceCode = prompt('Ticket reference code (6 digits code)');
       if (!referenceCode) {
         throw new Error('No reference code provided');
       }
@@ -87,9 +86,17 @@ const AuthModal: React.FC = observer(() => {
             networking activity to win special prizes.
           </p>
           <Button
+            onClick={e => login2(e)}
+            type='button'
+            className='mt-12 mb-2 py-3 px-10 font-bg bg-yellow-dark text-black rounded'
+          >
+            Sign in with your ticket code and phone number
+          </Button>
+          {/* - or -
+          <Button
             onClick={login}
             type='button'
-            className={`mt-12 py-3 px-20 font-bg bg-yellow-dark text-black rounded ${
+            className={`py-2 my-2 px-10 font-bg border bg-white border-yellow-dark text-black rounded ${
               activeSignInProcesses > 0 ? 'opacity-50' : ''
             }`}
           >
@@ -98,17 +105,9 @@ const AuthModal: React.FC = observer(() => {
                 Please wait… <TextSpinner />
               </>
             ) : (
-              'Sign in with Eventpop'
+              'Sign in with your Eventpop account'
             )}
-          </Button>
-          - or -
-          <Button
-            onClick={e => login2(e)}
-            type='button'
-            className='py-2 px-4 font-bg border bg-white border-yellow-dark text-black rounded'
-          >
-            Sign in with your ticket code and phone number
-          </Button>
+          </Button> */}
           {testUsers.map(uid => {
             return (
               <Button

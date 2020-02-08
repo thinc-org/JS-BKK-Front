@@ -1,24 +1,21 @@
-import React, { useMemo, useState } from 'react';
 import { useLocalStore } from 'mobx-react-lite';
+import React, { useState } from 'react';
+import useSchedule from '../../commons/hooks/scheduleHook';
+import createModalStore from '../../commons/stores/authModalStores';
 import Announcements from '../../components/announcements/Announcements';
 import ScheduleBox from '../../components/conference';
-import getSchedules from '../../utils/schedules';
-import { Schedule } from '../../interfaces/Schedule';
 import Staff from '../../components/conference/Staff';
-import createModalStore from '../../commons/stores/authModalStores';
+import { Schedule } from '../../interfaces/Schedule';
 
 const Home: React.FC = () => {
   const [selectedSchedule, setSelectedSchedule] = useState<Schedule>();
+  const schedules = useSchedule();
   const modalStore = useLocalStore(() => createModalStore(400, false));
 
   const openScheduleModal = (schedule: Schedule) => {
     setSelectedSchedule(schedule);
     modalStore.setModalOpen(true);
   };
-
-  const schedules = useMemo(() => {
-    return getSchedules();
-  }, []);
 
   return (
     <>
@@ -44,7 +41,7 @@ const TweetButton: React.FC = () => {
       target='_blank'
       rel='noopener noreferrer'
       data-testid='tweet-button'
-      className='block py-3 px-4 text-center font-bg bg-yellow-dark text-black rounded'
+      className='block mt-4 py-3 px-4 text-center font-bg bg-yellow-dark text-black rounded'
     >
       Tweet #jsbangkok
     </a>
