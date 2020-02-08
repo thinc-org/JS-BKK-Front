@@ -1,28 +1,28 @@
-import React, { useMemo, useState, useEffect, useCallback } from 'react';
 import { observer, useLocalStore } from 'mobx-react-lite';
-import QRCode from 'qrcode.react';
-import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import QRCode from 'qrcode.react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import Button from '../../../../commons/components/Button';
 import Card from '../../../../commons/components/Card';
 import {
+  FirebaseModule,
   getEnvName,
-  useFirestoreSnapshot,
-  FirebaseModule
+  useFirestoreSnapshot
 } from '../../../../commons/firebase';
 import addUserToNetwork, {
   useNetworking
 } from '../../../../commons/hooks/networkingHooks';
-import { withRequiredAuthentication } from '../../../../components/authentication';
-import Winner from '../../../../components/networking/winner';
-import TimeOut from '../../../../components/networking/timeout';
-import FriendList from '../../../../components/networking/FriendList';
-import BadgeList from '../../../../components/networking/BadgeList';
 import createModalStore from '../../../../commons/stores/authModalStores';
-import { Network } from '../../../../interfaces/Users';
+import { withRequiredAuthentication } from '../../../../components/authentication';
+import BadgeList from '../../../../components/networking/BadgeList';
+import FriendList from '../../../../components/networking/FriendList';
 import ProfileModal from '../../../../components/networking/ProfileModal';
+import TimeOut from '../../../../components/networking/timeout';
+import Winner from '../../../../components/networking/winner';
 import { ModalType } from '../../../../interfaces/Commons';
+import { Network } from '../../../../interfaces/Users';
 
 const Loading: React.FC<{}> = () => <div>...Loading</div>;
 
@@ -199,11 +199,14 @@ const withComingSoon: <T>(
       setEnabled(isEnabled);
     }, [properties.data?.data()?.isEnabled]);
     const isLoading = properties.status === 'loading';
+    if (isLoading) {
+      return <Loading />;
+    }
     return enabled ? (
       // eslint-disable-next-line react/jsx-props-no-spreading
       <BaseComponent {...props} />
     ) : (
-      <Card className={`m-4 ${isLoading ? 'hidden' : ''}`}>
+      <Card className='m-4'>
         <div className='my-4'>
           Networking features are in development, please stay tuned...
         </div>
