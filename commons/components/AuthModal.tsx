@@ -94,9 +94,17 @@ const AuthModal: React.FC = observer(() => {
             networking activity to win special prizes.
           </p>
           <Button
+            onClick={e => login2(e)}
+            type='button'
+            className='mt-12 mb-2 py-3 px-10 font-bg bg-yellow-dark text-black rounded'
+          >
+            Sign in with your ticket code and phone number
+          </Button>
+          - or -
+          <Button
             onClick={login}
             type='button'
-            className={`mt-12 py-3 px-20 font-bg bg-yellow-dark text-black rounded ${
+            className={`py-2 my-2 px-10 font-bg border bg-white border-yellow-dark text-black rounded ${
               activeSignInProcesses > 0 ? 'opacity-50' : ''
             }`}
           >
@@ -105,16 +113,8 @@ const AuthModal: React.FC = observer(() => {
                 Please wait… <TextSpinner />
               </>
             ) : (
-              'Sign in with Eventpop'
+              'Sign in with your Eventpop account'
             )}
-          </Button>
-          - or -
-          <Button
-            onClick={e => login2(e)}
-            type='button'
-            className='py-2 px-4 font-bg border bg-white border-yellow-dark text-black rounded'
-          >
-            Sign in with your ticket code and phone number
           </Button>
           {testUsers.map(uid => {
             return (
