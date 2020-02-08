@@ -15,6 +15,8 @@ import {
   isFetchingCompleted
 } from '../../interfaces/Commons';
 import { registerTestCommand } from '../../commons/globals';
+import { UserInfo } from '../../interfaces/Users';
+import Loading from '../../commons/components/Loading';
 
 export type ProfileData = {
   firstname: string;
@@ -87,7 +89,7 @@ export function useAuthenticationState(): AuthenticationState {
     status: 'completed',
     data: {
       uid: firebaseUser.uid,
-      profile: profileSnapshot.data() as any
+      profile: profileSnapshot.data() as UserInfo
     }
   };
 }
@@ -167,7 +169,6 @@ export function useAuthenticationController() {
           env: getEnvName(),
           code
         });
-        console.log('Sign in response: ', signInResponse);
         const { result } = signInResponse.data;
         if (result.length === 0) {
           throw new Error('You do not have any registered ticket.');
@@ -176,7 +177,46 @@ export function useAuthenticationController() {
           if (result.length === 1) {
             return result[0];
           }
-          const message = `You have multiple ticket. Please enter the number of the ticket you want to sign in with:\n\n${result
+          const message = `You have multiple tickets. Please enter the number of the ticket you want to sign in with:\n\n${result
+            .map((row: any, index: number) => {
+              return `${index + 1}. ${row.profile.firstname} ${
+                row.profile.lastname
+              } [${row.profile.referenceCode}]`;
+            })
+            .join('\n')}`;
+          for (;;) {
+            // eslint-disable-next-line no-alert
+            const answer = +(prompt(message) as any);
+            if (answer && result[answer - 1]) {
+              return result[answer - 1];
+            }
+          }
+        })();
+        await firebase
+          .auth()
+          .signInWithCustomToken(selectedTicket.firebaseToken);
+      },
+      async loginWithEventpopInfo(referenceCode: string, phoneNumber: string) {
+        const firebase = await getFirebase();
+        const signInWithEventpopInfo = firebase
+          .functions('asia-northeast1')
+          .httpsCallable('signInWithEventpopInfo');
+        const signInResponse = await signInWithEventpopInfo({
+          env: getEnvName(),
+          referenceCode,
+          phoneNumber
+        });
+        const { result } = signInResponse.data;
+        if (result.length === 0) {
+          throw new Error(
+            'We did not find a valid ticket from your information provided.'
+          );
+        }
+        const selectedTicket = (() => {
+          if (result.length === 1) {
+            return result[0];
+          }
+          const message = `You have multiple tickets. Please enter the number of the ticket you want to sign in with:\n\n${result
             .map((row: any, index: number) => {
               return `${index + 1}. ${row.profile.firstname} ${
                 row.profile.lastname
@@ -201,6 +241,14 @@ export function useAuthenticationController() {
     }),
     []
   );
+}
+
+function useIsClientSide() {
+  const [flag, setFlag] = useState(false);
+  useEffect(() => {
+    setFlag(true);
+  }, []);
+  return flag;
 }
 
 /**
@@ -242,7 +290,13 @@ export function RequiresAuthentication(props: {
 }
 
 function DefaultAuthenticationChecking() {
-  return <div className='text-xl text-white'>Checking authentication...</div>;
+  const isClientSide = useIsClientSide();
+  return (
+    <Loading
+      message={isClientSide ? 'Checking authentication state' : 'Loading'}
+      color='light'
+    />
+  );
 }
 
 export function withRequiredAuthentication<T>(
