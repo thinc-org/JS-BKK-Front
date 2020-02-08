@@ -3,6 +3,7 @@ import { observer, useLocalStore } from 'mobx-react-lite';
 import QRCode from 'qrcode.react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import Button from '../../../../commons/components/Button';
 import Card from '../../../../commons/components/Card';
 import { getEnvName } from '../../../../commons/firebase';
@@ -155,6 +156,18 @@ const Dashboard: React.FC = observer(() => {
               networks={network.data?.networks}
             />
           </Card>
+        </div>
+        <div className='w-full flex flex-row justify-center'>
+          <Link href='/user/networking/editbio'>
+            <a href='/user/networking/editbio'>
+              <Button
+                className='w-auto py-2 px-3 bg-yellow-dark rounded-bg text-lg mt-5'
+                type='submit'
+              >
+                Edit Bio
+              </Button>
+            </a>
+          </Link>
         </div>
       </div>
     </>
