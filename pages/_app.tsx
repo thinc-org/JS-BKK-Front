@@ -1,25 +1,25 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { AppProps } from 'next/app';
+import * as Sentry from '@sentry/browser';
+import { observer, useLocalStore } from 'mobx-react-lite';
 import { NextPage } from 'next';
-import { useLocalStore, observer } from 'mobx-react-lite';
+import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useEffect } from 'react';
 import ErrorBoundary from 'react-error-boundary';
-import * as Sentry from '@sentry/browser';
-import Nav from '../commons/components/Nav';
-import createUserStore from '../commons/stores/userStores';
-import '../styles/index.css';
-import useRouteData from '../commons/hooks/useRouteData';
-import PageHeading from '../commons/components/PageHeading';
 import AuthModal from '../commons/components/AuthModal';
-import { RootStore } from '../interfaces/Commons';
-import createModalStore from '../commons/stores/authModalStores';
-import rootContext from '../commons/context.root';
-import {
-  useAuthenticationState,
-  isAuthenticated
-} from '../components/authentication';
 import ErrorMessage from '../commons/components/ErrorMessage';
+import Nav from '../commons/components/Nav';
+import PageHeading from '../commons/components/PageHeading';
+import rootContext from '../commons/context.root';
+import useRouteData from '../commons/hooks/useRouteData';
+import createModalStore from '../commons/stores/authModalStores';
+import createUserStore from '../commons/stores/userStores';
+import {
+  isAuthenticated,
+  useAuthenticationState
+} from '../components/authentication';
+import { RootStore } from '../interfaces/Commons';
+import '../styles/index.css';
 
 const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
   useEffect(() => {
@@ -56,7 +56,7 @@ const App: NextPage<AppProps> = observer(({ Component, pageProps }) => {
               <main className='flex items-start justify-center w-full'>
                 <div>
                   <Component {...pageProps} />
-                  <div className='m-6 text-transparent'>Easter Egg?</div>
+                  <div className='my-6 w-full flex'></div>
                 </div>
               </main>
               <div className='fixed z-40 bottom-0 left-0 w-full'>
