@@ -79,7 +79,7 @@ export const schedule: Schedule[] = [
     happening: false,
     happened: false
   },
-  
+
   {
     key: 7,
     title: 'What happens when you cancel an HTTP request?',
@@ -114,12 +114,21 @@ export const schedule: Schedule[] = [
     happening: false,
     happened: false
   },
+
   {
     key: 9,
+    title: 'Lunch Break',
+    hours: '12',
+    minutes: '25',
+    happening: false,
+    happened: false
+  },
+  {
+    key: 10,
     title:
       'Talking about “Scale”: Takeaways from our attempt on scaling a small system in the Gojek Universe',
     speaker: 'Tino Thamjarat',
-    hours: '12',
+    hours: '13',
     minutes: '00',
     position: 'Product Engineer @ Gojek',
     image: 'https://javascriptbangkok.com/speaker-images/07.jpg',
@@ -133,19 +142,11 @@ export const schedule: Schedule[] = [
     happened: false
   },
   {
-    key: 10,
-    title: 'Lunch Break',
-    hours: '12',
-    minutes: '25',
-    happening: false,
-    happened: false
-  },
-  {
     key: 11,
     title: 'Adventures with the Event Loop',
     speaker: 'Erin Zimmer',
     hours: '13',
-    minutes: '25',
+    minutes: '40',
     position: 'Senior Engineer & Thought Leader @ Shine Solutions',
     image: 'https://javascriptbangkok.com/speaker-images/09.jpg',
     url: 'https://ez.codes',
@@ -161,8 +162,8 @@ export const schedule: Schedule[] = [
     key: 12,
     title: 'End-to-end Type-Safe GraphQL Apps',
     speaker: 'Carlos Rufo',
-    hours: '13',
-    minutes: '55',
+    hours: '14',
+    minutes: '10',
     position: 'Organizer @ GraphQL Hong Kong',
     image: 'https://javascriptbangkok.com/speaker-images/10.jpg',
     url: 'https://medium.com/@swcarlosrj',
@@ -179,7 +180,7 @@ export const schedule: Schedule[] = [
     title: 'Our lovely sponsor: Oozou',
     speaker: 'Varayut Lerdkanlayanawat',
     hours: '14',
-    minutes: '25',
+    minutes: '40',
     happening: false,
     happened: false
   },
@@ -187,8 +188,8 @@ export const schedule: Schedule[] = [
     key: 14,
     title: 'Applying SOLID principle in JavaScript without Class and Object',
     speaker: 'Chakrit Likitkhajorn',
-    hours: '14',
-    minutes: '35',
+    hours: '15',
+    minutes: '30',
     position: 'Senior Software Engineer @ Omise',
     image: 'https://javascriptbangkok.com/speaker-images/06.png',
     url: 'https://medium.com/@chrisza',
@@ -204,8 +205,8 @@ export const schedule: Schedule[] = [
     key: 15,
     title: 'DevTools, the CSS advocate in your browser',
     speaker: 'Chen Hui Jing',
-    hours: '15',
-    minutes: '05',
+    hours: '16',
+    minutes: '00',
     position: 'Developer Advocate @ Nexmo',
     image: 'https://javascriptbangkok.com/speaker-images/12.jpg',
     url: 'https://www.chenhuijing.com',
@@ -220,8 +221,8 @@ export const schedule: Schedule[] = [
   {
     key: 16,
     title: 'Our lovely sponsor: ODDS',
-    hours: '15',
-    minutes: '35',
+    hours: '16',
+    minutes: '30',
     happening: false,
     happened: false
   },
@@ -230,8 +231,8 @@ export const schedule: Schedule[] = [
     title:
       "Poor Man's Patcher: A game modder's adventure through serverless sea without money",
     speaker: 'Atthaporn Thanongkiatisak',
-    hours: '15',
-    minutes: '45',
+    hours: '16',
+    minutes: '40',
     position: 'Application Architect @ EGG Digital, Ascend Group',
     image: 'https://javascriptbangkok.com/speaker-images/13.jpg',
     url: 'https://www.atp-tha.com/',
@@ -247,8 +248,8 @@ export const schedule: Schedule[] = [
     key: 18,
     title: 'Building your first malicious chrome extension 😈',
     speaker: 'Alon Kiriati',
-    hours: '16',
-    minutes: '15',
+    hours: '17',
+    minutes: '10',
     position: 'Tech Lead @ Dropbox',
     image: 'https://javascriptbangkok.com/speaker-images/11.jpg',
     url: 'https://www.linkedin.com/in/akiriati/',
@@ -263,8 +264,8 @@ export const schedule: Schedule[] = [
   {
     key: 19,
     title: 'Our lovely sponsor: ExxonMobil',
-    hours: '16',
-    minutes: '45',
+    hours: '17',
+    minutes: '40',
     happening: false,
     happened: false
   },
@@ -272,8 +273,8 @@ export const schedule: Schedule[] = [
     key: 20,
     title: 'Just go for it: The story of dance-mat.js ',
     speaker: 'Ramón Huidobro',
-    hours: '16',
-    minutes: '55',
+    hours: '17',
+    minutes: '50',
     position: 'Freelancer',
     image: 'https://javascriptbangkok.com/speaker-images/03.jpg',
     url: 'https://ramonh.dev',
@@ -289,8 +290,8 @@ export const schedule: Schedule[] = [
     key: 21,
     title: 'Speed up heavy data visualization with Rust and WebAssembly',
     speaker: 'Rujira Aksornsin',
-    hours: '17',
-    minutes: '25',
+    hours: '18',
+    minutes: '20',
     position: 'Frontend Developer Team Lead @ AppMan',
     image: 'https://javascriptbangkok.com/speaker-images/15.jpg',
     url: null,
@@ -305,8 +306,8 @@ export const schedule: Schedule[] = [
     key: 22,
     title: 'A love story written in JavaScript',
     speaker: 'Ramón Guijarro',
-    hours: '17',
-    minutes: '55',
+    hours: '18',
+    minutes: '50',
     position: 'Software Engineer @ Undefined Labs',
     image: 'https://javascriptbangkok.com/speaker-images/01.jpg',
     url: 'https://speakerdex.co/soyguijarro',
@@ -321,16 +322,16 @@ export const schedule: Schedule[] = [
   {
     key: 23,
     title: 'Closing remarks',
-    hours: '18',
-    minutes: '25',
+    hours: '19',
+    minutes: '20',
     happening: false,
     happened: false
   },
   {
     key: 24,
     title: '🎉Networking party',
-    hours: '18',
-    minutes: '35',
+    hours: '19',
+    minutes: '30',
     happening: false,
     happened: false
   }
