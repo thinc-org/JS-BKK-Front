@@ -37,6 +37,17 @@ export async function createNetworkingProfile(bio: string) {
   });
 }
 
+export async function getNetworkingProfile(uid: string) {
+  const firebase = await getFirebase();
+  const _getNetworkingProfile = firebase
+    .functions('asia-northeast1')
+    .httpsCallable('getNetworkingProfile');
+  return _getNetworkingProfile({
+    uid,
+    env: getEnvName()
+  });
+}
+
 export async function updateBio(bio: string) {
   const firebase = await getFirebase();
   const _createNetworkingProfile = firebase

@@ -1,5 +1,5 @@
-import React, { useMemo, useState, useEffect } from 'react';
-import { observer } from 'mobx-react-lite';
+import React, { useMemo, useState, useEffect, useCallback } from 'react';
+import { observer, useLocalStore } from 'mobx-react-lite';
 import QRCode from 'qrcode.react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
@@ -14,6 +14,10 @@ import Winner from '../../../../components/networking/winner';
 import TimeOut from '../../../../components/networking/timeout';
 import FriendList from '../../../../components/networking/FriendList';
 import BadgeList from '../../../../components/networking/BadgeList';
+import createModalStore from '../../../../commons/stores/authModalStores';
+import { Network } from '../../../../interfaces/Users';
+import ProfileModal from '../../../../components/networking/ProfileModal';
+import { ModalType } from '../../../../interfaces/Commons';
 
 const Loading: React.FC<{}> = () => <div>...Loading</div>;
 
@@ -31,6 +35,8 @@ const Dashboard: React.FC = observer(() => {
   const router = useRouter();
   const [isCameraOpen, openCamera] = useState(false);
   const network = useNetworking();
+  const [selectedProfile, setSelectedProfile] = useState<Network>();
+  const modalStore = useLocalStore(() => createModalStore(400, false));
 
   useEffect(() => {
     if (network.status === 'notRegistered') {
@@ -46,6 +52,12 @@ const Dashboard: React.FC = observer(() => {
       openCamera(false);
     }
   };
+
+  const openModal = useCallback((profile: Network) => {
+    setSelectedProfile(profile);
+    modalStore.setModalType(ModalType.normal);
+    modalStore.setModalOpen(true);
+  }, []);
 
   const networks = network.data?.networks;
   const BadgeItems = useMemo(() => {
@@ -125,21 +137,27 @@ const Dashboard: React.FC = observer(() => {
   }, [isCameraOpen, network]);
 
   return (
-    <div className={`m-4 ${isLoading ? 'hidden' : ''}`}>
-      <div className='flex justify-center w-full items-center mb-4'>
-        {networkingCard}
-      </div>
-      <div className='text-white text-lg font-bold'>Total Badge</div>
-      <div className='flex mt-2'>{BadgeItems}</div>
-      <div className='mt-4'>
-        <div className='text-white text-lg font-bold mb-2'>
-          Your new Friends
+    <>
+      <ProfileModal modalStore={modalStore} profile={selectedProfile} />
+      <div className={`m-4 ${isLoading ? 'hidden' : ''}`}>
+        <div className='flex justify-center w-full items-center mb-4'>
+          {networkingCard}
         </div>
-        <Card noPadding>
-          <FriendList networks={network.data?.networks} />
-        </Card>
+        <div className='text-white text-lg font-bold'>Total Badge</div>
+        <div className='flex mt-2'>{BadgeItems}</div>
+        <div className='mt-4'>
+          <div className='text-white text-lg font-bold mb-2'>
+            Your new Friends
+          </div>
+          <Card noPadding>
+            <FriendList
+              openModal={openModal}
+              networks={network.data?.networks}
+            />
+          </Card>
+        </div>
       </div>
-    </div>
+    </>
   );
 });
 
