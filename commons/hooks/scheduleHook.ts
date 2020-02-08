@@ -1,5 +1,5 @@
-import { useState, useLayoutEffect } from 'react';
 import { compareAsc } from 'date-fns';
+import { useLayoutEffect, useState } from 'react';
 import { Schedule } from '../../interfaces/Schedule';
 
 export const schedule: Schedule[] = [
@@ -83,8 +83,8 @@ export const schedule: Schedule[] = [
     key: 7,
     title: 'How I met my superset of Javascript ',
     speaker: 'Sirirat Rungpetcharat',
-    hours: '10',
-    minutes: '55',
+    hours: '11',
+    minutes: '00',
     position: 'CTO @ Builk One Group Co., Ltd.',
     image: 'https://javascriptbangkok.com/speaker-images/14.jpg',
     url: 'https://medium.com/@coalapaparazzi',
@@ -101,7 +101,7 @@ export const schedule: Schedule[] = [
     title: 'What happens when you cancel an HTTP request?',
     speaker: 'Younes Jaaidi',
     hours: '11',
-    minutes: '25',
+    minutes: '30',
     position: 'Developer & eXtreme Programming Coach @ Marmicode Wishtack',
     image: 'https://javascriptbangkok.com/speaker-images/08.jpg',
     url: 'https://marmicode.io',
@@ -118,8 +118,8 @@ export const schedule: Schedule[] = [
     title:
       'Talking about “Scale”: Takeaways from our attempt on scaling a small system in the Gojek Universe',
     speaker: 'Tino Thamjarat',
-    hours: '11',
-    minutes: '55',
+    hours: '12',
+    minutes: '00',
     position: 'Product Engineer @ Gojek',
     image: 'https://javascriptbangkok.com/speaker-images/07.jpg',
     url: 'https://vtno.me/',
