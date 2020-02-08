@@ -15,6 +15,7 @@ import {
   isFetchingCompleted
 } from '../../interfaces/Commons';
 import { registerTestCommand } from '../../commons/globals';
+import { UserInfo } from '../../interfaces/Users';
 import Loading from '../../commons/components/Loading';
 
 export type ProfileData = {
@@ -88,7 +89,7 @@ export function useAuthenticationState(): AuthenticationState {
     status: 'completed',
     data: {
       uid: firebaseUser.uid,
-      profile: profileSnapshot.data() as any
+      profile: profileSnapshot.data() as UserInfo
     }
   };
 }
@@ -168,7 +169,6 @@ export function useAuthenticationController() {
           env: getEnvName(),
           code
         });
-        console.log('Sign in response: ', signInResponse);
         const { result } = signInResponse.data;
         if (result.length === 0) {
           throw new Error('You do not have any registered ticket.');
@@ -206,7 +206,6 @@ export function useAuthenticationController() {
           referenceCode,
           phoneNumber
         });
-        console.log('Sign in response: ', signInResponse);
         const { result } = signInResponse.data;
         if (result.length === 0) {
           throw new Error(

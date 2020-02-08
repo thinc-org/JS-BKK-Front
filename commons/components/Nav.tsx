@@ -9,19 +9,23 @@ const Nav: React.FC<{}> = () => {
         href='/'
         className='text-center flex flex-col items-center py-2 w-1/3'
       >
-        <p className='leading-none text-lg sm:text-xl'>
-          📅
-        </p>
-        Conference
+        <img
+          className='w-5 h-5'
+          src='/icons/navbar/tabschedule.svg'
+          alt='schedule'
+        />
+        Schedule
       </MyLink>
       <MyLink
         prefetch
         href='/user/order'
         className='text-center flex flex-col items-center py-2 w-1/3'
       >
-        <p className='leading-none text-xl sm:text-2xl'>
-          🍛
-        </p>
+        <img
+          className='w-5 h-5'
+          src='/icons/navbar/tabfood.svg'
+          alt='schedule'
+        />
         Food
       </MyLink>
       <MyLink
@@ -29,9 +33,11 @@ const Nav: React.FC<{}> = () => {
         href='/user/networking/dashboard'
         className='text-center flex flex-col items-center py-2 w-1/3'
       >
-        <p className='leading-none text-lg sm:text-xl'>
-          💬
-        </p>
+        <img
+          className='w-5 h-5'
+          src='/icons/navbar/tabnetworking.svg'
+          alt='schedule'
+        />
         Networking
       </MyLink>
     </nav>

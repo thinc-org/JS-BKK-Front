@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useCallback, useState, useContext, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-// import dynamic from 'next/dynamic';
 import { RootStore } from '../../interfaces/Commons';
 import Button from './Button';
 import Card from './Card';
@@ -9,13 +8,6 @@ import Modal from './Modal';
 import rootContext from '../context.root';
 import { useAuthenticationController } from '../../components/authentication';
 import { getEnvName } from '../firebase';
-// import TextSpinner from './TextSpinner';
-
-// const QrReader = dynamic(() => import('react-qr-reader'), {
-//   ssr: false,
-//   // eslint-disable-next-line react/display-name
-//   loading: () => <p>Loading</p>
-// });
 
 const AuthModal: React.FC = observer(() => {
   const [loginError, setLoginError] = useState<string | null>(null);
