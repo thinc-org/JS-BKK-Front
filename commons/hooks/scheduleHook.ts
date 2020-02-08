@@ -79,29 +79,13 @@ export const schedule: Schedule[] = [
     happening: false,
     happened: false
   },
+  
   {
     key: 7,
-    title: 'How I met my superset of Javascript ',
-    speaker: 'Sirirat Rungpetcharat',
-    hours: '11',
-    minutes: '10',
-    position: 'CTO @ Builk One Group Co., Ltd.',
-    image: 'https://javascriptbangkok.com/speaker-images/14.jpg',
-    url: 'https://medium.com/@coalapaparazzi',
-    email: 'kra.yonatan@gmail.com',
-    about:
-      'Sirirat Rungpetcharat (Yui) Chief Technology Officer of Builk One Group Co., Ltd.\nWith 10 years experience in technology field. From mere programmer to CTO with Lead UX Designer position. Cat lady w/ 6 cats under my care.\nWhat’s more to sell? ;)\n',
-    description:
-      'My love for TypeScript is what people call “destiny”. With strongly-typed, OOP concept and how familiar we’ve been with Angular, etc. But it’s taken me awhile to hop in since changing technology require heavily researching, convincing both my team and the board. I’m here to tell you how my love life be.\n',
-    happening: false,
-    happened: false
-  },
-  {
-    key: 8,
     title: 'What happens when you cancel an HTTP request?',
     speaker: 'Younes Jaaidi',
     hours: '11',
-    minutes: '40',
+    minutes: '20',
     position: 'Developer & eXtreme Programming Coach @ Marmicode Wishtack',
     image: 'https://javascriptbangkok.com/speaker-images/08.jpg',
     url: 'https://marmicode.io',
@@ -110,6 +94,23 @@ export const schedule: Schedule[] = [
       'Younes is a Google Developer Expert for Angular & Web Technologies.\nHe is a trainer, consultant & eXtreme Programming coach who loves the challenge of boosting teams efficiency and helping everyone enjoy every part of their job.\nHis experience convinced him that the key to making quality products is collective ownership, kindness and knowledge sharing.\nOn his spare time, you will find him contributing to open-source software, writing articles or speaking at meetups or conferences… and sometimes sailing.\nHis favorite trick? Adding features by removing code.\n',
     description:
       'Reactive libraries like RxJS allow us to easily cancel HTTP requests but is that really efficient? What really happens on the back-end? Is it possible to propagate the cancelation from the front-end through our microservices and cancel the database query?\n',
+    happening: false,
+    happened: false
+  },
+  {
+    key: 8,
+    title: 'How I met my superset of Javascript ',
+    speaker: 'Sirirat Rungpetcharat',
+    hours: '11',
+    minutes: '40',
+    position: 'CTO @ Builk One Group Co., Ltd.',
+    image: 'https://javascriptbangkok.com/speaker-images/14.jpg',
+    url: 'https://medium.com/@coalapaparazzi',
+    email: 'kra.yonatan@gmail.com',
+    about:
+      'Sirirat Rungpetcharat (Yui) Chief Technology Officer of Builk One Group Co., Ltd.\nWith 10 years experience in technology field. From mere programmer to CTO with Lead UX Designer position. Cat lady w/ 6 cats under my care.\nWhat’s more to sell? ;)\n',
+    description:
+      'My love for TypeScript is what people call “destiny”. With strongly-typed, OOP concept and how familiar we’ve been with Angular, etc. But it’s taken me awhile to hop in since changing technology require heavily researching, convincing both my team and the board. I’m here to tell you how my love life be.\n',
     happening: false,
     happened: false
   },
