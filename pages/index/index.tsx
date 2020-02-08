@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
 import { useLocalStore } from 'mobx-react-lite';
+import React, { useState } from 'react';
+import useSchedule from '../../commons/hooks/scheduleHook';
+import createModalStore from '../../commons/stores/authModalStores';
 import Announcements from '../../components/announcements/Announcements';
 import ScheduleBox from '../../components/conference';
-import { Schedule } from '../../interfaces/Schedule';
 import Staff from '../../components/conference/Staff';
-import createModalStore from '../../commons/stores/authModalStores';
-import useSchedule from '../../commons/hooks/scheduleHook';
+import { Schedule } from '../../interfaces/Schedule';
 
 const Home: React.FC = () => {
   const [selectedSchedule, setSelectedSchedule] = useState<Schedule>();
@@ -20,20 +20,15 @@ const Home: React.FC = () => {
   return (
     <>
       <Staff modalStore={modalStore} schedule={selectedSchedule} />
-      <div className='m-4'>
-        <div className='p-4 border-2 border-yellow-dark rounded-lg bg-yellow-light'>
+      <div>
+        <div className='border-2 border-yellow-dark rounded-lg bg-yellow-light p-4 m-4'>
           <Announcements />
         </div>
-        <a
-          href='https://javascriptbangkok.com/#schedule'
-          target='_blank'
-          rel='noopener noreferrer'
-          data-testid='tweet-button'
-          className='block font-bold mt-4 py-3 px-4 text-center font-bg bg-yellow-dark text-black rounded'
-        >
-          View conference schedule
-        </a>
-        <TweetButton />
+        <div className='text-white text-1xl mx-4 mt-4 font-bold'>Schedule</div>
+        <ScheduleBox openSchedule={openScheduleModal} schedules={schedules} />
+        <div className='flex items-center justify-center my-4'>
+          <TweetButton />
+        </div>
       </div>
     </>
   );
