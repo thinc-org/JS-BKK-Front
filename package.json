@@ -32,7 +32,7 @@
     "react-id-generator": "^3.0.0",
     "react-qr-reader": "^2.2.1",
     "reakit": "^1.0.0-beta.14",
-    "sanitize-html": "^1.21.1"
+    "sanitize-html": "^2.3.2"
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.7.4",
